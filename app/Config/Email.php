@@ -6,9 +6,9 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = 'developernimisha212@gmail.com';
+    public string $fromEmail  = '';
     public string $fromName   = 'Church Application';
-    public string $recipients = 'nimishajamesvichattu@gmail.com';
+    public string $recipients = '';
 
     public string $userAgent = 'CodeIgniter';
 
@@ -22,10 +22,10 @@ class Email extends BaseConfig
     public string $SMTPHost = 'smtp.gmail.com';
 
     // SMTP Username (use the Gmail address)
-    public string $SMTPUser = 'developernimisha212@gmail.com';
+    public string $SMTPUser = '';
 
     // Use the App Password generated from Gmail
-    public string $SMTPPass = 'rwtx cdla obmp wpfz';  // Make sure this is your Gmail App Password
+    public string $SMTPPass = '';  // Make sure this is your Gmail App Password
 
     // SMTP Port (587 for TLS)
     public int $SMTPPort = 587;
