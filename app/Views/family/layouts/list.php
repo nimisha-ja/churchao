@@ -59,7 +59,6 @@
         background-color: #e2e6ea;
         border-color: #ccc;
     }
-
 </style>
 <div class="page-content">
     <div class="container-fluid">
@@ -95,6 +94,21 @@
                         </div>
                     <?php endif; ?>
                     <div class="card-body">
+                        <form method="get" action="<?= current_url() ?>" class="row mb-3">
+                            <div class="col-md-4">
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    class="form-control"
+                                    placeholder="Search by phone number"
+                                    value="<?= esc($request->getGet('phone')) ?>">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary">Search</button>
+                                <!-- <a href="<?= current_url() ?>" class="btn btn-secondary">Reset</a> -->
+                            </div>
+                        </form>
+
                         <div id="table-gridjs">
                             <div role="complementary" class="gridjs gridjs-container" style="width: 100%;">
                                 <div class="gridjs-head">
@@ -150,7 +164,7 @@
                                                         <td class="gridjs-td"><?= esc($family['registered_on']) ?></td>
                                                         <td class="gridjs-td">
                                                             <?php if (!empty($family['photo'])): ?>
-                                                                <img src="<?= base_url('uploads/family/' . $family['photo']) ?>" style="height:40px;width:40px" alt="Photo" >
+                                                                <img src="<?= base_url('uploads/family/' . $family['photo']) ?>" style="height:40px;width:40px" alt="Photo">
                                                             <?php else: ?>
                                                                 No Photo
                                                             <?php endif; ?>

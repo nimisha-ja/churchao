@@ -76,13 +76,27 @@
                                                     <input type="email" name="family_email" class="form-control" id="family_email" value="<?= isset($family['family_email']) ? esc($family['family_email']) : '' ?>" required>
                                                 </div>
                                             </div>
+                                            <?php
+                                            $generatedPassword = rand(1000, 9999); // ensures 4 digits // Generate random 4-digit code
+                                            ?>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="password" class="form-label">Password</label>
-                                                    <input type="password" name="password" class="form-control" id="password" <?= isset($family) ? '' : 'required' ?>>
-                                                    <small class="form-text text-muted">Leave blank if you don't want to change the password.</small>
+                                                    <input
+                                                        type="text"
+                                                        name="password"
+                                                        class="form-control"
+                                                        id="password"
+                                                        value="<?= isset($family) ? '' : $generatedPassword ?>"
+                                                        <?= isset($family) ? '' : 'readonly required' ?>>
+                                                    <small class="form-text text-muted">
+                                                        <?= isset($family)
+                                                            ? 'Leave blank if you don\'t want to change the password.'
+                                                            : 'Generated 4-digit password for new user (readonly).' ?>
+                                                    </small>
                                                 </div>
                                             </div>
+
 
                                             <!-- Registered On -->
                                             <div class="col-md-6">

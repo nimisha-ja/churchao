@@ -10,6 +10,8 @@ $routes->get('test', 'Home::test');
 $routes->get('testemail', 'Home::sendEmail');
 $routes->get('', 'Admin::index');
 $routes->get('login', 'LoginController::index');
+
+$routes->get('wlogin', 'LoginController::whatsappLogin');
 $routes->post('userlogin', 'LoginController::login');
 $routes->get('logout', 'LoginController::logout');
 $routes->get('dashboard', 'LoginController::dashboard');
@@ -85,5 +87,11 @@ $routes->post('donations/delete/(:num)', 'FamilyController::deleteDonation/$1');
 $routes->get('payment', 'FamilyController::payment');
 $routes->post('payment/proceed', 'FamilyController::paymentProceed');
 
+$routes->post('whatsapp/send-otp', 'LoginController::sendOtp');
+$routes->post('whatsapp/verify-otp', 'LoginController::verifyOtp');
 
 
+$routes->post('login/send-otp', 'LoginController::sendWotp');
+$routes->post('login/verify-otp', 'LoginController::verifyWotp');
+
+$routes->get('send-email', 'FamilyController::sendEmail');

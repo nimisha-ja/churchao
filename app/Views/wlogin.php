@@ -75,37 +75,37 @@
                                 <?php endif; ?>
 
                                 <div class="p-2 mt-4">
-                                    <form action="<?= base_url('/userlogin'); ?>" method="post">
-                                        <?= csrf_field(); ?>
 
-                                        <!-- <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="text" name="email" class="form-control" placeholder="Enter email" required>
-                                        </div> -->
-                                        <div class="mb-3">
-                                            <label for="email" class="form-label">Phone</label>
-                                            <input type="text" name="phone" class="form-control" placeholder="Enter Phone" required>
-                                        </div>
+                                    <h2>Login with WhatsApp OTP</h2>
 
-                                        <div class="mb-3">
-                                            <label for="password" class="form-label">Password</label>
-                                            <div class="position-relative auth-pass-inputgroup mb-3">
-                                                <input type="password" name="password" class="form-control pe-5 password-input" placeholder="Enter password" required>
-                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button" id="password-addon">
-                                                    <i class="ri-eye-fill align-middle"></i>
-                                                </button>
+                                    <?php if (isset($_GET['error'])): ?>
+                                        <div class="alert alert-danger">Invalid or expired OTP</div>
+                                    <?php endif; ?>
+
+                                    <?php if (!isset($_GET['otp'])): ?>
+                                        <!-- Step 1: Enter Phone -->
+                                        <form action="<?= base_url('/login/send-otp'); ?>" method="post">
+                                            <?= csrf_field(); ?>
+                                            <div class="mb-3">
+                                                <label class="form-label">Phone Number</label>
+                                                <input type="text" name="phone" class="form-control" placeholder="Enter WhatsApp number" required>
                                             </div>
-                                        </div>
+                                            <button type="submit" class="btn btn-primary w-100">Send OTP</button>
+                                        </form>
 
-                                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                                    </form>
+                                    <?php else: ?>
+                                        <!-- Step 2: Enter OTP -->
+                                        <form action="<?= base_url('/login/verify-otp'); ?>" method="post">
+                                            <?= csrf_field(); ?>
+                                            <div class="mb-3">
+                                                <label class="form-label">Enter OTP</label>
+                                                <input type="text" name="otp" class="form-control" placeholder="Enter OTP" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-success w-100">Verify & Login</button>
+                                        </form>
+                                    <?php endif; ?>
 
-                                    <div class="text-center mt-3">
-                                        <!-- <a href="//base_url('auth/forgot_password'); " class="text-muted">Forgot Password?</a> -->
-                                    </div>
-                                    <!-- <a href="<?= base_url('/wlogin'); ?>" class="text">Login using whatsapp</a> -->
 
-                                </div>
                             </div>
                             <!-- end card body -->
                         </div>

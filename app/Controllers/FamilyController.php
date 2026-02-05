@@ -15,6 +15,7 @@ use App\Models\CertificateRequestModel;
 use App\Models\AnnouncementModel;
 use App\Models\DonationPurposeModel;
 use App\Models\DonationModel;
+use CodeIgniter\Email\Email;
 
 class FamilyController extends Controller
 {
@@ -69,7 +70,7 @@ class FamilyController extends Controller
             $file->move(FCPATH . 'uploads/family', $newName);
             $data['photo'] = $newName;
         } else {
-            return redirect()->back()->with('error', 'Please upload a valid certificate file.');
+            return redirect()->back()->with('error', 'Please upload a family photo.');
         }
         $familyModel->insert($data);
         $familyId = $familyModel->insertID();
@@ -77,6 +78,7 @@ class FamilyController extends Controller
             'username'    => $family_code,
             'email'       => $this->request->getPost('family_email'),
             'password'    => $this->request->getPost('password'),
+            'phone' => $this->request->getPost('contact_number'),
             'role_id'     => 4,
             'is_active'   => 1,
             'created_at'  => date('Y-m-d H:i:s'),
@@ -108,16 +110,31 @@ class FamilyController extends Controller
         return redirect()->to('/families');
     }
 
+    // public function index()
+    // {
+    //     if (!session()->get('isLoggedIn')) {
+    //         return redirect()->to(base_url('/login'));
+    //     }
+    //     $familyModel = new FamilyModel();
+    //     $families = $familyModel->paginate(10);
+    //     $pager = $familyModel->pager;
+    //     $menus = $this->getMenus();
+    //     return view('family/index', ['families' => $families, 'menus' => $menus, 'pager'    => $pager,]);
+    // }
     public function index()
     {
-        if (!session()->get('isLoggedIn')) {
-            return redirect()->to(base_url('/login'));
-        }
         $familyModel = new FamilyModel();
-        $families = $familyModel->paginate(10);
-        $pager = $familyModel->pager;
+        $phone = $this->request->getGet('phone');
+
+        if (!empty($phone)) {
+            $familyModel->like('contact_number', $phone);
+        }
         $menus = $this->getMenus();
-        return view('family/index', ['families' => $families, 'menus' => $menus, 'pager'    => $pager,]);
+        $data['families'] = $familyModel->paginate(10);
+        $data['pager'] = $familyModel->pager;
+        $data['request'] = $this->request;
+        $data['menus'] = $menus;
+        return view('family/index', $data);
     }
 
     public function details($id)
@@ -195,8 +212,13 @@ class FamilyController extends Controller
         $family = $familyModel->find($id);;
         $userModel = new UserModel();
         $newEmail = $this->request->getPost('family_email');
-        $userModel->where('username', $family['family_code'])
-            ->set(['email' => $newEmail])
+        $phone = $this->request->getPost('contact_number');
+        $userUpdateData = [
+            'email' => $data['email'] ?? $family['family_email'],   // update email
+            'phone' => $data['contact_number'] ?? $family['contact_number'] // update phone
+        ];
+        $updated = $userModel->where('username', $family['family_code'])
+            ->set($userUpdateData)
             ->update();
         $memberModel->where('family_id', $id)->delete();
         if (!empty($data['members'])) {
@@ -562,5 +584,63 @@ class FamilyController extends Controller
     {
 
         echo  'PAYMENT GATEWAY UNDER CONSTRUCTION';
+    }
+
+
+
+    public function sendEmail()
+    {
+       $familyModel = new FamilyModel();
+    $memberModel = new FamilyMemberModel();
+    $emailService = \Config\Services::email();
+
+    $today = date('m-d');
+
+    // Step 1: Find all members whose birthday is today
+    $birthdayMembers = $memberModel
+        ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
+        ->findAll();
+
+    if (empty($birthdayMembers)) {
+        return 'No birthdays today 🎂';
+    }
+
+    // Step 2: Group members by family
+    $familiesToEmail = [];
+
+    foreach ($birthdayMembers as $member) {
+        $familyId = $member['family_id'];
+        if (!isset($familiesToEmail[$familyId])) {
+            $familiesToEmail[$familyId] = [];
+        }
+        $familiesToEmail[$familyId][] = $member['full_name'];
+    }
+
+    // Step 3: Send email to each family
+    foreach ($familiesToEmail as $familyId => $members) {
+
+        $family = $familyModel->find($familyId);
+
+        if (empty($family['contact_number']) && empty($family['email'])) {
+            continue; // skip if no email
+        }
+
+        $emailService->clear();
+
+        // Personalize message with member names
+        $message = view('emails/family_notification.php', [
+            'name' => $family['family_name'],
+            'appName'    => 'Family App'
+        ]);
+
+        $emailService->setTo($family['family_email']); // family email
+        $emailService->setSubject('🎉 Happy Birthday!');
+        $emailService->setMessage($message);
+
+        $emailService->send();
+    }
+
+    return 'Birthday emails sent to families successfully 🎉';
+        
     }
 }

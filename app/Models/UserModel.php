@@ -8,13 +8,19 @@ class UserModel extends Model
 {
     protected $table = 'users';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['username', 'email', 'password', 'role_id', 'is_active', 'reset_token'];
+    protected $allowedFields = ['username', 'email', 'phone', 'password', 'role_id', 'is_active', 'reset_token'];
 
     public function getUserByEmail($username)
     {
         $username = trim($username);
         return $this->where('LOWER(email)', strtolower($username))->first();
     }
+    // public function getUserByphone($phone)
+    // {
+    //     return $this->where('phone', $phone)
+    //         ->first(); // returns the entire row, including email, password, etc.
+    // }
+
     public function getUsersWithRoles($perPage, $currentPage)
     {
         return $this->select('users.id, users.username, users.email, users.is_active, users.created_at, users.updated_at, roles.role_name, roles.description')
@@ -34,6 +40,8 @@ class UserModel extends Model
             ->join('roles', 'users.role_id = roles.id')
             ->findAll();  // Returns all results without pagination
     }
-
-    
-}    
+    public function getUserByPhone($phone)
+    {
+        return $this->where('phone', $phone)->first();
+    }
+}
