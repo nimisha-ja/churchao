@@ -54,7 +54,16 @@ class Home extends BaseController
     }
     public function directory()
     {
-        return view('directory');
+        $familyModel = new \App\Models\FamilyModel();
+        $families = $familyModel->findAll();
+        $totalFamilies = $familyModel->countAll();
+        $memberModel = new \App\Models\FamilyMemberModel();
+        $totalMembers = $memberModel->countAllResults();     
+        return view('directory', [
+            'totalFamilies' => $totalFamilies,
+            'totalMembers' => $totalMembers,
+            'families' => $families,
+        ]);
     }
 
     public function group()
@@ -74,12 +83,8 @@ class Home extends BaseController
             ->get()
             ->getRow()
             ->amount ?? 0;
-            $groupModel = new GroupModel();
-
-        // 1️⃣ Total count of groups
-        $totalGroups = $groupModel->countAllResults();
-
-        // 2️⃣ List of all groups
+        $groupModel = new GroupModel();        // 1️⃣ Total count of groups
+        $totalGroups = $groupModel->countAllResults();        // 2️⃣ List of all groups
         $groupsList = $groupModel->findAll();
         return view('group', [
             'totalFamilies' => $totalFamilies,
@@ -88,7 +93,8 @@ class Home extends BaseController
             'hasBirthdayToday' => $birthdayCount > 0,
             'birthdayCount'    => $birthdayCount,
             'totalDonations' => $totalDonations,
-            'groupsList'=>$groupsList]);
+            'groupsList' => $groupsList
+        ]);
     }
 
 
