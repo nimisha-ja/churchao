@@ -12,6 +12,9 @@ $routes->get('group', 'Home::group');
 $routes->get('history', 'Home::history');
 $routes->get('directory', 'Home::directory');
 $routes->get('sitedashboard', 'Home::dashboard');
+$routes->post('donation/save', 'Home::saveDonation');
+
+
 
 $routes->get('test', 'Home::test');
 $routes->get('testemail', 'Home::sendEmail');

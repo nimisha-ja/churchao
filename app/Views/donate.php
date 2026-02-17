@@ -18,7 +18,7 @@
                             <span><i class="feather-info"></i></span>
                             <h4>Info</h4>
                         </div>
-                        <div class="evntdt99">                            
+                        <div class="evntdt99">
                             <div class="mndtlist">
                                 <div class="mndesp145 ">
                                     <div class="evarticledes">
@@ -28,67 +28,112 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-9 col-lg-8 col-md-12">
-                    <div class="event-card rrmt-30">
-                        <div class="headtte14m item-setting-top">
-                            <span class="color_bb"><i class="feather-edit"></i></span>
-                            <h4>Donate Now</h4>
-                        </div>
-                        <div class="item-setting">
-                            <div class="item-padding30 main-form">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form_group mt-30">
-                                            <label class="label25">Name</label>
-                                            <input class="form_input_1" type="text" placeholder="" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form_group mt-30">
-                                            <label class="label25">House Name</label>
-                                            <input class="form_input_1" type="text" placeholder="" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form_group mt-30">
-                                            <label class="label25">Type of Payment*</label>
-                                            <select class="selectpicker" title="Select Gender">
-                                                <option value="donation" selected>Donation</option>
-                                                <option value="periodical payment">Periodical Payment</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="form_group mt-30">
-                                            <label class="label25">Amount</label>
-                                            <input class="form_input_1" type="text" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="terms-dt">
-                                            <div class="form_group mt-30">
-                                                <div class="cogs-toggle">
-                                                    <label class="switch">
-                                                        <input type="checkbox" id="publish_post" value="">
-                                                        <span></span>
-                                                    </label>
-                                                    <label for="publish_post" class="lbl-quiz">
-                                                        Members can see phone number? (on/off)
-                                                        <small class="block-small">Privacy</small>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                </div><?php if (session()->getFlashdata('success')): ?>
+
+                    <!-- Success Modal -->
+                    <div class="modal fade" id="successModal" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-success text-white">
+                                    <h5 class="modal-title">Success</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
-                            </div>
-                            <div class="save-change-btns">
-                                <button class="main-save-btn color btn-hover">Donate Now</button>
+                                <div class="modal-body text-center">
+                                    <?= session()->getFlashdata('success'); ?>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+                                        OK
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                            successModal.show();
+                        });
+                    </script>
+
+                <?php endif; ?>
+
+                <div class="col-xl-9 col-lg-8 col-md-12">
+                    <form action="<?= base_url('donation/save'); ?>" method="post">
+                        <?= csrf_field(); ?>
+
+                        <div class="event-card rrmt-30">
+                            <div class="headtte14m item-setting-top">
+                                <span class="color_bb"><i class="feather-edit"></i></span>
+                                <h4>Donate Now</h4>
+                            </div>
+
+                            <div class="item-setting">
+                                <div class="item-padding30 main-form">
+                                    <div class="row">
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form_group mt-30">
+                                                <label class="label25">Family</label>
+                                                <select name="family_id" class="form_input_1" required>
+                                                    <option value="">-- Select Family --</option>
+                                                    <?php foreach ($families as $family): ?>
+                                                        <option value="<?= $family['family_id']; ?>">
+                                                            <?= esc($family['family_name']); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form_group mt-30">
+                                                <label class="label25">Type of Payment*</label>
+                                                <select name="purpose_id" class="form_input_1" required>
+                                                    <option value="">-- Select Purpose --</option>
+                                                    <?php foreach ($purposes as $purpose): ?>
+                                                        <option value="<?= $purpose['id'] ?>">
+                                                            <?= esc($purpose['title']) ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form_group mt-30">
+                                                <label class="label25">Amount</label>
+                                                <input name="amount" class="form_input_1" type="number" step="0.01" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form_group mt-30">
+                                                <label class="label25">Donation Date</label>
+                                                <input name="donation_date" class="form_input_1" type="date" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form_group mt-30">
+                                                <label class="label25">Notes</label>
+                                                <textarea name="notes" class="form_input_1"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="save-change-btns">
+                                    <button type="submit" class="main-save-btn color btn-hover">
+                                        Donate Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>

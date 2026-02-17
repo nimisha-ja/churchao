@@ -103,13 +103,31 @@ class Home extends BaseController
         $totalFamilies = $familyModel->countAll();
         $memberModel = new \App\Models\FamilyMemberModel();
         $totalMembers = $memberModel->countAllResults();
+        $purposeModel = new \App\Models\DonationPurposeModel();
+        $purposes = $purposeModel->where('is_active', 1)->findAll();
         return view('donate', [
             'totalFamilies' => $totalFamilies,
             'totalMembers' => $totalMembers,
             'families' => $families,
+            'purposes' => $purposes
         ]);
     }
+    public function saveDonation()
+    {
+        $donationModel = new \App\Models\DonationModel();
 
+        $data = [
+            'family_id'     => $this->request->getPost('family_id'),
+            'purpose_id'    => $this->request->getPost('purpose_id'),
+            'amount'        => $this->request->getPost('amount'),
+            'donation_date' => $this->request->getPost('donation_date'),
+            'notes'         => $this->request->getPost('notes'),
+        ];
+
+        $donationModel->insert($data);
+
+        return redirect()->back()->with('success', 'Donation Saved Successfully');
+    }
     public function history()
     {
         return view('history');
