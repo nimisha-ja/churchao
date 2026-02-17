@@ -8,9 +8,9 @@
                     <div class="event-card rrmt-30">
                         <div class="product_total_stats">
                             <strong class="product_total_numberic">
-                                <span class="product_stats_icon"><i class="feather-shopping-cart"></i></span>1791
+                                <span class="product_stats_icon"><i class="feather-shopping-cart"></i></span><?php echo $totalFamilies; ?>
                             </strong>
-                            <span class="product_stats_label">Total Sales</span>
+                            <span class="product_stats_label">Families</span>
                         </div>
                     </div>
                     <div class="event-card mt-4">
@@ -18,41 +18,11 @@
                             <span><i class="feather-info"></i></span>
                             <h4>Info</h4>
                         </div>
-                        <div class="evntdt99">
+                        <div class="evntdt99">                            
                             <div class="mndtlist">
-                                <div class="evntflldt4 flxcntr">
-                                    <div class="hhttd14s">
-                                        <i class="feather-user"></i>
-                                    </div>
-                                    <div class="ttlpple">
-                                        <span>Male</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mndtlist">
-                                <div class="evntflldt4 flxcntr">
-                                    <div class="hhttd14s">
-                                        <i class="feather-heart"></i>
-                                    </div>
-                                    <div class="ttlpple">
-                                        <span>Single</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mndtlist">
-                                <div class="evntflldt4 flxcntr">
-                                    <div class="hhttd14s">
-                                        <i class="feather-calendar"></i>
-                                    </div>
-                                    <div class="ttlpple">
-                                        <span>29/08/1991</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mndtlist">
-                                <div class="mndesp145 page-ddes">
+                                <div class="mndesp145 ">
                                     <div class="evarticledes">
-                                        <p class="mb-0">Hi there, my name is joginder singh. I specialize in Print Designs, Web Designs, Mobile App Designs, Wireframe Template Designs, Logos Designs etc.<br></p>
+                                        <p class="mb-0">St. Alphonsa Syro-Malabar Church, Valiyakolly, is a Roman Catholic church located near Kodenchery in the Kozhikode district of Kerala. Established in 1995, it falls under the jurisdiction of the Diocese of Thamarassery.<br></p>
                                     </div>
                                 </div>
                             </div>
@@ -71,21 +41,21 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form_group mt-30">
                                             <label class="label25">Name</label>
-                                            <input class="form_input_1" type="text" placeholder="" value="Joginder">
+                                            <input class="form_input_1" type="text" placeholder="" value="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form_group mt-30">
                                             <label class="label25">House Name</label>
-                                            <input class="form_input_1" type="text" placeholder="" value="Singh">
+                                            <input class="form_input_1" type="text" placeholder="" value="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form_group mt-30">
                                             <label class="label25">Type of Payment*</label>
                                             <select class="selectpicker" title="Select Gender">
-                                                <option value="male" selected>Donation</option>
-                                                <option value="female">Periodical Payment</option>
+                                                <option value="donation" selected>Donation</option>
+                                                <option value="periodical payment">Periodical Payment</option>
                                                 <option value="other">Other</option>
                                             </select>
                                         </div>

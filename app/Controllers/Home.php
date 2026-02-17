@@ -58,7 +58,7 @@ class Home extends BaseController
         $families = $familyModel->findAll();
         $totalFamilies = $familyModel->countAll();
         $memberModel = new \App\Models\FamilyMemberModel();
-        $totalMembers = $memberModel->countAllResults();     
+        $totalMembers = $memberModel->countAllResults();
         return view('directory', [
             'totalFamilies' => $totalFamilies,
             'totalMembers' => $totalMembers,
@@ -96,20 +96,24 @@ class Home extends BaseController
             'groupsList' => $groupsList
         ]);
     }
-
-
-
     public function donate()
     {
-        return view('donate');
+        $familyModel = new \App\Models\FamilyModel();
+        $families = $familyModel->findAll();
+        $totalFamilies = $familyModel->countAll();
+        $memberModel = new \App\Models\FamilyMemberModel();
+        $totalMembers = $memberModel->countAllResults();
+        return view('donate', [
+            'totalFamilies' => $totalFamilies,
+            'totalMembers' => $totalMembers,
+            'families' => $families,
+        ]);
     }
-
 
     public function history()
     {
         return view('history');
     }
-
 
     public function test()
     {
