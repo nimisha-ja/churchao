@@ -6,6 +6,13 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */ 
 $routes->get('/', 'Home::index');
+
+$routes->get('donate', 'Home::donate');
+$routes->get('group', 'Home::group');
+$routes->get('history', 'Home::history');
+$routes->get('directory', 'Home::directory');
+$routes->get('sitedashboard', 'Home::dashboard');
+
 $routes->get('test', 'Home::test');
 $routes->get('testemail', 'Home::sendEmail');
 $routes->get('', 'Admin::index');
