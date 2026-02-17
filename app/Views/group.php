@@ -29,9 +29,23 @@
 												</div>
 											</div> -->
 										<ul class="user-meta-btns">
-											<li class="mt-2"><button type="button" class="profile-edit-btn btn-hover"><i class="feather-plus me-2"></i>Donate</button></li>
-											<li class="mt-2"><button type="button" class="follow-btn"><i class="feather-user-plus me-2"></i>Dashboard</button></li>
-											<li class="mt-2"><button type="button" class="pg-message-btn msgngup">Updates</button></li>
+											<li class="mt-2">
+												<a href="<?= base_url('donate'); ?>" class="profile-edit-btn btn-hover">
+													<i class="feather-plus me-2"></i>Donate
+												</a>
+											</li>
+
+											<li class="mt-2">
+												<a href="<?= base_url('sitedashboard'); ?>" class="follow-btn">
+													<i class="feather-user-plus me-2"></i>Dashboard
+												</a>
+											</li>
+
+											<li class="mt-2">
+												<a href="<?= base_url('updates'); ?>" class="pg-message-btn msgngup">
+													Updates
+												</a>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -101,9 +115,9 @@
 												<p class="notification-text font-small-4 text-center">
 													<span class="oflst126"></span>
 												</p>
-												  <a href="<?= base_url('login'); ?>" class="act-btn btn-hover">
-                    Join Group
-                </a>
+												<a href="<?= base_url('login'); ?>" class="act-btn btn-hover">
+													Join Group
+												</a>
 											</div>
 										</div>
 									<?php endforeach; ?>

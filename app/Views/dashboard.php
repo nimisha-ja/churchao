@@ -13,11 +13,25 @@
                                         <img src="<?= base_url('public/layout/'); ?>images/left-imgs/img-3.jpg" alt="User-Avatar">
                                     </div>
                                     <div class="banner-media-body">
-                                   
+
                                         <ul class="user-meta-btns">
-                                            <li class="mt-2"><button type="button" class="profile-edit-btn btn-hover"><i class="feather-plus me-2"></i>Donate</button></li>
-                                            <li class="mt-2"><button type="button" class="follow-btn"><i class="feather-user-plus me-2"></i>Dashboard</button></li>
-                                            <li class="mt-2"><button type="button" class="pg-message-btn msgngup">Updates</button></li>
+                                            <li class="mt-2">
+                                                <a href="<?= base_url('donate'); ?>" class="profile-edit-btn btn-hover">
+                                                    <i class="feather-plus me-2"></i>Donate
+                                                </a>
+                                            </li>
+
+                                            <li class="mt-2">
+                                                <a href="<?= base_url('sitedashboard'); ?>" class="follow-btn">
+                                                    <i class="feather-user-plus me-2"></i>Dashboard
+                                                </a>
+                                            </li>
+
+                                            <li class="mt-2">
+                                                <a href="<?= base_url('updates'); ?>" class="pg-message-btn msgngup">
+                                                    Updates
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -33,7 +47,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                       <?= $this->include('sitecommon/navbar'); ?>
+                        <?= $this->include('sitecommon/navbar'); ?>
 
                     </div>
                 </div>
@@ -52,13 +66,13 @@
                             <span class="product_stats_label">Families</span>
                         </div>
                     </div>
-                     <div class="event-card mt-4">
+                    <div class="event-card mt-4">
                         <div class="headtte14m">
                             <span><i class="feather-info"></i></span>
                             <h4>Info</h4>
                         </div>
                         <div class="evntdt99">
-                           
+
                             <div class="mndtlist">
                                 <div class="mndesp145 s">
                                     <div class="evarticledes">
@@ -79,7 +93,7 @@
                             <div class="pf-deferred-dashboard_card-section">
                                 <div class="pf-deferred-dashboard_card">
                                     <a href="#" class="pf-dashboard-section__card-action">
-                                        <span class="pv-dashboard-section__metric-count"><?php echo $totalDonations?></span>
+                                        <span class="pv-dashboard-section__metric-count"><?php echo $totalDonations ?></span>
                                         <span class="pv-dashboard-section__metric-text">Total Donations</span>
                                     </a>
                                     <!-- <a href="#" class="pf-dashboard-section__card-action">
