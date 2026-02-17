@@ -95,3 +95,16 @@ $routes->post('login/send-otp', 'LoginController::sendWotp');
 $routes->post('login/verify-otp', 'LoginController::verifyWotp');
 
 $routes->get('send-email', 'FamilyController::sendEmail');
+
+
+
+$routes->get('groups', 'FamilyController::groupList');
+$routes->get('group/create', 'FamilyController::createGroup');
+$routes->post('groups/store', 'FamilyController::storeGroup');
+
+$routes->get('groups/edit/(:num)', 'FamilyController::editGroup/$1');    
+$routes->post('groups/update/(:num)', 'FamilyController::updateGroup/$1'); 
+$routes->get('groups/delete/(:num)', 'FamilyController::deleteGroup/$1'); 
+
+$routes->get('groups/view/(:num)', 'FamilyController::viewGroup/$1');
+$routes->post('groups/post/(:num)', 'FamilyController::addPost/$1');

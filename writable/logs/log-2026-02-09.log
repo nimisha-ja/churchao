@@ -1,0 +1,172 @@
+ERROR - 2026-02-09 10:20:03 --> mysqli_sql_exception: Unknown column 'phone' in 'where clause' in C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\churchapp\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\churchapp\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\churchapp\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\churchapp\app\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\churchapp\app\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+#8 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(933): App\Controllers\LoginController->login()
+#9 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+#10 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\churchapp\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\churchapp\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\churchapp\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2026-02-09 10:20:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'phone' in 'where clause'
+[Method: POST, Route: userlogin]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `phone` = :phone:
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 4 APPPATH\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+ 5 APPPATH\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LoginController->login()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 10:20:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'phone' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `phone` = :phone:
+ LIMIT 1', [...], false)
+ 4 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 6 APPPATH\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+ 7 APPPATH\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LoginController->login()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 10:20:04 --> [Caused by] mysqli_sql_exception: Unknown column 'phone' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `phone` = :phone:
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+ 8 APPPATH\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LoginController->login()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-02-09 10:20:29 --> mysqli_sql_exception: Unknown column 'phone' in 'where clause' in C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\churchapp\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\churchapp\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\churchapp\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\churchapp\app\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\churchapp\app\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+#8 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(933): App\Controllers\LoginController->login()
+#9 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+#10 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\churchapp\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\churchapp\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\churchapp\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2026-02-09 10:20:29 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'phone' in 'where clause'
+[Method: POST, Route: userlogin]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `phone` = :phone:
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 4 APPPATH\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+ 5 APPPATH\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LoginController->login()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 10:20:29 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'phone' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `phone` = :phone:
+ LIMIT 1', [...], false)
+ 4 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 6 APPPATH\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+ 7 APPPATH\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LoginController->login()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-09 10:20:29 --> [Caused by] mysqli_sql_exception: Unknown column 'phone' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `users`
+WHERE `phone` = \'12435678790\'
+ LIMIT 1')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `phone` = :phone:
+ LIMIT 1', [...], false)
+ 5 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(713): CodeIgniter\Model->doFirst()
+ 7 APPPATH\Models\UserModel.php(45): CodeIgniter\BaseModel->first()
+ 8 APPPATH\Controllers\LoginController.php(45): App\Models\UserModel->getUserByPhone('12435678790')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\LoginController->login()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\LoginController))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

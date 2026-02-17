@@ -16,6 +16,9 @@ use App\Models\AnnouncementModel;
 use App\Models\DonationPurposeModel;
 use App\Models\DonationModel;
 use CodeIgniter\Email\Email;
+use App\Models\GroupModel;
+use App\Models\GroupMemberModel;
+use App\Models\GroupPostModel;
 
 class FamilyController extends Controller
 {
@@ -590,57 +593,306 @@ class FamilyController extends Controller
 
     public function sendEmail()
     {
-       $familyModel = new FamilyModel();
-    $memberModel = new FamilyMemberModel();
-    $emailService = \Config\Services::email();
+        $familyModel = new FamilyModel();
+        $memberModel = new FamilyMemberModel();
+        $emailService = \Config\Services::email();
 
-    $today = date('m-d');
+        $today = date('m-d');
 
-    // Step 1: Find all members whose birthday is today
-    $birthdayMembers = $memberModel
-        ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
-        ->findAll();
+        // Step 1: Find all members whose birthday is today
+        $birthdayMembers = $memberModel
+            ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
+            ->findAll();
 
-    if (empty($birthdayMembers)) {
-        return 'No birthdays today 🎂';
-    }
-
-    // Step 2: Group members by family
-    $familiesToEmail = [];
-
-    foreach ($birthdayMembers as $member) {
-        $familyId = $member['family_id'];
-        if (!isset($familiesToEmail[$familyId])) {
-            $familiesToEmail[$familyId] = [];
-        }
-        $familiesToEmail[$familyId][] = $member['full_name'];
-    }
-
-    // Step 3: Send email to each family
-    foreach ($familiesToEmail as $familyId => $members) {
-
-        $family = $familyModel->find($familyId);
-
-        if (empty($family['contact_number']) && empty($family['email'])) {
-            continue; // skip if no email
+        if (empty($birthdayMembers)) {
+            return 'No birthdays today 🎂';
         }
 
-        $emailService->clear();
+        // Step 2: Group members by family
+        $familiesToEmail = [];
 
-        // Personalize message with member names
-        $message = view('emails/family_notification.php', [
-            'name' => $family['family_name'],
-            'appName'    => 'Family App'
+        foreach ($birthdayMembers as $member) {
+            $familyId = $member['family_id'];
+            if (!isset($familiesToEmail[$familyId])) {
+                $familiesToEmail[$familyId] = [];
+            }
+            $familiesToEmail[$familyId][] = $member['full_name'];
+        }
+
+        // Step 3: Send email to each family
+        foreach ($familiesToEmail as $familyId => $members) {
+
+            $family = $familyModel->find($familyId);
+
+            if (empty($family['contact_number']) && empty($family['email'])) {
+                continue; // skip if no email
+            }
+
+            $emailService->clear();
+
+            // Personalize message with member names
+            $message = view('emails/family_notification.php', [
+                'name' => $family['family_name'],
+                'appName'    => 'Family App'
+            ]);
+
+            $emailService->setTo($family['family_email']); // family email
+            $emailService->setSubject('🎉 Happy Birthday!');
+            $emailService->setMessage($message);
+
+            $emailService->send();
+        }
+
+        return 'Birthday emails sent to families successfully 🎉';
+    }
+
+    public function createGroup()
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to(base_url('/login'));
+        }
+        $db = \Config\Database::connect();
+        $members = $db->table('family_members fm')
+            ->select('fm.*, f.family_name')
+            ->join('families f', 'f.family_id = fm.family_id')
+            ->get()
+            ->getResultArray();
+        $data = [
+            'menus'   => $this->getMenus(),
+            'members' => $members
+        ];
+        return view('group/create', $data);
+    }
+
+    public function groupList()
+    {
+        $groupModel = new \App\Models\GroupModel();
+        $groupMemberModel = new \App\Models\GroupMemberModel();
+        $memberModel = new \App\Models\FamilyMemberModel();
+        $menus = $this->getMenus();
+
+        // Get paginated groups
+        $groups = $groupModel->paginate(10);
+
+        $groupMembers = [];
+        $groupPermissions = []; // <-- new: stores if current user is in group
+        $memberId = session()->get('member_id'); // logged-in member
+
+        foreach ($groups as $group) {
+            // Get members of this group with family name
+            $members = $groupMemberModel
+                ->select('fm.member_id, fm.full_name, f.family_name')
+                ->join('family_members fm', 'fm.member_id = group_members.member_id')
+                ->join('families f', 'f.family_id = fm.family_id')
+                ->where('group_id', $group['group_id'])
+                ->findAll();
+
+            $groupMembers[$group['group_id']] = $members ;
+
+            // Check if logged-in member is part of this group
+            $groupPermissions[$group['group_id']] = false;
+            foreach ($members as $m) {
+                if ($m['member_id'] == $memberId) {
+                    $groupPermissions[$group['group_id']] = true;
+                    break;
+                }
+            }
+        }
+
+        $data = [
+            'menus' => $menus,
+            'groups' => $groups,
+            'groupMembers' => $groupMembers,
+            'groupPermissions' => $groupPermissions, // pass to view
+            'pager' => $groupModel->pager,
+        ];
+
+        return view('group/list', $data);
+    }
+
+
+    public function storeGroup()
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+        $groupName = $this->request->getPost('group_name');
+        $memberIds = $this->request->getPost('member_ids');
+        if (!$groupName) {
+            return redirect()->back()->with('error', 'Group name is required');
+        }
+        $db = \Config\Database::connect();
+        $db->transStart();
+        $groupModel = new GroupModel();
+        $groupId = $groupModel->insert([
+            'group_name'  => $groupName,
+            'description' => $this->request->getPost('description')
+        ]);
+        if (!empty($memberIds)) {
+            $groupMemberModel = new GroupMemberModel();
+            $data = [];
+            foreach ($memberIds as $memberId) {
+                $data[] = [
+                    'group_id'  => $groupId,
+                    'member_id' => $memberId
+                ];
+            }
+            $groupMemberModel->insertBatch($data);
+        }
+        $db->transComplete();
+        return redirect()->to('/groups')->with('success', 'Group created successfully');
+    }
+    public function editGroup($group_id)
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to(base_url('/login'));
+        }
+
+        $groupModel = new GroupModel();
+        $groupMemberModel = new GroupMemberModel();
+        $memberModel = new FamilyMemberModel();
+
+        $group = $groupModel->find($group_id);
+        if (!$group) {
+            return redirect()->back()->with('error', 'Group not found.');
+        }
+
+        $currentMembers = $groupMemberModel
+            ->where('group_id', $group_id)
+            ->findAll();
+        $allMembers = $memberModel
+            ->select('family_members.member_id, family_members.full_name, families.family_name')
+            ->join('families', 'families.family_id = family_members.family_id')
+            ->findAll();
+
+
+        $data = [
+            'group' => $group,
+            'currentMembers' => array_column($currentMembers, 'member_id'),
+            'members' => $allMembers,
+            'menus' => $this->getMenus()
+        ];
+
+        return view('group/edit', $data);
+    }
+
+    public function updateGroup($group_id)
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to(base_url('/login'));
+        }
+
+        $groupModel = new GroupModel();
+        $groupMemberModel = new GroupMemberModel();
+
+        $groupData = [
+            'group_name' => $this->request->getPost('group_name'),
+            'description' => $this->request->getPost('description')
+        ];
+
+        $memberIds = $this->request->getPost('member_ids') ?? [];
+
+        $db = \Config\Database::connect();
+        $db->transStart();
+
+        $groupModel->update($group_id, $groupData);
+
+        $groupMemberModel->where('group_id', $group_id)->delete();
+
+        foreach ($memberIds as $memberId) {
+            $groupMemberModel->insert([
+                'group_id' => $group_id,
+                'member_id' => $memberId
+            ]);
+        }
+
+        $db->transComplete();
+
+        if ($db->transStatus()) {
+            return redirect()->to(site_url('groups'))->with('success', 'Group updated successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to update group. Please try again.');
+        }
+    }
+
+    public function deleteGroup($group_id)
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to(base_url('/login'));
+        }
+
+        $groupModel = new GroupModel();
+        $groupMemberModel = new GroupMemberModel();
+
+        $db = \Config\Database::connect();
+        $db->transStart();
+
+        $groupMemberModel->where('group_id', $group_id)->delete();
+        $groupModel->delete($group_id);
+
+        $db->transComplete();
+
+        if ($db->transStatus()) {
+            return redirect()->to(site_url('groups'))->with('success', 'Group deleted successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Failed to delete group. Please try again.');
+        }
+    }
+
+    public function viewGroup($group_id)
+    {
+        $groupModel = new GroupModel();
+        $postModel = new GroupPostModel();
+        $memberModel = new FamilyMemberModel();
+        $groupMemberModel = new GroupMemberModel();
+        $group = $groupModel->find($group_id);
+        $posts = $postModel
+            ->select('group_posts.*, family_members.full_name')
+            ->join('family_members', 'family_members.member_id = group_posts.member_id')
+            ->where('group_id', $group_id)
+            ->orderBy('created_on', 'DESC')
+            ->findAll();
+        // Get members of this group
+        $groupMembers = $groupMemberModel
+            ->select('fm.member_id, fm.full_name, f.family_name')
+            ->join('family_members fm', 'fm.member_id = group_members.member_id')
+            ->join('families f', 'f.family_id = fm.family_id')
+            ->where('group_id', $group_id)
+            ->findAll();
+        return view('group/view', [
+            'group' => $group,
+            'posts' => $posts,
+            'groupMembers' => $groupMembers,
+            'menus' => $this->getMenus()
+        ]);
+    }
+    public function addPost($group_id)
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+
+        $groupPostModel = new GroupPostModel();
+
+        // Get the posted values
+        $member_id = $this->request->getPost('member_id'); // from the <select>
+        $content   = $this->request->getPost('content');
+
+        // Validate input
+        if (!$member_id || !$content) {
+            return redirect()->back()->with('error', 'Please select a member and write some content.');
+        }
+
+        // Insert post
+        $groupPostModel->insert([
+            'group_id'   => $group_id,
+            'member_id'  => $member_id,
+            'content'    => $content,
+            'created_on' => date('Y-m-d H:i:s'),
+            'menus' => $this->getMenus()
         ]);
 
-        $emailService->setTo($family['family_email']); // family email
-        $emailService->setSubject('🎉 Happy Birthday!');
-        $emailService->setMessage($message);
-
-        $emailService->send();
-    }
-
-    return 'Birthday emails sent to families successfully 🎉';
-        
+        return redirect()->to(site_url('groups/view/' . $group_id))
+            ->with('success', 'Post added successfully!');
     }
 }
