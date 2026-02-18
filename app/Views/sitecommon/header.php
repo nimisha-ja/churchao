@@ -112,7 +112,7 @@
 					</div>
 					<div class="msg-noti-acnt-section order-2">
 						<ul class="mn-icons-set ms-3 align-self-stretch">
-							<li class="mn-icon">
+							<!-- <li class="mn-icon">
 								<a class="mn-link" href="messages.html" role="button">
 									<i class="feather-message-square"></i>
 									<div class="alert-circle"></div>
@@ -123,7 +123,7 @@
 									<i class="feather-bell"></i>
 									<div class="alert-circle"></div>
 								</a>
-							</li>
+							</li> -->
 							<li class="mn-icon dropdown dropdown-account ms-4">
 								<a href="#" class="opts_account" role="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
 									<img src="images/left-imgs/img-1.jpg" alt="">
@@ -139,7 +139,7 @@
 												</span>
 											</a>
 										</div>
-										<a href="my_profile_timeline.html" class="item ac_item channel_item mt-2"><i class="feather-align-right"></i>Profile Timeline</a>										
+										<a href="<?= base_url('/'); ?>" class="item ac_item channel_item mt-2"><i class="feather-align-right"></i>Profile Timeline</a>										
 									</li>
 									<li class="dropdown-menu-footer">
 										<a class="dropdown-item-link text-link text-center" href="<?= base_url('/userlogout'); ?>">Logout</a>
