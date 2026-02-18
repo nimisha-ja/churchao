@@ -30,7 +30,7 @@
 	</head>
 
 <body>
-	<header class="header clearfix">
+<header class="header clearfix">
 		<div class="header-inner">
 			<nav class="navbar navbar-expand-lg bg-micko micko-head justify-content-sm-start micko-top pt-0 pb-0 px-2 px-lg-4">
 				<div class="container">	
@@ -39,19 +39,19 @@
 							<i class="feather-menu"></i>
 						</span>
 					</button>
-					<a class="navbar-bran ms-lg-0 ml-2 me-auto" href="<?= base_url(''); ?>">
+					<a class="navbar-bran ms-lg-0 ml-2 me-auto" href="index.html">
 						<div class="res_main_logo">
-							<img src="<?= base_url('public/layout/'); ?>images/res-logo.png" alt="">
+							<img src="images/res-logo.png" alt="">
 						</div>
 						<div class="main_logo" id="logo">
-							<img src="<?= base_url('public/layout/'); ?>images/logo.png" alt="">
+							<img src="images/logo.png" alt="">
 							<p style="font-weight: 800;text-transform: uppercase;">St. Alphonsa Church Valiyakolly</p>
 						</div>
 					</a>
 					<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 						<div class="offcanvas-header">
 							<div class="offcanvas-logo" id="offcanvasNavbarLabel">
-								<img src="<?= base_url('public/layout/'); ?>images/res-logo.png" alt="">
+								<img src="images/res-logo.png" alt="">
 							</div>
 							<button type="button" class="close-btn btn-color" data-bs-dismiss="offcanvas" aria-label="Close">
 								<i class="feather-x"></i>
@@ -64,9 +64,9 @@
 									<button class="search-btn btn-color btn-hover"><i class="feather-search"></i></button>
 								</form>
 							</div> -->
-							<!-- <ul class="navbar-nav justify-content-end flex-grow-1 pe_5">
+							<ul class="navbar-nav justify-content-end flex-grow-1 pe_5">
 								<li class="nav-item">
-									<a class="nav-link active" aria-current="page" href="<?= base_url(); ?>">
+									<a class="nav-link active" aria-current="page" href="<?= base_url(''); ?>">
 										<span class="nav-icon d-lg-none">
 											<i class="feather-home"></i>
 										</span>
@@ -74,7 +74,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="<?= base_url('history'); ?>">
+									<a class="nav-link" href="<?= base_url('/history'); ?>">
 										<span class="nav-icon  d-lg-none">
 											<i class="feather-users"></i>
 										</span>
@@ -82,7 +82,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="updates.html">
+									<a class="nav-link" href="<?= base_url(''); ?>">
 										<span class="nav-icon  d-lg-none">
 											<i class="feather-users"></i>
 										</span>
@@ -90,7 +90,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="bulletin.html">
+									<a class="nav-link" href="">
 										<span class="nav-icon  d-lg-none">
 											<i class="feather-users"></i>
 										</span>
@@ -98,7 +98,7 @@
 									</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="contact.html">
+									<a class="nav-link" href="">
 										<span class="nav-icon  d-lg-none">
 											<i class="feather-users"></i>
 										</span>
@@ -107,11 +107,11 @@
 								</li>
 
 
-							</ul> -->
+							</ul>
 						</div>
 					</div>
 					<div class="msg-noti-acnt-section order-2">
-						<!-- <ul class="mn-icons-set ms-3 align-self-stretch">
+						<ul class="mn-icons-set ms-3 align-self-stretch">
 							<li class="mn-icon">
 								<a class="mn-link" href="messages.html" role="button">
 									<i class="feather-message-square"></i>
@@ -126,7 +126,7 @@
 							</li>
 							<li class="mn-icon dropdown dropdown-account ms-4">
 								<a href="#" class="opts_account" role="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-									<img src="<?= base_url('public/layout/'); ?>images/left-imgs/img-1.jpg" alt="">
+									<img src="images/left-imgs/img-1.jpg" alt="">
 									<i class="fas fa-caret-down arrow-icon"></i>
 								</a>
 								<ul class="dropdown-menu dropdown-menu-account dropdown-menu-end" aria-labelledby="dropdownMenuClickableInside">
@@ -139,14 +139,14 @@
 												</span>
 											</a>
 										</div>
-										<a href="<?= base_url('history'); ?>" class="item ac_item channel_item mt-2"><i class="feather-align-right"></i>Profile Timeline</a>										
+										<a href="my_profile_timeline.html" class="item ac_item channel_item mt-2"><i class="feather-align-right"></i>Profile Timeline</a>										
 									</li>
 									<li class="dropdown-menu-footer">
-										<a class="dropdown-item-link text-link text-center" href="sign_in.html">Logout</a>
+										<a class="dropdown-item-link text-link text-center" href="<?= base_url('/userlogout'); ?>">Logout</a>
 									</li>
 								</ul>
 							</li>
-						</ul> -->
+						</ul>
 					</div>
 					<div class="pp-toggler order-3">
 						<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#ppcanvasNavbar" aria-controls="ppcanvasNavbarLabel">

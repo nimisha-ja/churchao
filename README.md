@@ -64,3 +64,8 @@ featjbbd_churchapp
 lf,}-WWyPeZs
 user- featjbbd_churchapp
 ---------------------------------ephathagloabl
+ephpxeds_churchapp
+FJ_8_SnIy,1e
+User: ephpxeds_churchapp
+
+Database: ephpxeds_churchapp

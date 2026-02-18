@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use CodeIgniter\Email\Email;
+use App\Models\UserModel;
 use App\Models\GroupModel;
 
 class Home extends BaseController
@@ -26,8 +27,50 @@ class Home extends BaseController
             'birthdayCount'    => $birthdayCount
         ]);
     }
+
+    public function userLogin()
+    {
+
+        return view('userlogin');
+    }
+    public function logincheck()
+    {
+       // helper(['form']);
+        if ($this->request->getMethod() == 'POST') {
+            $phone = $this->request->getVar('phone');
+            $password = $this->request->getVar('password');
+            $userModel = new UserModel();
+            $user  = $userModel->getUserByphone($phone);
+            if ($user && ($password == $user['password'])) {
+                session()->set([
+                    'user_id'         => $user['id'],
+                    'user_name'   => $user['username'],
+                    'user_email'      => $user['email'],
+                    'role_id'    => $user['role_id'],
+                    'hub'    => $user['hub'],
+                    'isuserLoggedIn' => true
+                ]);
+                return redirect()->to(base_url('/sitedashboard'));
+            } else {
+                session()->setFlashdata('error', 'Invalid username or password.');
+                return redirect()->to(base_url('/userlogin'));
+            }
+        } else {
+            session()->setFlashdata('error', 'Invalid attempt.');
+            return redirect()->to(base_url('/userlogin'));
+        }
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to(base_url('/userlogin'));
+    }
     public function dashboard()
     {
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
         $familyModel = new \App\Models\FamilyModel();
         $families = $familyModel->findAll();
         $totalFamilies = $familyModel->countAll();
@@ -68,6 +111,9 @@ class Home extends BaseController
 
     public function group()
     {
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
         $familyModel = new \App\Models\FamilyModel();
         $families = $familyModel->findAll();
         $totalFamilies = $familyModel->countAll();
@@ -98,6 +144,9 @@ class Home extends BaseController
     }
     public function donate()
     {
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
         $familyModel = new \App\Models\FamilyModel();
         $families = $familyModel->findAll();
         $totalFamilies = $familyModel->countAll();

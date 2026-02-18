@@ -67,8 +67,19 @@
                          Transactions
                      </a>
                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link <?= ($currentPage == 'donate' ? 'active" aria-current="page' : '') ?>" href="<?= base_url('/userlogout'); ?>">
+                         <span class="nav-icon">
+                             <i class="feather-file-text"></i>
+                         </span>
+                        Logout
+                     </a>
+                 </li>
 
              </ul>
          </div>
      </div>
+  
  </nav>
+
+ 

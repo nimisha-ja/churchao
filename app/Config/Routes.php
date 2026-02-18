@@ -21,6 +21,12 @@ $routes->get('testemail', 'Home::sendEmail');
 $routes->get('', 'Admin::index');
 $routes->get('login', 'LoginController::index');
 
+$routes->get('userlogin', 'Home::userLogin');
+
+$routes->post('userlogincheck', 'Home::logincheck');
+$routes->get('userlogout', 'Home::logout');
+
+
 $routes->get('wlogin', 'LoginController::whatsappLogin');
 $routes->post('userlogin', 'LoginController::login');
 $routes->get('logout', 'LoginController::logout');
