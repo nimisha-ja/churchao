@@ -144,9 +144,9 @@
                                                 <th class="gridjs-th">
                                                     <div class="gridjs-th-content">Photo</div>
                                                 </th>
-                                                <?php if (!session()->has('family_id')): ?>
+                                          
                                                     <th class="gridjs-th">Action</th>
-                                                <?php endif; ?>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody class="gridjs-tbody">
@@ -169,7 +169,7 @@
                                                                 No Photo
                                                             <?php endif; ?>
                                                         </td>
-                                                        <?php if (!session()->has('family_id')): ?>
+                                                     
                                                             <td class="gridjs-td">
                                                                 <div class="d-flex flex-wrap justify-content-start gap-2">
                                                                     <!-- Edit Link -->
@@ -186,9 +186,7 @@
                                                                     </form>
                                                                 </div>
                                                             </td>
-                                                        <?php else: ?>
-
-                                                        <?php endif; ?>
+                                                       
 
                                                     </tr>
                                                 <?php endforeach; ?>

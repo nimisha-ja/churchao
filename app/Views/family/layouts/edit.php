@@ -143,6 +143,9 @@
                                                     <div class="col-md-3">
                                                         <input type="text" name="members[<?= $index ?>][education]" class="form-control" placeholder="Education" value="<?= esc($member['education']) ?>">
                                                     </div>
+                                                      <div class="col-md-3">
+                                                        <input type="text" name="members[<?= $index ?>][phonenumber]" class="form-control" placeholder="phone" value="<?= esc($member['phonenumber']) ?>">
+                                                    </div>
                                                     <div class="col-md-3">
                                                         <input type="text" name="members[<?= $index ?>][current_status]" class="form-control" placeholder="Status" value="<?= esc($member['current_status']) ?>">
                                                     </div>
@@ -190,6 +193,9 @@
                                     </div>
                                     <div class="col-md-3">
                                         <input type="text" name="members[\${memberIndex}][education]" class="form-control" placeholder="Education">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" name="members[\${memberIndex}][phonenumber]" class="form-control" placeholder="Phone">
                                     </div>
                                     <div class="col-md-3">
                                         <input type="text" name="members[\${memberIndex}][current_status]" class="form-control" placeholder="Status">

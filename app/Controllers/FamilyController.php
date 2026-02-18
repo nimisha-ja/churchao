@@ -81,7 +81,7 @@ class FamilyController extends Controller
             'username'    => $family_code,
             'email'       => $this->request->getPost('family_email'),
             'password'    => $this->request->getPost('password'),
-            'phone' => $this->request->getPost('contact_number'),
+            'phone' =>  $this->request->getPost('contact_number'),
             'role_id'     => 4,
             'is_active'   => 1,
             'created_at'  => date('Y-m-d H:i:s'),
@@ -104,6 +104,7 @@ class FamilyController extends Controller
                     'gender'          => $member['gender'],
                     'job'             => $member['job'],
                     'education'       => $member['education'],
+                    'phonenumber'       => $member['phone'],
                     'current_status'  => $member['current_status']
                 ];
                 $familyMemberModel->insert($memberData);

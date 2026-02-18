@@ -139,6 +139,9 @@
                                                         <div class="col-md-3">
                                                             <input type="text" name="members[0][education]" class="form-control" placeholder="Education">
                                                         </div>
+                                                         <div class="col-md-3">
+                                                            <input type="text" name="members[0][phone]" class="form-control" placeholder="Phone">
+                                                        </div>
                                                         <div class="col-md-3">
                                                             <input type="text" name="members[0][current_status]" class="form-control" placeholder="Status">
                                                         </div>
@@ -186,6 +189,9 @@
             </div>
             <div class="col-md-3">
                 <input type="text" name="members[${memberIndex}][education]" class="form-control" placeholder="Education">
+            </div>
+              <div class="col-md-3">
+                <input type="text" name="members[${memberIndex}][phone]" class="form-control" placeholder="contact_number">
             </div>
             <div class="col-md-3">
                 <input type="text" name="members[${memberIndex}][current_status]" class="form-control" placeholder="Status">
