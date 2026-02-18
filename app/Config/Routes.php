@@ -9,6 +9,10 @@ $routes->get('/', 'Home::index');
 
 $routes->get('donate', 'Home::donate');
 $routes->get('group', 'Home::group');
+$routes->get('creategroup', 'Home::creategroup');
+
+$routes->post('addgroup', 'Home::addGroup');
+
 $routes->get('history', 'Home::history');
 $routes->get('directory', 'Home::directory');
 $routes->get('sitedashboard', 'Home::dashboard');

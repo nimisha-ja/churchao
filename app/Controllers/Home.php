@@ -5,6 +5,11 @@ namespace App\Controllers;
 use CodeIgniter\Email\Email;
 use App\Models\UserModel;
 use App\Models\GroupModel;
+use App\Models\FamilyModel;
+use App\Models\FamilyMemberModel;
+use App\Models\GroupMemberModel;
+use App\Models\GroupPostModel;
+
 
 class Home extends BaseController
 {
@@ -154,6 +159,95 @@ class Home extends BaseController
             'groupsList' => $groupsList
         ]);
     }
+
+    public function creategroup()
+    {
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
+        $familyModel = new \App\Models\FamilyModel();
+        $families = $familyModel->findAll();
+        $totalFamilies = $familyModel->countAll();
+        $memberModel = new \App\Models\FamilyMemberModel();
+        $totalMembers = $memberModel->countAllResults();
+        $today = date('m-d');
+        $birthdayCount = $memberModel
+            ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
+            ->countAllResults();
+        $donationModel = new \App\Models\DonationModel();            // Total donations for all users (admin view)
+        $totalDonations = $donationModel
+            ->selectSum('amount')
+            ->get()
+            ->getRow()
+            ->amount ?? 0;
+        $groupModel = new GroupModel();        // 1️⃣ Total count of groups
+        $totalGroups = $groupModel->countAllResults();        // 2️⃣ List of all groups
+        $groupsList = $groupModel->findAll();
+        return view('creategroup', [
+            'totalFamilies' => $totalFamilies,
+            'totalMembers' => $totalMembers,
+            'families' => $families,
+            'hasBirthdayToday' => $birthdayCount > 0,
+            'birthdayCount'    => $birthdayCount,
+            'totalDonations' => $totalDonations,
+            'groupsList' => $groupsList
+        ]);
+    }
+
+    public function addGroup()
+    {
+        helper(['form']);
+
+        $groupName    = $this->request->getPost('group_name');
+        $description  = $this->request->getPost('group_desc');
+        $memberPhones = $this->request->getPost('group_members');
+
+        if (empty($groupName)) {
+            return redirect()->back()->with('error', 'Group name is required.');
+        }
+
+        $groupModel = new \App\Models\GroupModel();
+        $groupId = $groupModel->insert([
+            'group_name'  => $groupName,
+            'description' => $description
+        ], true);
+
+        if (!empty($memberPhones)) {
+            $phones = array_map('trim', explode(',', $memberPhones));
+            $familyModel = new \App\Models\FamilyMemberModel();
+            $groupMemberModel = new \App\Models\GroupMemberModel();
+
+            $notFoundNumbers = [];
+
+            foreach ($phones as $phone) {
+                $phoneClean = preg_replace('/\D/', '', $phone);
+                $member = $familyModel->where('phonenumber', $phoneClean)->first();
+
+                if ($member) {
+                    $groupMemberModel->insert([
+                        'group_id'  => $groupId,
+                        'member_id' => $member['family_id'],
+                        'joined_on' => date('Y-m-d H:i:s')
+                    ]);
+                } else {
+                    $notFoundNumbers[] = $phone;
+                }
+            }
+
+            $msg = 'Group created successfully!';
+            if (!empty($notFoundNumbers)) {
+                $msg .= ' Numbers not added: ' . implode(', ', $notFoundNumbers);
+            }
+
+          //  echo $msg;exit;
+            return redirect()->back()->with('success', $msg);
+        }
+
+        return redirect()->back()->with('success', 'Group created successfully!');
+    }
+
+
+
     public function donate()
     {
         if (!session()->get('isuserLoggedIn')) {

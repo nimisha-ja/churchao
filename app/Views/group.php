@@ -99,7 +99,9 @@
 				<div class="col-xl-9 col-lg-8 col-md-12 order-lg-2 order-1">
 					<div class="headtte14m box-shadow_main">
 						<span><i class="feather-users"></i></span>
-						<h4>Groups (5)</h4>
+						<h4>Groups (5)</h4>--><a href="<?= base_url('creategroup'); ?>" class="">
+							Create Group
+						</a>
 					</div>
 					<div class="product-items-list pl_item_search mt-4">
 						<div class="row">
@@ -115,9 +117,9 @@
 												<p class="notification-text font-small-4 text-center">
 													<span class="oflst126"></span>
 												</p>
-												<a href="<?= base_url('login'); ?>" class="act-btn btn-hover">
+												<!-- <a href="<?= base_url('login'); ?>" class="act-btn btn-hover">
 													Join Group
-												</a>
+												</a> -->
 											</div>
 										</div>
 									<?php endforeach; ?>
