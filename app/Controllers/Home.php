@@ -35,7 +35,7 @@ class Home extends BaseController
     }
     public function logincheck()
     {
-       // helper(['form']);
+        // helper(['form']);
         if ($this->request->getMethod() == 'POST') {
             $phone = $this->request->getVar('phone');
             $password = $this->request->getVar('password');
@@ -98,16 +98,28 @@ class Home extends BaseController
     public function directory()
     {
         $familyModel = new \App\Models\FamilyModel();
-        $families = $familyModel->findAll();
-        $totalFamilies = $familyModel->countAll();
         $memberModel = new \App\Models\FamilyMemberModel();
-        $totalMembers = $memberModel->countAllResults();
-        return view('directory', [
-            'totalFamilies' => $totalFamilies,
-            'totalMembers' => $totalMembers,
-            'families' => $families,
-        ]);
+
+        // Get search input
+        $phone = $this->request->getGet('phone');
+
+        if ($phone) {
+            // Filter families by phone number
+            $families = $familyModel->like('contact_number', $phone)->findAll();
+        } else {
+            $families = $familyModel->findAll();
+        }
+
+        $data = [
+            'totalFamilies' => $familyModel->countAll(),
+            'totalMembers'  => $memberModel->countAllResults(),
+            'families'      => $families,
+            'request'       => $this->request, // needed for keeping search value in input
+        ];
+
+        return view('directory', $data);
     }
+
 
     public function group()
     {

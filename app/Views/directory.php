@@ -83,7 +83,23 @@
 					</div>
 				</div>
 				<div class="col-xl-9 col-lg-8 col-md-12 order-lg-2 order-1">
+
 					<div class="main-table rrmt-30">
+
+						<!-- Search Form -->
+						<div class="mb-3 d-flex justify-content-end">
+							<form method="get" action="<?= current_url() ?>" class="d-flex">
+								<input
+									type="text"
+									name="phone"
+									class="form-control me-2"
+									placeholder="Search by phone number"
+									value="<?= esc($request->getGet('phone')) ?>">
+								<button type="submit" class="btn btn-info">Search</button>
+							</form>
+						</div>
+
+						<!-- Table -->
 						<div class="table-responsive">
 							<table class="table">
 								<thead class="thead-dark">
@@ -108,13 +124,13 @@
 											<td colspan="3">No families found.</td>
 										</tr>
 									<?php endif; ?>
-
 								</tbody>
 							</table>
 						</div>
-					</div>
 
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
