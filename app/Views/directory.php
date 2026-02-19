@@ -91,10 +91,10 @@
 							<form method="get" action="<?= current_url() ?>" class="d-flex">
 								<input
 									type="text"
-									name="phone"
+									name="family_name"
 									class="form-control me-2"
-									placeholder="Search by phone number"
-									value="<?= esc($request->getGet('phone')) ?>">
+									placeholder="Search by family"
+									value="<?= esc($request->getGet('family_name')) ?>">
 								<button type="submit" class="btn btn-info">Search</button>
 							</form>
 						</div>
@@ -105,7 +105,7 @@
 								<thead class="thead-dark">
 									<tr>
 										<th scope="col">Sl.No.</th>
-										<th scope="col">Name</th>
+										<th scope="col">Family Name</th>
 										<th scope="col">Phone Number</th>
 									</tr>
 								</thead>

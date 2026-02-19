@@ -106,11 +106,11 @@ class Home extends BaseController
         $memberModel = new \App\Models\FamilyMemberModel();
 
         // Get search input
-        $phone = $this->request->getGet('phone');
+        $family_name = $this->request->getGet('family_name');
 
-        if ($phone) {
+        if ($family_name) {
             // Filter families by phone number
-            $families = $familyModel->like('contact_number', $phone)->findAll();
+            $families = $familyModel->like('family_name', $family_name)->findAll();
         } else {
             $families = $familyModel->findAll();
         }
