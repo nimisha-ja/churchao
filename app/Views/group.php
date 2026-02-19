@@ -100,8 +100,8 @@
 					<div class="headtte14m box-shadow_main">
 						<span><i class="feather-users"></i></span>
 						<h4>Groups (5)</h4>
-							<button class="act-btn btn-hover" type="button" style="width: 20%;margin-left: 100px;margin-top: 0;"><a href="<?= base_url('creategroup'); ?>"> Create Group</a></button>
-					
+						<button class="act-btn btn-hover" type="button" style="width: 20%;margin-left: 100px;margin-top: 0;"><a href="<?= base_url('creategroup'); ?>"> Create Group</a></button>
+
 					</div>
 					<div class="product-items-list pl_item_search mt-4">
 						<div class="row">
@@ -117,9 +117,10 @@
 												<p class="notification-text font-small-4 text-center">
 													<span class="oflst126"></span>
 												</p>
-												<!-- <a href="<?= base_url('login'); ?>" class="act-btn btn-hover">
-													Join Group
-												</a> -->
+												<p class="notification-text font-small-4 text-center">
+													<span class="oflst126"><?= $group['member_count']; ?> Members</span>
+												</p>
+												<button class="act-btn btn-hover" type="button"><a href="<?= base_url('viewgroup/' . $group['group_id']); ?>">View Group</a></button>
 											</div>
 										</div>
 									<?php endforeach; ?>

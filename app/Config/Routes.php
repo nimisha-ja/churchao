@@ -11,6 +11,10 @@ $routes->get('donate', 'Home::donate');
 $routes->get('group', 'Home::group');
 $routes->get('creategroup', 'Home::creategroup');
 
+$routes->get('viewgroup/(:num)', 'Home::viewGroup/$1');
+
+
+
 $routes->post('addgroup', 'Home::addGroup');
 
 $routes->get('history', 'Home::history');

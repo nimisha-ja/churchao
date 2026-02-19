@@ -131,34 +131,103 @@ class Home extends BaseController
         if (!session()->get('isuserLoggedIn')) {
             return redirect()->to(base_url('/userlogin'));
         }
-        $familyModel = new \App\Models\FamilyModel();
+
+        $familyModel   = new \App\Models\FamilyModel();
+        $memberModel   = new \App\Models\FamilyMemberModel();
+        $donationModel = new \App\Models\DonationModel();
+        $groupModel    = new \App\Models\GroupModel();
+
         $families = $familyModel->findAll();
+
         $totalFamilies = $familyModel->countAll();
-        $memberModel = new \App\Models\FamilyMemberModel();
-        $totalMembers = $memberModel->countAllResults();
+        $totalMembers  = $memberModel->countAllResults();
+
         $today = date('m-d');
         $birthdayCount = $memberModel
             ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
             ->countAllResults();
-        $donationModel = new \App\Models\DonationModel();            // Total donations for all users (admin view)
+
         $totalDonations = $donationModel
             ->selectSum('amount')
             ->get()
             ->getRow()
             ->amount ?? 0;
-        $groupModel = new GroupModel();        // 1️⃣ Total count of groups
-        $totalGroups = $groupModel->countAllResults();        // 2️⃣ List of all groups
-        $groupsList = $groupModel->findAll();
+
+        // 🔥 Get groups WITH member count
+        $groupsList = $groupModel
+            ->select('groups.*, COUNT(group_members.member_id) as member_count')
+            ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+            ->groupBy('groups.group_id')
+            ->findAll();
+
         return view('group', [
-            'totalFamilies' => $totalFamilies,
-            'totalMembers' => $totalMembers,
-            'families' => $families,
+            'totalFamilies'    => $totalFamilies,
+            'totalMembers'     => $totalMembers,
+            'families'         => $families,
             'hasBirthdayToday' => $birthdayCount > 0,
             'birthdayCount'    => $birthdayCount,
-            'totalDonations' => $totalDonations,
-            'groupsList' => $groupsList
+            'totalDonations'   => $totalDonations,
+            'groupsList'       => $groupsList
         ]);
     }
+    public function viewGroup($group_id)
+    {
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
+
+        $familyModel       = new \App\Models\FamilyModel();
+        $memberModel       = new \App\Models\FamilyMemberModel();
+        $donationModel     = new \App\Models\DonationModel();
+        $groupModel        = new \App\Models\GroupModel();
+        $groupMemberModel  = new \App\Models\GroupMemberModel();
+
+        // Dashboard counts (keep if needed for layout)
+        $families = $familyModel->findAll();
+        $totalFamilies = $familyModel->countAll();
+        $totalMembers  = $memberModel->countAllResults();
+
+        $today = date('m-d');
+        $birthdayCount = $memberModel
+            ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
+            ->countAllResults();
+
+        $totalDonations = $donationModel
+            ->selectSum('amount')
+            ->get()
+            ->getRow()
+            ->amount ?? 0;
+
+        // ✅ Get selected group
+        $group = $groupModel->find($group_id);
+
+        if (!$group) {
+            return redirect()->back()->with('error', 'Group not found');
+        }
+
+        // ✅ Get members of this group
+        $members = $groupMemberModel
+            ->select('family_members.member_id,
+                  family_members.full_name,
+                  family_members.phonenumber,
+                  family_members.relation_to_head,
+                  family_members.gender')
+            ->join('family_members', 'family_members.member_id = group_members.member_id')
+            ->where('group_members.group_id', $group_id)
+            ->findAll();
+
+        return view('viewgroup', [
+            'totalFamilies'    => $totalFamilies,
+            'totalMembers'     => $totalMembers,
+            'families'         => $families,
+            'hasBirthdayToday' => $birthdayCount > 0,
+            'birthdayCount'    => $birthdayCount,
+            'totalDonations'   => $totalDonations,
+            'group'            => $group,
+            'members'          => $members
+        ]);
+    }
+
 
     public function creategroup()
     {
@@ -193,6 +262,8 @@ class Home extends BaseController
             'groupsList' => $groupsList
         ]);
     }
+
+
 
     public function addGroup()
     {
@@ -239,7 +310,7 @@ class Home extends BaseController
                 $msg .= ' Numbers not added: ' . implode(', ', $notFoundNumbers);
             }
 
-          //  echo $msg;exit;
+            //  echo $msg;exit;
             return redirect()->back()->with('success', $msg);
         }
 
