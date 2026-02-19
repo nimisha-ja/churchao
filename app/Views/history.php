@@ -31,7 +31,7 @@
 					</div>
 					<div class="col-lg-6 col-md-12">
 						<div class="about-img">
-							<img class="img-about" src="images/about/img-1.jpg" alt="">
+							<img class="img-about" src="<?= base_url('public/layout/'); ?>images/about/img-1.jpg" alt="">
 							<div class="video-icon">
 								<button class="play-btn btn-hover" data-bs-toggle="modal" data-bs-target="#aboutVideoModal"><i class="fas fa-play"></i></button>
 							</div>
@@ -117,7 +117,7 @@
 					</div>
 					<div class="col-lg-6 col-md-12">
 						<div class="about-img">
-							<img class="img-about" src="images/about/img-2.jpg" alt="">
+							<img class="img-about" src="<?= base_url('public/layout/'); ?>images/about/img-2.jpg" alt="">
 						</div>
 					</div>
 					
