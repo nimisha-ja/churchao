@@ -39,7 +39,7 @@
 							<i class="feather-menu"></i>
 						</span>
 					</button>
-					<a class="navbar-bran ms-lg-0 ml-2 me-auto" href="index.html">
+					<a class="navbar-bran ms-lg-0 ml-2 me-auto" href="<?= base_url(''); ?>">
 						<div class="res_main_logo">
 							<img src="images/res-logo.png" alt="">
 						</div>
