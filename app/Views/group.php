@@ -99,9 +99,9 @@
 				<div class="col-xl-9 col-lg-8 col-md-12 order-lg-2 order-1">
 					<div class="headtte14m box-shadow_main">
 						<span><i class="feather-users"></i></span>
-						<h4>Groups (5)</h4>--><a href="<?= base_url('creategroup'); ?>" class="">
-							Create Group
-						</a>
+						<h4>Groups (5)</h4>
+							<button class="act-btn btn-hover" type="button" style="width: 20%;margin-left: 100px;margin-top: 0;"><a href="<?= base_url('creategroup'); ?>"> Create Group</a></button>
+					
 					</div>
 					<div class="product-items-list pl_item_search mt-4">
 						<div class="row">
