@@ -13,7 +13,7 @@
 										<img src="<?= base_url('public/layout/'); ?>images/left-imgs/img-3.jpg" alt="User-Avatar">
 									</div>
 									<div class="banner-media-body">
-										<h3 class="item-user-title"></h3>
+										<h3 class="item-user-title"><?php echo ucfirst(session()->get('user_name')); ?></h3>
 										<div class="item-username"></div>
 										<!-- <div class="profile-rating-section">
 												<div class="profile-rating">
