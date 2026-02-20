@@ -65,21 +65,34 @@
 								</div>
 								<div class="full-width mb-30">
 									<div class="recent-items">
-										<div class="posts-list">
-											<div class="feed-shared-author-dt">
-											</div>
-										</div>
-										<div class="post-meta">
-											<div class="feed-shared-dt-1"><?php if ($hasBirthdayToday): ?>
-													<p class="mb-0"> 🎉 <strong><?= $birthdayCount ?></strong> birthday(s) today!.</p>
-												<?php else: ?>
 
-													<p class="mb-0"> No birthdays today 🎈.</p>
-												<?php endif; ?>
-											</div>
-											<div class="feed-shared-result">
-											</div>
+										<!-- Heading -->
+										<div class="headtte14m mb-3">
+											<span><i class="feather-calendar"></i></span>
+											<h4 class="mb-0 d-inline-block"><?= date('F') ?> Birthdays 🎉</h4>
 										</div>
+
+										<div class="posts-list">
+											<?php if (!empty($thisMonthBirthdays)): ?>
+
+												<?php foreach ($thisMonthBirthdays as $member): ?>
+													<div class="feed-shared-author-dt">
+														<h5>
+															🎂 <?= esc(ucwords($member['full_name'])) ?> <?= esc(ucwords($member['family_name'])) ?>
+															<small class="text-muted">
+																(<?= date('d M', strtotime($member['date_of_birth'])) ?>)
+															</small>
+														</h5>
+													</div>
+
+												<?php endforeach; ?>
+
+											<?php else: ?>
+												<div class="feed-shared-author-dt">
+													<p class="mb-0">No birthdays this month 🎈.</p>
+												</div><?php endif; ?>
+										</div>
+
 									</div>
 								</div>
 

@@ -36,6 +36,14 @@ class Home extends BaseController
         $announcements = $announcementModel
             ->orderBy('created_at', 'DESC')
             ->findAll();
+        $currentMonth = date('m');
+
+        $thisMonthBirthdays = $memberModel
+            ->select('family_members.*, families.family_name')
+            ->join('families', 'families.family_id = family_members.family_id', 'left')
+            ->where("MONTH(date_of_birth)", $currentMonth)
+            ->orderBy("DAY(date_of_birth)", "ASC")
+            ->findAll();
         return view('welcome_message', [
             'totalFamilies' => $totalFamilies,
             'totalMembers' => $totalMembers,
@@ -44,6 +52,7 @@ class Home extends BaseController
             'birthdayCount'    => $birthdayCount,
             'groupsList'       => $groupsList,
             'announcements' => $announcements,
+            'thisMonthBirthdays' => $thisMonthBirthdays,
         ]);
     }
 
