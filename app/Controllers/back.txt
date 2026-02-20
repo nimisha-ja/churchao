@@ -124,19 +124,21 @@ class Home extends BaseController
 
         return view('directory', $data);
     }
+
     public function group()
     {
         if (!session()->get('isuserLoggedIn')) {
             return redirect()->to(base_url('/userlogin'));
         }
 
-        $familyModel   = new \App\Models\FamilyModel();
-        $memberModel   = new \App\Models\FamilyMemberModel();
-        $donationModel = new \App\Models\DonationModel();
-        $groupModel    = new \App\Models\GroupModel();
+        $familyModel       = new \App\Models\FamilyModel();
+        $memberModel       = new \App\Models\FamilyMemberModel();
+        $donationModel     = new \App\Models\DonationModel();
+        $groupModel        = new \App\Models\GroupModel();
+        $groupMemberModel  = new \App\Models\GroupMemberModel();
 
-        $families = $familyModel->findAll();
-
+        // Dashboard counts
+        $families      = $familyModel->findAll();
         $totalFamilies = $familyModel->countAll();
         $totalMembers  = $memberModel->countAllResults();
 
@@ -151,12 +153,31 @@ class Home extends BaseController
             ->getRow()
             ->amount ?? 0;
 
-        // 🔥 Get groups WITH member count
-        $groupsList = $groupModel
-            ->select('groups.*, COUNT(group_members.member_id) as member_count')
-            ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
-            ->groupBy('groups.group_id')
-            ->findAll();
+        $username = session()->get('username'); // logged-in user
+
+        // Step 1: Get families for this username
+        $familyIds = $familyModel
+            ->where('family_code', $username)
+            ->findColumn('family_id');
+
+        $groupsList = [];
+
+        if (!empty($familyIds)) {
+            // Step 2: Get all member_ids from these families
+            $memberIds = $memberModel
+                ->whereIn('family_id', $familyIds)
+                ->findColumn('member_id');
+
+            if (!empty($memberIds)) {
+                // Step 3: Get groups where these members belong
+                $groupsList = $groupModel
+                    ->select('groups.*, COUNT(group_members.member_id) as member_count')
+                    ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+                    ->whereIn('group_members.member_id', $memberIds)
+                    ->groupBy('groups.group_id')
+                    ->findAll();
+            }
+        }
 
         return view('group', [
             'totalFamilies'    => $totalFamilies,
@@ -169,61 +190,30 @@ class Home extends BaseController
         ]);
     }
 
-    // public function group()
-    // {
-    //     if (!session()->get('isuserLoggedIn')) {
-    //         return redirect()->to(base_url('/userlogin'));
-    //     }
-    //     $familyModel = new \App\Models\FamilyModel();
-    //     $families = $familyModel->findAll();
-    //     $totalFamilies = $familyModel->countAll();
-    //     $memberModel = new \App\Models\FamilyMemberModel();
-    //     $totalMembers = $memberModel->countAllResults();
-    //     $today = date('m-d');
-    //     $birthdayCount = $memberModel
-    //         ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
-    //         ->countAllResults();
-    //     $donationModel = new \App\Models\DonationModel();            // Total donations for all users (admin view)
-    //     $totalDonations = $donationModel
-    //         ->selectSum('amount')
-    //         ->get()
-    //         ->getRow()
-    //         ->amount ?? 0;
-    //     $groupModel = new GroupModel();        // 1️⃣ Total count of groups
-    //     $totalGroups = $groupModel->countAllResults();        // 2️⃣ List of all groups
-    //     $groupsList = $groupModel->findAll();
-    //     return view('group', [
-    //         'totalFamilies' => $totalFamilies,
-    //         'totalMembers' => $totalMembers,
-    //         'families' => $families,
-    //         'hasBirthdayToday' => $birthdayCount > 0,
-    //         'birthdayCount'    => $birthdayCount,
-    //         'totalDonations' => $totalDonations,
-    //         'groupsList' => $groupsList
-    //     ]);
-    // }
+
+
     public function viewGroup($group_id)
     {
+        // 🔒 Check if user is logged in
         if (!session()->get('isuserLoggedIn')) {
             return redirect()->to(base_url('/userlogin'));
         }
 
+        // 🗂 Load Models
         $familyModel       = new \App\Models\FamilyModel();
         $memberModel       = new \App\Models\FamilyMemberModel();
         $donationModel     = new \App\Models\DonationModel();
         $groupModel        = new \App\Models\GroupModel();
         $groupMemberModel  = new \App\Models\GroupMemberModel();
+        $groupPostModel    = new \App\Models\GroupPostModel(); // Optional for chat
 
-        // Dashboard counts (keep if needed for layout)
-        $families = $familyModel->findAll();
+        // 📊 Dashboard counts
         $totalFamilies = $familyModel->countAll();
         $totalMembers  = $memberModel->countAllResults();
-
         $today = date('m-d');
         $birthdayCount = $memberModel
             ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
             ->countAllResults();
-
         $totalDonations = $donationModel
             ->selectSum('amount')
             ->get()
@@ -232,7 +222,6 @@ class Home extends BaseController
 
         // ✅ Get selected group
         $group = $groupModel->find($group_id);
-
         if (!$group) {
             return redirect()->back()->with('error', 'Group not found');
         }
@@ -248,17 +237,93 @@ class Home extends BaseController
             ->where('group_members.group_id', $group_id)
             ->findAll();
 
+        // Optional: Get posts/messages for this group (if you want chat)
+        $posts = $groupPostModel
+            ->select('group_posts.*, family_members.full_name, family_members.phonenumber')
+            ->join('family_members', 'family_members.member_id = group_posts.member_id')
+            ->where('group_posts.group_id', $group_id)
+            ->orderBy('group_posts.created_on', 'ASC')
+            ->findAll();
+
+        // 🖥 Pass data to view
         return view('viewgroup', [
             'totalFamilies'    => $totalFamilies,
             'totalMembers'     => $totalMembers,
-            'families'         => $families,
             'hasBirthdayToday' => $birthdayCount > 0,
             'birthdayCount'    => $birthdayCount,
             'totalDonations'   => $totalDonations,
             'group'            => $group,
-            'members'          => $members
+            'members'          => $members,
+            'posts'            => $posts ?? []  // optional chat posts
         ]);
     }
+    public function sendGroupMessage()
+    {
+        helper('form'); // make sure form helper is loaded
+
+        // ✅ Check if user is logged in
+        if (!session()->get('isuserLoggedIn')) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'You must be logged in'
+            ]);
+        }
+
+        $request = $this->request;
+        $group_id = $request->getPost('group_id');
+        $message  = trim($request->getPost('message'));
+
+        // ✅ Validate input
+        if (empty($group_id) || empty($message)) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Group and message are required'
+            ]);
+        }
+
+        // ✅ Get session username
+        $username = session()->get('username'); // users.username
+
+        $familyModel      = new \App\Models\FamilyModel();
+        $memberModel      = new \App\Models\FamilyMemberModel();
+        $groupPostModel   = new \App\Models\GroupPostModel();
+
+        // ✅ Find family by username
+        $family = $familyModel->where('family_code', $username)->first();
+        if (!$family) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Family not found for this user'
+            ]);
+        }
+
+        // ✅ Find member in family (assuming 1 member per user)
+        $member = $memberModel->where('family_id', $family['family_id'])->first();
+        if (!$member) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Member not found'
+            ]);
+        }
+
+        $member_id = $member['member_id'];
+
+        // ✅ Insert the message
+        $groupPostModel->insert([
+            'group_id'   => $group_id,
+            'member_id'  => $member_id,
+            'content'    => $message,
+            'created_on' => date('Y-m-d H:i:s')
+        ]);
+
+        return redirect()->back();
+        // return $this->response->setJSON([
+        //     'status'  => 'success',
+        //     'message' => 'Message sent successfully'
+        // ]);
+    }
+
+
     public function creategroup()
     {
         if (!session()->get('isuserLoggedIn')) {
@@ -292,6 +357,8 @@ class Home extends BaseController
             'groupsList' => $groupsList
         ]);
     }
+
+
 
     public function addGroup()
     {

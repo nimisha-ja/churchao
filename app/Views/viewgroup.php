@@ -37,19 +37,21 @@
                     </div>
                     <div class="full-width mb-0 rrmt-30">
                         <div class="messages-container">
+
+                            <!-- Recipient Info (show first member or group name) -->
                             <div class="recipients-top-dt">
                                 <div class="msg-usr-dt">
                                     <div class="recipient-avatar">
                                         <img src="images/left-imgs/img-2.jpg" loading="lazy" alt="" class="presence-entity__image nt-view-attr__img--centered">
                                         <div class="presence-entity__badge badge__online">
-                                            <span class="visually-hidden">
-                                                Status is online
-                                            </span>
+                                            <span class="visually-hidden">Status is online</span>
                                         </div>
                                     </div>
                                     <div class="recipient-user-dt">
-                                        <a href="#" target="_blank">Jassica William</a>
-                                        <p class="user-last-seen"><span class="small-last-seen">2 d</span></p>
+                                        <a href="#" target="_blank"><?= esc($group['group_name'] ?? 'Group') ?></a>
+                                        <p class="user-last-seen">
+                                            <span class="small-last-seen"><?= count($members) ?> members</span>
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="usr-cht-opts-btns">
@@ -58,126 +60,65 @@
                                     <span class="option-icon"><i class="feather-trash-2"></i></span>
                                 </div>
                             </div>
+
+                            <!-- Chat Messages -->
                             <div class="chat-container mCustomScrollbar _mCS_3 mCS-autoHide" style="height: 439px; overflow: visible;">
-                                <div id="mCSB_3" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside" tabindex="0" style="max-height: none;">
-                                    <div id="mCSB_3_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                                        <div class="chat-content">
-                                            <ul class="chats-lists">
-                                                <li class="you">
+                                <div class="chat-content">
+                                    <ul class="chats-lists">
+                                        <?php if (!empty($posts)): ?>
+                                            <?php foreach ($posts as $post): ?>
+                                                <?php
+                                                $isMe = ($post['member_id'] == session()->get('user_id')); // adjust according to your login session
+                                                ?>
+                                                <li class="<?= $isMe ? 'me' : 'you' ?>">
                                                     <div class="chat-thumb">
-                                                        <img src="images/left-imgs/img-2.jpg" alt="" class="mCS_img_loaded">
+                                                        <img src="images/left-imgs/img-<?= $isMe ? '1' : '2' ?>.jpg" alt="">
                                                     </div>
                                                     <div class="notifi-event">
                                                         <span class="chat-msg-item">
-                                                            Hi, Joginder, How are you today?.
+                                                            <?= esc($post['content']) ?>
                                                         </span>
                                                         <span class="notifi-date">
-                                                            <time datetime="2021-01-24T18:18" class="posted-date">Today at 4:52pm</time>
+                                                            <time datetime="<?= esc($post['created_on']) ?>" class="posted-date">
+                                                                <?= date('M d, H:i', strtotime($post['created_on'])) ?>
+                                                            </time>
                                                         </span>
                                                     </div>
                                                 </li>
-                                                <li class="me">
-                                                    <div class="chat-thumb">
-                                                        <img src="images/left-imgs/img-1.jpg" alt="" class="mCS_img_loaded">
-                                                    </div>
-                                                    <div class="notifi-event">
-                                                        <span class="chat-msg-item">
-                                                            Hi, Jassica, I am fine but about you?
-                                                        </span>
-                                                        <span class="notifi-date">
-                                                            <time datetime="2021-01-24T18:18" class="posted-date">Today at 4:54pm</time>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="you">
-                                                    <div class="chat-thumb">
-                                                        <img src="images/left-imgs/img-2.jpg" alt="" class="mCS_img_loaded">
-                                                    </div>
-                                                    <div class="notifi-event">
-                                                        <span class="chat-msg-item">
-                                                            Yes, i am also fine joginder and check my new projects <a href="https://themeforest.net/user/gambolthemes/portfolio" target="_blank">link</a>.
-                                                        </span>
-                                                        <span class="notifi-date">
-                                                            <time datetime="2021-01-24T18:18" class="posted-date">Today at 4:55pm</time>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="me">
-                                                    <div class="chat-thumb">
-                                                        <img src="images/left-imgs/img-1.jpg" alt="" class="mCS_img_loaded">
-                                                    </div>
-                                                    <div class="notifi-event">
-                                                        <span class="chat-msg-item">
-                                                            Wow, great work joginder GLWS
-                                                        </span>
-                                                        <span class="notifi-date">
-                                                            <time datetime="2021-01-24T18:18" class="posted-date">Today at 4:56pm</time>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="you">
-                                                    <div class="chat-thumb">
-                                                        <img src="images/left-imgs/img-2.jpg" alt="" class="mCS_img_loaded">
-                                                    </div>
-                                                    <div class="notifi-event">
-                                                        <span class="chat-msg-item">
-                                                            Thanks
-                                                        </span>
-                                                        <span class="notifi-date">
-                                                            <time datetime="2021-01-24T18:18" class="posted-date">Today at 4:58pm</time>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                                <li class="me">
-                                                    <div class="chat-thumb">
-                                                        <img src="images/left-imgs/img-1.jpg" alt="" class="mCS_img_loaded">
-                                                    </div>
-                                                    <div class="notifi-event">
-                                                        <span class="chat-msg-item">
-                                                            Welcome dear
-                                                        </span>
-                                                        <span class="notifi-date">
-                                                            <time datetime="2021-01-24T18:18" class="posted-date">Today at 5:00pm</time>
-                                                        </span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="mCSB_3_scrollbar_vertical" class="mCSB_scrollTools mCSB_3_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical" style="display: block;">
-                                    <div class="mCSB_draggerContainer">
-                                        <div id="mCSB_3_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; display: block; height: 325px; max-height: 405.014px; top: 0px;">
-                                            <div class="mCSB_dragger_bar" style="line-height: 50px;"></div>
-                                            <div class="mCSB_draggerRail"></div>
-                                        </div>
-                                    </div>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <li>
+                                                <div class="notifi-event">
+                                                    <span class="chat-msg-item">No messages yet. Start the conversation!</span>
+                                                </div>
+                                            </li>
+                                        <?php endif; ?>
+                                    </ul>
                                 </div>
                             </div>
-                            <form class="send_messages_form">
+
+                            <!-- Send Message Form -->
+                            <form class="send_messages_form" method="post" action="<?= base_url('group-send-message') ?>">
+                                <input type="hidden" name="group_id" value="<?= $group['group_id'] ?>">
                                 <div class="send_input_group">
                                     <div class="msg_write_combo">
-                                        <div class="add_files">
-                                            <div class="img-add" data-toggle="tooltip" data-placement="top" title="Files, Photos and Videos">
-                                                <input type="file" id="file1">
-                                                <label for="file1"><i class="feather-copy"></i></label>
-                                            </div>
+                                        <textarea class="form-control custom-controls" name="message" placeholder="Write Something.."></textarea>
+                                        <div class="emoji-panel" title="Emoji">
+                                            <button type="button" class="emoji-combo ml-2"><i class="fa-regular fa-face-smile"></i></button>
                                         </div>
-                                        <textarea class="form-control custom-controls" placeholder="Write Something.."></textarea>
-                                        <div class="emoji-panel" data-toggle="tooltip" data-placement="top" title="Emoji">
-                                            <button class="emoji-combo ml-2"><i class="fa-regular fa-face-smile"></i></button>
-                                        </div>
-                                        <div class="mic_recording-icon" data-toggle="tooltip" data-placement="top" title="Audio Recording">
-                                            <button class="mic-record"><i class="feather-mic"></i></button>
+                                        <div class="mic_recording-icon" title="Audio Recording">
+                                            <button type="button" class="mic-record"><i class="feather-mic"></i></button>
                                         </div>
                                     </div>
                                     <span class="input-send-btn">
-                                        <button class="btn-main btn-hover send-button" type="button">
+                                        <button class="btn-main btn-hover send-button" type="submit">
                                             <i class="feather-send"></i>
                                         </button>
                                     </span>
                                 </div>
                             </form>
+
+
                         </div>
                     </div>
 

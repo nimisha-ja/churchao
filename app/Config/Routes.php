@@ -13,7 +13,7 @@ $routes->get('creategroup', 'Home::creategroup');
 
 $routes->get('viewgroup/(:num)', 'Home::viewGroup/$1');
 
-
+$routes->post('group-send-message', 'Home::sendGroupMessage');
 
 $routes->post('addgroup', 'Home::addGroup');
 
