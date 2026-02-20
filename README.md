@@ -69,3 +69,8 @@ FJ_8_SnIy,1e
 User: ephpxeds_churchapp
 
 Database: ephpxeds_churchapp
+
+church
+@ephphathaglobal.com
+
+.HiUx(nC1]Xi
