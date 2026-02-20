@@ -1,0 +1,68 @@
+CRITICAL - 2026-02-20 06:52:04 --> ErrorException: Undefined array key "group_image"
+[Method: GET, Route: /]
+in APPPATH\Views\welcome_message.php on line 241.
+ 1 APPPATH\Views\welcome_message.php(241): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "group_image"', 'C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php', 241)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('welcome_message', [], true)
+ 5 APPPATH\Controllers\Home.php(34): view('welcome_message', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-20 06:52:17 --> ErrorException: Undefined array key "group_image"
+[Method: GET, Route: /]
+in APPPATH\Views\welcome_message.php on line 241.
+ 1 APPPATH\Views\welcome_message.php(241): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "group_image"', 'C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php', 241)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('welcome_message', [], true)
+ 5 APPPATH\Controllers\Home.php(34): view('welcome_message', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-20 06:52:18 --> ErrorException: Undefined array key "group_image"
+[Method: GET, Route: /]
+in APPPATH\Views\welcome_message.php on line 241.
+ 1 APPPATH\Views\welcome_message.php(241): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "group_image"', 'C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php', 241)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('welcome_message', [], true)
+ 5 APPPATH\Controllers\Home.php(34): view('welcome_message', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-20 06:53:21 --> ErrorException: Undefined array key "group_image"
+[Method: GET, Route: /]
+in APPPATH\Views\welcome_message.php on line 251.
+ 1 APPPATH\Views\welcome_message.php(251): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "group_image"', 'C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php', 251)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\welcome_message.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('welcome_message', [], true)
+ 5 APPPATH\Controllers\Home.php(34): view('welcome_message', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-02-20 06:56:21 --> ParseError: syntax error, unexpected token "?"
+[Method: GET, Route: /]
+in APPPATH\Views\welcome_message.php on line 250.
+ 1 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('welcome_message', [], true)
+ 3 APPPATH\Controllers\Home.php(34): view('welcome_message', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->index()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

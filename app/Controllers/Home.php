@@ -24,12 +24,26 @@ class Home extends BaseController
         $birthdayCount = $memberModel
             ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
             ->countAllResults();
+        $groupModel    = new \App\Models\GroupModel();
+        $groupsList = $groupModel
+            ->select('groups.*, COUNT(group_members.member_id) as member_count')
+            ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+            ->groupBy('groups.group_id')
+            ->findAll();
+        //dd($groupsList);exit;
+        $announcementModel = new \App\Models\AnnouncementModel();
+
+        $announcements = $announcementModel
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
         return view('welcome_message', [
             'totalFamilies' => $totalFamilies,
             'totalMembers' => $totalMembers,
             'families' => $families,
             'hasBirthdayToday' => $birthdayCount > 0,
-            'birthdayCount'    => $birthdayCount
+            'birthdayCount'    => $birthdayCount,
+            'groupsList'       => $groupsList,
+            'announcements' => $announcements,
         ]);
     }
 
@@ -90,14 +104,21 @@ class Home extends BaseController
             ->selectSum('amount')
             ->get()
             ->getRow()
-            ->amount ?? 0;
+            ->amount ?? 0;;
+        $groupModel    = new \App\Models\GroupModel();
+        $groupsList = $groupModel
+            ->select('groups.*, COUNT(group_members.member_id) as member_count')
+            ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+            ->groupBy('groups.group_id')
+            ->findAll();
         return view('dashboard', [
             'totalFamilies' => $totalFamilies,
             'totalMembers' => $totalMembers,
             'families' => $families,
             'hasBirthdayToday' => $birthdayCount > 0,
             'birthdayCount'    => $birthdayCount,
-            'totalDonations' => $totalDonations
+            'totalDonations' => $totalDonations,
+            'groupsList'       => $groupsList
         ]);
     }
     public function directory()
