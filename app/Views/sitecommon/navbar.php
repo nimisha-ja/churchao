@@ -52,7 +52,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link <?= ($currentPage == 'login' ? 'active" aria-current="page' : '') ?>" href="<?= base_url('login'); ?>">
+                     <a class="nav-link " href="<?= base_url(''); ?>">
                          <span class="nav-icon">
                              <i class="feather-message-square"></i>
                          </span>
