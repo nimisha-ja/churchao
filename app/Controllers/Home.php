@@ -32,12 +32,10 @@ class Home extends BaseController
             ->findAll();
         //dd($groupsList);exit;
         $announcementModel = new \App\Models\AnnouncementModel();
-
         $announcements = $announcementModel
             ->orderBy('created_at', 'DESC')
             ->findAll();
         $currentMonth = date('m');
-
         $thisMonthBirthdays = $memberModel
             ->select('family_members.*, families.family_name')
             ->join('families', 'families.family_id = family_members.family_id', 'left')
@@ -120,6 +118,18 @@ class Home extends BaseController
             ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
             ->groupBy('groups.group_id')
             ->findAll();
+        $announcementModel = new \App\Models\AnnouncementModel();
+        $announcements = $announcementModel
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
+        // gets single latest row
+        $currentMonth = date('m');
+        $thisMonthBirthdays = $memberModel
+            ->select('family_members.*, families.family_name')
+            ->join('families', 'families.family_id = family_members.family_id', 'left')
+            ->where("MONTH(date_of_birth)", $currentMonth)
+            ->orderBy("DAY(date_of_birth)", "ASC")
+            ->findAll();
         return view('dashboard', [
             'totalFamilies' => $totalFamilies,
             'totalMembers' => $totalMembers,
@@ -127,7 +137,8 @@ class Home extends BaseController
             'hasBirthdayToday' => $birthdayCount > 0,
             'birthdayCount'    => $birthdayCount,
             'totalDonations' => $totalDonations,
-            'groupsList'       => $groupsList
+            'groupsList'       => $groupsList,
+            'announcements' => $announcements,'thisMonthBirthdays' => $thisMonthBirthdays,
         ]);
     }
     public function directory()

@@ -92,18 +92,46 @@
                             </div>
                             <div class="pf-deferred-dashboard_card-section">
                                 <div class="pf-deferred-dashboard_card">
-                                    <a href="#" class="pf-dashboard-section__card-action">
-                                        <span class="pv-dashboard-section__metric-count"><?php echo $totalDonations ?></span>
-                                        <span class="pv-dashboard-section__metric-text">Total Donations</span>
-                                    </a>
-                                    <!-- <a href="#" class="pf-dashboard-section__card-action">
-                                        <span class="pv-dashboard-section__metric-count">$782</span>
-                                        <span class="pv-dashboard-section__metric-text">This month</span>
-                                    </a>
-                                    <a href="#" class="pf-dashboard-section__card-action">
-                                        <span class="pv-dashboard-section__metric-count">$22,550</span>
-                                        <span class="pv-dashboard-section__metric-text">Total earning</span>
-                                    </a> -->
+                                   
+                                </div>
+                                <div class="pf-deferred-dashboard_card-cate-section">
+                                    <div class="row">
+
+                                        <!-- Total Donations -->
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                            <a href="#" class="pf-dashboard-section__card-item">
+                                                <i class="feather-dollar-sign"></i>
+                                                <h4 class="pv-dashboard-section__metric-title">Total Donations</h4>
+                                                <p class="pv-dashboard-section__metric-products-totle"><?= $totalDonations ?> Donations</p>
+                                            </a>
+                                        </div>
+
+                                        <!-- Latest Announcement -->
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                            <a href="<?= base_url('') ?>" class="pf-dashboard-section__card-item">
+                                                <i class="feather-megaphone"></i>
+                                                <h4 class="pv-dashboard-section__metric-title">Latest Announcement</h4>
+                                                <p class="pv-dashboard-section__metric-products-totle">
+                                                    <?= esc($announcements[0]['title'] ?? 'No announcements') ?>
+                                                </p>
+                                            </a>
+                                        </div>
+
+                                        <!-- This Month Birthdays -->
+                                        <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                            <a href="<?= base_url('') ?>" class="pf-dashboard-section__card-item">
+                                                <i class="feather-gift"></i>
+                                                <h4 class="pv-dashboard-section__metric-title"><?= date('F') ?> Birthdays</h4>
+                                                <p class="pv-dashboard-section__metric-products-totle">
+                                                    <?= count($thisMonthBirthdays) ?> Members
+                                                </p>
+                                            </a>
+                                        </div>
+
+                                        <!-- Optionally add more cards like Groups, Events -->
+                                     
+
+                                    </div>
                                 </div>
                                 <!-- <div class="pf-deferred-dashboard_card-cate-section">
                                     <div class="row">
