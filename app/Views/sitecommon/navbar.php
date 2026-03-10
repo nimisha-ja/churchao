@@ -44,7 +44,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a class="nav-link <?= ($currentPage == 'history' ? 'active" aria-current="page' : '') ?>" href="<?= base_url('history'); ?>">
+                     <a class="nav-link <?= ($currentPage == 'certificate' ? 'active" aria-current="page' : '') ?>" href="<?= base_url('certificate'); ?>">
                          <span class="nav-icon">
                              <i class="feather-image"></i>
                          </span>

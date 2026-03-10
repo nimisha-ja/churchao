@@ -43,22 +43,22 @@
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="family_name" class="form-label">Family Name</label>
-                                                    <input type="text" name="family_name" class="form-control" id="family_name" required>
+                                                    <input type="text" name="family_name" class="form-control" id="family_name">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="head_of_family" class="form-label">Head of Family</label>
-                                                    <input type="text" name="head_of_family" class="form-control" id="head_of_family" required>
+                                                    <input type="text" name="head_of_family" class="form-control" id="head_of_family">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="members_count" class="form-label">Members Count</label>
-                                                    <input type="number" name="members_count" class="form-control" id="members_count" required>
+                                                    <input type="number" name="members_count" class="form-control" id="members_count">
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="address" class="form-label">Address</label>
                                                     <textarea name="address" class="form-control" id="address" rows="2"></textarea>
@@ -66,14 +66,20 @@
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
+                                                    <label for="head_of_family" class="form-label">Ward</label>
+                                                    <input type="text" name="ward" class="form-control" id="ward">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
                                                     <label for="contact_number" class="form-label">Contact Number</label>
-                                                    <input type="text" name="contact_number" class="form-control" id="contact_number">
+                                                    <input type="text" name="contact_number" class="form-control" id="contact_number" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="family_email" class="form-label">Family Email</label>
-                                                    <input type="email" name="family_email" class="form-control" id="family_email" value="<?= isset($family['family_email']) ? esc($family['family_email']) : '' ?>" required>
+                                                    <input type="email" name="family_email" class="form-control" id="family_email" value="<?= isset($family['family_email']) ? esc($family['family_email']) : '' ?>">
                                                 </div>
                                             </div>
                                             <?php
@@ -88,7 +94,7 @@
                                                         class="form-control"
                                                         id="password"
                                                         value="<?= isset($family) ? '' : $generatedPassword ?>"
-                                                        <?= isset($family) ? '' : 'readonly required' ?>>
+                                                        <?= isset($family) ? '' : 'readonly' ?>>
                                                     <small class="form-text text-muted">
                                                         <?= isset($family)
                                                             ? 'Leave blank if you don\'t want to change the password.'
@@ -119,9 +125,9 @@
                                                 <h5 class="mt-4">Family Members</h5>
                                                 <div id="members-wrapper" class="row g-3">
 
-                                                    <div class="member row g-3">
+                                                    <!-- <div class="member row g-3">
                                                         <div class="col-md-4">
-                                                            <input type="text" name="members[0][full_name]" class="form-control" placeholder="Full Name" required>
+                                                            <input type="text" name="members[0][full_name]" class="form-control" placeholder="Full Name" >
                                                         </div>
                                                         <div class="col-md-2">
                                                             <input type="text" name="members[0][relation_to_head]" class="form-control" placeholder="Relation">
@@ -145,6 +151,46 @@
                                                         <div class="col-md-3">
                                                             <input type="text" name="members[0][current_status]" class="form-control" placeholder="Status">
                                                         </div>
+                                                    </div> -->
+                                                    <div class="member row g-3 align-items-end">
+
+                                                        <div class="col-md-4">
+                                                            <input type="text" name="members[0][full_name]" class="form-control" placeholder="Full Name">
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <input type="text" name="members[0][relation_to_head]" class="form-control" placeholder="Relation">
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <input type="date" name="members[0][date_of_birth]" class="form-control">
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <input type="text" name="members[0][gender]" class="form-control" placeholder="Gender">
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <input type="text" name="members[0][job]" class="form-control" placeholder="Job">
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="members[0][education]" class="form-control" placeholder="Education">
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="members[0][phone]" class="form-control" placeholder="Phone">
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <input type="text" name="members[0][current_status]" class="form-control" placeholder="Status">
+                                                        </div>
+
+                                                        <!-- REMOVE BUTTON -->
+                                                        <div class="col-md-1">
+                                                            <button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">✖</button>
+                                                        </div>
+
                                                     </div>
 
                                                 </div>
@@ -169,36 +215,55 @@
 
                                 function addMember() {
                                     const wrapper = document.getElementById('members-wrapper');
+
                                     const div = document.createElement('div');
-                                    div.classList.add('member', 'row', 'g-3', 'mt-2');
+                                    div.classList.add('member', 'row', 'g-3', 'mt-2', 'align-items-end');
+
                                     div.innerHTML = `
-            <div class="col-md-4">
-                <input type="text" name="members[${memberIndex}][full_name]" class="form-control" placeholder="Full Name" required>
-            </div>
-            <div class="col-md-2">
-                <input type="text" name="members[${memberIndex}][relation_to_head]" class="form-control" placeholder="Relation">
-            </div>
-            <div class="col-md-2">
-                <input type="date" name="members[${memberIndex}][date_of_birth]" class="form-control" placeholder="DOB">
-            </div>
-            <div class="col-md-2">
-                <input type="text" name="members[${memberIndex}][gender]" class="form-control" placeholder="Gender">
-            </div>
-            <div class="col-md-2">
-                <input type="text" name="members[${memberIndex}][job]" class="form-control" placeholder="Job">
-            </div>
-            <div class="col-md-3">
-                <input type="text" name="members[${memberIndex}][education]" class="form-control" placeholder="Education">
-            </div>
-              <div class="col-md-3">
-                <input type="text" name="members[${memberIndex}][phone]" class="form-control" placeholder="contact_number">
-            </div>
-            <div class="col-md-3">
-                <input type="text" name="members[${memberIndex}][current_status]" class="form-control" placeholder="Status">
-            </div>
-        `;
+        <div class="col-md-4">
+            <input type="text" name="members[${memberIndex}][full_name]" class="form-control" placeholder="Full Name">
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" name="members[${memberIndex}][relation_to_head]" class="form-control" placeholder="Relation">
+        </div>
+
+        <div class="col-md-2">
+            <input type="date" name="members[${memberIndex}][date_of_birth]" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" name="members[${memberIndex}][gender]" class="form-control" placeholder="Gender">
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" name="members[${memberIndex}][job]" class="form-control" placeholder="Job">
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" name="members[${memberIndex}][education]" class="form-control" placeholder="Education">
+        </div>
+
+        <div class="col-md-3">
+            <input type="text" name="members[${memberIndex}][phone]" class="form-control" placeholder="Phone">
+        </div>
+
+        <div class="col-md-2">
+            <input type="text" name="members[${memberIndex}][current_status]" class="form-control" placeholder="Status">
+        </div>
+
+        <div class="col-md-1">
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">✖</button>
+        </div>
+    `;
+
                                     wrapper.appendChild(div);
                                     memberIndex++;
+                                }
+
+                                function removeMember(button) {
+                                    const memberRow = button.closest('.member');
+                                    memberRow.remove();
                                 }
                             </script>
 

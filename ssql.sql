@@ -72,3 +72,16 @@ CREATE TABLE donations (
 );
 ALTER TABLE donations ADD COLUMN purpose_id INT NOT NULL;
 ALTER TABLE donations ADD FOREIGN KEY (purpose_id) REFERENCES donation_purposes(id);
+
+
+ALTER TABLE `families` ADD `ward` VARCHAR(255) NOT NULL AFTER `address`;
+
+ALTER TABLE `family`
+ADD `members_count` INT(11) NOT NULL AFTER `head_of_family`,
+ADD `address` TEXT NOT NULL AFTER `members_count`,
+ADD `ward` VARCHAR(255) NOT NULL AFTER `address`,
+ADD `contact_number` VARCHAR(255) NOT NULL AFTER `ward`,
+ADD `family_email` VARCHAR(255) NOT NULL AFTER `contact_number`,
+ADD `password` VARCHAR(255) NOT NULL AFTER `family_email`,
+ADD `registered_on` DATE NOT NULL AFTER `password`,
+ADD `photo` TEXT NOT NULL;

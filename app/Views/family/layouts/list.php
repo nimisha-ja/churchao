@@ -1,64 +1,127 @@
 <style>
-    /* General Styling for Pagination */
-    .gridjs-pagination .pagination {
-        display: flex;
-        justify-content: flex-end;
-        list-style: none;
-        padding: 0;
-        margin: 1rem 0;
-        flex-wrap: wrap;
-        gap: 6px;
-    }
 
-    .gridjs-pagination .pagination li {
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        background-color: #f8f9fa;
-        font-size: 14px;
-        transition: all 0.2s ease-in-out;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    }
+/* ===== TABLE RESPONSIVE ===== */
 
-    .gridjs-pagination .pagination li a {
-        display: block;
-        padding: 6px 12px;
-        color: #405189;
-        text-decoration: none;
-        font-weight: 500;
-        border-radius: 6px;
-    }
+.gridjs-wrapper{
+    width:100%;
+    overflow-x:auto;
+}
 
-    .gridjs-pagination .pagination li a:hover {
-        background-color: #405189;
-        color: #fff;
-        text-decoration: none;
-        transition: background-color 0.2s ease;
-    }
+.gridjs-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px; /* prevents squeezing on mobile */
+}
 
-    .gridjs-pagination .pagination li.active,
-    .gridjs-pagination .pagination li.active a {
-        background-color: #405189;
-        color: white !important;
-        border-color: #405189;
-        font-weight: 600;
-    }
+.gridjs-table th,
+.gridjs-table td{
+    padding:10px 12px;
+    border-bottom:1px solid #eee;
+    vertical-align:middle;
+    text-align:center;
+}
 
-    .gridjs-pagination .pagination li.disabled a {
-        color: #ccc;
-        pointer-events: none;
-        background-color: #e9ecef;
-        border-color: #dee2e6;
-    }
+.gridjs-th-content{
+    font-weight:600;
+}
 
-    .gridjs-pagination .pagination li a:focus {
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(64, 81, 137, 0.3);
-    }
+/* Photo */
+.gridjs-table img{
+    border-radius:6px;
+}
 
-    .gridjs-pagination .pagination li:hover:not(.active):not(.disabled) {
-        background-color: #e2e6ea;
-        border-color: #ccc;
-    }
+/* ===== PAGINATION ===== */
+
+.gridjs-pagination .pagination{
+    display:flex;
+    justify-content:flex-end;
+    list-style:none;
+    padding:0;
+    margin:1rem 0;
+    flex-wrap:wrap;
+    gap:6px;
+}
+
+.gridjs-pagination .pagination li{
+    border:1px solid #ddd;
+    border-radius:6px;
+    background:#f8f9fa;
+    font-size:14px;
+}
+
+.gridjs-pagination .pagination li a{
+    display:block;
+    padding:6px 12px;
+    color:#405189;
+    text-decoration:none;
+    font-weight:500;
+}
+
+.gridjs-pagination .pagination li a:hover{
+    background:#405189;
+    color:#fff;
+}
+
+.gridjs-pagination .pagination li.active,
+.gridjs-pagination .pagination li.active a{
+    background:#405189;
+    color:#fff !important;
+    border-color:#405189;
+}
+
+.gridjs-pagination .pagination li.disabled a{
+    color:#ccc;
+    pointer-events:none;
+    background:#e9ecef;
+}
+
+/* ===== MOBILE IMPROVEMENTS ===== */
+
+@media (max-width:768px){
+
+.page-title-box{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+}
+
+/* smaller font */
+.gridjs-table th,
+.gridjs-table td{
+    font-size:13px;
+    padding:8px;
+}
+
+/* smaller image */
+.gridjs-table img{
+    width:34px !important;
+    height:34px !important;
+}
+
+/* action icons */
+.gridjs-td i{
+    font-size:16px !important;
+}
+
+/* center pagination */
+.gridjs-pagination .pagination{
+    justify-content:center;
+}
+
+}
+
+/* small phones */
+
+@media (max-width:480px){
+
+.gridjs-table th,
+.gridjs-table td{
+    font-size:12px;
+    padding:7px;
+}
+
+}
+
 </style>
 <div class="page-content">
     <div class="container-fluid">
@@ -113,7 +176,7 @@
                             <div role="complementary" class="gridjs gridjs-container" style="width: 100%;">
                                 <div class="gridjs-head">
                                 </div>
-                                <div class="gridjs-wrapper" style="height: auto;">
+                                <div class="gridjs-wrapper">
                                     <table id="family-table" role="grid" class="gridjs-table" style="height: auto; text-align: center;">
                                         <thead class="gridjs-thead">
                                             <tr class="gridjs-tr">

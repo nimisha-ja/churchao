@@ -9,7 +9,7 @@ use App\Models\FamilyModel;
 use App\Models\FamilyMemberModel;
 use App\Models\GroupMemberModel;
 use App\Models\GroupPostModel;
-
+use App\Models\CertificateRequestModel;
 
 class Home extends BaseController
 {
@@ -97,32 +97,50 @@ class Home extends BaseController
         if (!session()->get('isuserLoggedIn')) {
             return redirect()->to(base_url('/userlogin'));
         }
+
         $familyModel = new \App\Models\FamilyModel();
-        $families = $familyModel->findAll();
+
+        // Fetch families with only the needed fields: name, head, photo
+        $families = $familyModel
+            ->select('family_name, head_of_family, photo')
+            ->findAll();
+
+        // Total families count
         $totalFamilies = $familyModel->countAll();
+
+        // Members
         $memberModel = new \App\Models\FamilyMemberModel();
         $totalMembers = $memberModel->countAllResults();
+
+        // Birthdays today
         $today = date('m-d');
         $birthdayCount = $memberModel
             ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
             ->countAllResults();
-        $donationModel = new \App\Models\DonationModel();            // Total donations for all users (admin view)
+
+        // Total donations (admin view)
+        $donationModel = new \App\Models\DonationModel();
         $totalDonations = $donationModel
             ->selectSum('amount')
             ->get()
             ->getRow()
-            ->amount ?? 0;;
-        $groupModel    = new \App\Models\GroupModel();
+            ->amount ?? 0;
+
+        // Groups
+        $groupModel = new \App\Models\GroupModel();
         $groupsList = $groupModel
             ->select('groups.*, COUNT(group_members.member_id) as member_count')
             ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
             ->groupBy('groups.group_id')
             ->findAll();
+
+        // Announcements
         $announcementModel = new \App\Models\AnnouncementModel();
         $announcements = $announcementModel
             ->orderBy('created_at', 'DESC')
             ->findAll();
-        // gets single latest row
+
+        // This month's birthdays
         $currentMonth = date('m');
         $thisMonthBirthdays = $memberModel
             ->select('family_members.*, families.family_name')
@@ -130,15 +148,24 @@ class Home extends BaseController
             ->where("MONTH(date_of_birth)", $currentMonth)
             ->orderBy("DAY(date_of_birth)", "ASC")
             ->findAll();
+        $userEmail = session()->get('user_email'); // get logged-in user's email
+
+        $userFamilies = $familyModel
+            ->select('family_id, family_name, head_of_family, photo')
+            ->where('family_email', $userEmail)
+            ->first();;
+
         return view('dashboard', [
-            'totalFamilies' => $totalFamilies,
-            'totalMembers' => $totalMembers,
-            'families' => $families,
-            'hasBirthdayToday' => $birthdayCount > 0,
-            'birthdayCount'    => $birthdayCount,
-            'totalDonations' => $totalDonations,
-            'groupsList'       => $groupsList,
-            'announcements' => $announcements,'thisMonthBirthdays' => $thisMonthBirthdays,
+            'totalFamilies'      => $totalFamilies,
+            'totalMembers'       => $totalMembers,
+            'families'           => $families,          // now includes name, head, photo
+            'hasBirthdayToday'   => $birthdayCount > 0,
+            'birthdayCount'      => $birthdayCount,
+            'totalDonations'     => $totalDonations,
+            'groupsList'         => $groupsList,
+            'announcements'      => $announcements,
+            'thisMonthBirthdays' => $thisMonthBirthdays,
+            'userFamilies'       => $userFamilies,
         ]);
     }
     public function directory()
@@ -155,12 +182,19 @@ class Home extends BaseController
         } else {
             $families = $familyModel->findAll();
         }
+        $userEmail = session()->get('user_email'); //
+        $userFamilies = $familyModel
+            ->select('family_id, family_name, head_of_family, photo')
+            ->where('family_email', $userEmail)
+            ->first();;
 
         $data = [
             'totalFamilies' => $familyModel->countAll(),
             'totalMembers'  => $memberModel->countAllResults(),
             'families'      => $families,
             'request'       => $this->request, // needed for keeping search value in input
+
+            'userFamilies'       => $userFamilies,
         ];
 
         return view('directory', $data);
@@ -198,7 +232,12 @@ class Home extends BaseController
             ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
             ->groupBy('groups.group_id')
             ->findAll();
+        $userEmail = session()->get('user_email'); // get logged-in user's email
 
+        $userFamilies = $familyModel
+            ->select('family_id, family_name, head_of_family, photo')
+            ->where('family_email', $userEmail)
+            ->first();;
         return view('group', [
             'totalFamilies'    => $totalFamilies,
             'totalMembers'     => $totalMembers,
@@ -206,7 +245,8 @@ class Home extends BaseController
             'hasBirthdayToday' => $birthdayCount > 0,
             'birthdayCount'    => $birthdayCount,
             'totalDonations'   => $totalDonations,
-            'groupsList'       => $groupsList
+            'groupsList'       => $groupsList,
+            'userFamilies'       => $userFamilies,
         ]);
     }
 
@@ -427,7 +467,110 @@ class Home extends BaseController
     {
         return view('history');
     }
+    public function certificate()
+    {
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
 
+        $familyModel   = new \App\Models\FamilyModel();
+        $memberModel   = new \App\Models\FamilyMemberModel();
+        $donationModel = new \App\Models\DonationModel();
+        $groupModel    = new \App\Models\GroupModel();
+
+        $families = $familyModel->findAll();
+
+        $totalFamilies = $familyModel->countAll();
+        $totalMembers  = $memberModel->countAllResults();
+
+        $today = date('m-d');
+        $birthdayCount = $memberModel
+            ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
+            ->countAllResults();
+
+        $totalDonations = $donationModel
+            ->selectSum('amount')
+            ->get()
+            ->getRow()
+            ->amount ?? 0;
+
+        // 🔥 Get groups WITH member count
+        $groupsList = $groupModel
+            ->select('groups.*, COUNT(group_members.member_id) as member_count')
+            ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+            ->groupBy('groups.group_id')
+            ->findAll();
+        $userModel = new UserModel();
+        $user = $userModel->find(session()->get('user_id'));
+
+        $certificateModel = new CertificateRequestModel();
+
+        $certificates = $certificateModel
+            ->select('certificate_requests.*, families.family_name')
+            ->join('families', 'families.family_id = certificate_requests.family_id')
+            ->where('families.family_email', $user['email'])
+            ->findAll();
+        $userEmail = session()->get('user_email'); //
+        $userFamilies = $familyModel
+            ->select('family_id, family_name, head_of_family, photo')
+            ->where('family_email', $userEmail)
+            ->first();;
+        return view('certificate', [
+            'totalFamilies'    => $totalFamilies,
+            'certificates' => $certificates,
+            'userFamilies'       => $userFamilies
+        ]);
+    }
+    public function requestCertificate()
+    {
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
+
+        $userEmail = session()->get('user_email'); // logged-in user's email
+        $familyModel = new \App\Models\FamilyModel();
+
+        // Get only families belonging to logged-in user
+        $families = $familyModel->where('family_email', $userEmail)->findAll();
+
+        $totalFamilies = $familyModel->countAll();
+        $memberModel = new \App\Models\FamilyMemberModel();
+        $totalMembers = $memberModel->countAllResults();
+        $purposeModel = new \App\Models\DonationPurposeModel();
+        $purposes = $purposeModel->where('is_active', 1)->findAll();
+
+        return view('certificates_request_form', [
+            'totalFamilies' => $totalFamilies,
+            'totalMembers' => $totalMembers,
+            'families' => $families,
+            'purposes' => $purposes
+        ]);
+    }
+
+    public function saveCertificate()
+    {
+        // Ensure user is logged in
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
+
+        $certificateModel = new \App\Models\CertificateRequestModel();
+
+        $data = [
+            'family_id'        => $this->request->getPost('family_id'),
+            'certificate_type' => $this->request->getPost('certificate_type'),
+            'details'          => $this->request->getPost('details'),
+            'status'           => 'Pending',
+            'created_at'       => date('Y-m-d H:i:s'),
+        ];
+
+        // Insert into database
+        $certificateModel->insert($data);
+
+        // Redirect back to certificate list with success message
+        return redirect()->to(base_url('certificate'))
+            ->with('success', 'Certificate request submitted successfully!');
+    }
     public function test()
     {
         return view('test');

@@ -4,7 +4,7 @@ use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
- */ 
+ */
 $routes->get('/', 'Home::index');
 
 $routes->get('donate', 'Home::donate');
@@ -22,6 +22,10 @@ $routes->get('directory', 'Home::directory');
 $routes->get('sitedashboard', 'Home::dashboard');
 $routes->post('donation/save', 'Home::saveDonation');
 
+$routes->get('certificate', 'Home::certificate');
+
+$routes->get('request-certificate', 'Home::requestCertificate'); // form page
+$routes->post('save-certificate', 'Home::saveCertificate'); // save form
 
 
 $routes->get('test', 'Home::test');
@@ -126,9 +130,9 @@ $routes->get('groups', 'FamilyController::groupList');
 $routes->get('group/create', 'FamilyController::createGroup');
 $routes->post('groups/store', 'FamilyController::storeGroup');
 
-$routes->get('groups/edit/(:num)', 'FamilyController::editGroup/$1');    
-$routes->post('groups/update/(:num)', 'FamilyController::updateGroup/$1'); 
-$routes->get('groups/delete/(:num)', 'FamilyController::deleteGroup/$1'); 
+$routes->get('groups/edit/(:num)', 'FamilyController::editGroup/$1');
+$routes->post('groups/update/(:num)', 'FamilyController::updateGroup/$1');
+$routes->get('groups/delete/(:num)', 'FamilyController::deleteGroup/$1');
 
 $routes->get('groups/view/(:num)', 'FamilyController::viewGroup/$1');
 $routes->post('groups/post/(:num)', 'FamilyController::addPost/$1');
