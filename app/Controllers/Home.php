@@ -72,6 +72,7 @@ class Home extends BaseController
                     'user_id'         => $user['id'],
                     'user_name'   => $user['username'],
                     'user_email'      => $user['email'],
+                    'user_phone'      => $phone,
                     'role_id'    => $user['role_id'],
                     'hub'    => $user['hub'],
                     'isuserLoggedIn' => true
@@ -594,5 +595,137 @@ class Home extends BaseController
             $data = $email->printDebugger(['headers']);
             echo 'Email failed to send. Debugger info: ' . $data;
         }
+    }
+    public function editFamily()
+    {
+        // Check if user is logged in
+        if (!session()->get('isuserLoggedIn')) {
+            return redirect()->to(base_url('/userlogin'));
+        }
+
+        // Get logged-in user's phone number from session
+        $userPhone = session()->get('user_phone');
+
+        $familyModel = new \App\Models\FamilyModel();
+
+        // Get the family by phone number
+        $family = $familyModel->where('contact_number', $userPhone)->first();
+
+        if (!$family) {
+            return redirect()->back()->with('error', 'Family not found.');
+        }
+
+        // Get family members (assuming FamilyMemberModel has family_id foreign key)
+        $memberModel = new \App\Models\FamilyMemberModel();
+        $members = $memberModel->where('family_id', $family['family_id'])->findAll();
+
+        // Pass data to the view
+        return view('edit_family', [
+            'family' => $family,
+            'members' => $members
+        ]);
+    }
+
+    public function updateFamily($id)
+    {
+        $familyModel = new \App\Models\FamilyModel();
+        $memberModel = new \App\Models\FamilyMemberModel();
+        $userModel = new \App\Models\UserModel();
+
+        $data = $this->request->getPost();
+
+        // Use placeholder email if empty
+        $email = !empty($data['family_email']) ? $data['family_email'] : 'user_' . $id . '@placeholder.local';
+        $contact = $data['contact_number'];
+
+        // Check if contact number exists for another user
+        $existingUser = $userModel
+            ->where('phone', $contact)
+            ->where('username !=', $familyModel->find($id)['family_code'])
+            ->first();
+
+        if ($existingUser) {
+            session()->setFlashdata('error', 'User already exists with this contact number.');
+            return redirect()->back()->withInput();
+        }
+
+        $familyData = [
+            'family_name'     => $data['family_name'],
+            'head_of_family'  => $data['head_of_family'],
+            'members_count'   => $data['members_count'],
+            'address'         => $data['address'],
+            'ward'            => $data['ward'],
+            'contact_number'  => $contact,
+            'family_email'    => $email,
+            'password'        => $data['password'], // consider hashing
+            'registered_on'   => $data['registered_on']
+        ];
+
+        // Handle photo upload
+        $file = $this->request->getFile('photo');
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move(FCPATH . 'uploads/family', $newName);
+            $familyData['photo'] = $newName;
+        }
+
+        // Update family
+        try {
+            $familyModel->update($id, $familyData);
+            $family = $familyModel->find($id);
+        } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+            if (strpos($e->getMessage(), 'Duplicate entry') !== false || strpos($e->getMessage(), "Column 'family_email' cannot be null") !== false) {
+                session()->setFlashdata('error', 'Email is invalid or already in use.');
+                return redirect()->back()->withInput();
+            } else {
+                throw $e;
+            }
+        }
+
+        // Update or insert user account
+        if ($family) {
+            $userUpdateData = [
+                'email'      => $email,
+                'phone'      => $contact,
+                'password'   => $data['password'], // consider hashing
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
+
+            try {
+                $existingUser = $userModel->where('username', $family['family_code'])->first();
+                if ($existingUser) {
+                    $userModel->where('username', $family['family_code'])->set($userUpdateData)->update();
+                } else {
+                    $userModel->insert([
+                        'username'   => $family['family_code'],
+                        'email'      => $email,
+                        'phone'      => $contact,
+                        'password'   => $data['password'], // consider hashing
+                        'role_id'    => 4,
+                        'is_active'  => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),
+                    ]);
+                }
+            } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+                if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                    log_message('error', 'Duplicate user email skipped: ' . $email);
+                } else {
+                    throw $e;
+                }
+            }
+        }
+
+        // Update family members
+        $memberModel->where('family_id', $id)->delete();
+        if (!empty($data['members']) && is_array($data['members'])) {
+            foreach ($data['members'] as $member) {
+                $member['family_id'] = $id;
+                $memberModel->insert($member);
+            }
+        }
+
+        session()->setFlashdata('success', 'Family details updated successfully.');
+        return redirect()->to('/edit-family');
     }
 }

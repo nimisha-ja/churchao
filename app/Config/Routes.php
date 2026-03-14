@@ -28,6 +28,14 @@ $routes->get('request-certificate', 'Home::requestCertificate'); // form page
 $routes->post('save-certificate', 'Home::saveCertificate'); // save form
 
 
+// Show the edit family form
+$routes->get('edit-family', 'Home::editFamily'); // form page
+
+// Handle the form submission to update family details
+$routes->post('userfamily/update/(:num)', 'Home::updateFamily/$1');
+
+
+
 $routes->get('test', 'Home::test');
 $routes->get('testemail', 'Home::sendEmail');
 $routes->get('', 'Admin::index');
