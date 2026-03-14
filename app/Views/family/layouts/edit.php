@@ -124,19 +124,7 @@
                                         </div>
                                     </div>
 
-                                    <!-- Members -->
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Photo URL</label>
-                                            <input type="file" name="photo" class="form-control" value="<?= esc($family['photo']) ?>">
-
-                                            <?php if (!empty($family['photo'])): ?>
-                                                <img src="<?= base_url('uploads/family/' . $family['photo']) ?>" style="height:100px;width:100px">
-                                            <?php endif; ?>
-
-                                        </div>
-                                    </div>
-
+                               
                                     <!-- Members -->
                                     <div class="col-md-12">
                                         <h5 class="mt-4">Family Members</h5>
