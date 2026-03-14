@@ -579,3 +579,17 @@ Stack trace:
 #13 C:\xampp\htdocs\churchapp\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #14 {main}
 ERROR - 2026-03-10 04:57:16 --> User email duplicate skipped: user_FAM-00026@placeholder.local
+CRITICAL - 2026-03-10 05:03:07 --> ErrorException: Trying to access array offset on value of type null
+[Method: GET, Route: sitedashboard]
+in APPPATH\Views\dashboard.php on line 13.
+ 1 APPPATH\Views\dashboard.php(13): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\xampp\\htdocs\\churchapp\\app\\Views\\dashboard.php', 13)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\dashboard.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('dashboard', [], true)
+ 5 APPPATH\Controllers\Home.php(158): view('dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

@@ -121,74 +121,84 @@
                                             </div>
 
                                             <!-- Family Members Section -->
+                                            <!-- Family Members Section -->
                                             <div class="col-md-12">
                                                 <h5 class="mt-4">Family Members</h5>
-                                                <div id="members-wrapper" class="row g-3">
 
-                                                    <!-- <div class="member row g-3">
-                                                        <div class="col-md-4">
-                                                            <input type="text" name="members[0][full_name]" class="form-control" placeholder="Full Name" >
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="members[0][relation_to_head]" class="form-control" placeholder="Relation">
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="date" name="members[0][date_of_birth]" class="form-control" placeholder="DOB">
-                                                            <small class="form-text text-muted">Date Of Birth.</small>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="members[0][gender]" class="form-control" placeholder="Gender">
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="members[0][job]" class="form-control" placeholder="Job">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <input type="text" name="members[0][education]" class="form-control" placeholder="Education">
-                                                        </div>
-                                                         <div class="col-md-3">
-                                                            <input type="text" name="members[0][phone]" class="form-control" placeholder="Phone">
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <input type="text" name="members[0][current_status]" class="form-control" placeholder="Status">
-                                                        </div>
-                                                    </div> -->
-                                                    <div class="member row g-3 align-items-end">
+                                                <div id="members-wrapper">
 
-                                                        <div class="col-md-4">
-                                                            <input type="text" name="members[0][full_name]" class="form-control" placeholder="Full Name">
-                                                        </div>
+                                                    <!-- FIRST MEMBER -->
+                                                    <div class="member border rounded p-3 mb-3">
 
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="members[0][relation_to_head]" class="form-control" placeholder="Relation">
-                                                        </div>
+                                                        <div class="row g-3">
 
-                                                        <div class="col-md-2">
-                                                            <input type="date" name="members[0][date_of_birth]" class="form-control">
-                                                        </div>
+                                                            <div class="col-md-4">
+                                                                <label class="form-label">Full Name</label>
+                                                                <input type="text" name="members[0][full_name]" class="form-control">
+                                                            </div>
 
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="members[0][gender]" class="form-control" placeholder="Gender">
-                                                        </div>
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Relation</label>
+                                                                <select name="members[0][relation_to_head]" class="form-select">
+                                                                    <option value="">Select</option>
+                                                                    <option>Head of Family</option>
+                                                                    <option>Father</option>
+                                                                    <option>Mother</option>
+                                                                    <option>Son</option>
+                                                                    <option>Daughter</option>
+                                                                    <option>Son-in-law</option>
+                                                                    <option>Daughter-in-law</option>
+                                                                    <option>Brother</option>
+                                                                    <option>Sister</option>
+                                                                    <option>Brother-in-law</option>
+                                                                    <option>Sister-in-law</option>
+                                                                </select>
+                                                            </div>
 
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="members[0][job]" class="form-control" placeholder="Job">
-                                                        </div>
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">DOB</label>
+                                                                <input type="date" name="members[0][date_of_birth]" class="form-control">
+                                                            </div>
 
-                                                        <div class="col-md-3">
-                                                            <input type="text" name="members[0][education]" class="form-control" placeholder="Education">
-                                                        </div>
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Baptism</label>
+                                                                <input type="date" name="members[0][baptism_date]" class="form-control">
+                                                            </div>
 
-                                                        <div class="col-md-3">
-                                                            <input type="text" name="members[0][phone]" class="form-control" placeholder="Phone">
-                                                        </div>
+                                                            <div class="col-md-2">
+                                                                <label class="form-label">Gender</label>
+                                                                <input type="text" name="members[0][gender]" class="form-control">
+                                                            </div>
 
-                                                        <div class="col-md-2">
-                                                            <input type="text" name="members[0][current_status]" class="form-control" placeholder="Status">
-                                                        </div>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Job Details</label>
+                                                                <textarea name="members[0][job]" class="form-control" rows="2" placeholder="Enter job details"></textarea>
+                                                            </div>
 
-                                                        <!-- REMOVE BUTTON -->
-                                                        <div class="col-md-1">
-                                                            <button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">✖</button>
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Education</label>
+                                                                <input type="text" name="members[0][education]" class="form-control">
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Phone</label>
+                                                                <input type="text" name="members[0][phone]" class="form-control">
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Status</label>
+                                                                <input type="text" name="members[0][current_status]" class="form-control">
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label class="form-label">Feast (MM-DD)</label>
+                                                                <input type="date" name="members[0][feast]" class="form-control">
+                                                            </div>
+
+                                                            <div class="col-md-2 d-flex align-items-end">
+                                                                <button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">Remove</button>
+                                                            </div>
+
                                                         </div>
 
                                                     </div>
@@ -198,34 +208,137 @@
                                                 <button type="button" class="btn btn-outline-secondary btn-sm mt-3" onclick="addMember()">+ Add Another Member</button>
                                             </div>
 
-                                            <!-- Submit Button -->
-                                            <div class="col-lg-12 mt-4">
-                                                <div class="text-end">
-                                                    <button type="submit" class="btn btn-primary">Save Family</button>
-                                                </div>
-                                            </div>
+                                            <script>
+                                                let memberIndex = 1;
 
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                                                function addMember() {
+                                                    const wrapper = document.getElementById('members-wrapper');
+                                                    const div = document.createElement('div');
+                                                    div.classList.add('member', 'border', 'rounded', 'p-3', 'mb-3');
 
-                            <script>
-                                let memberIndex = 1;
+                                                    div.innerHTML = `
+    <div class="row g-3">
 
-                                function addMember() {
-                                    const wrapper = document.getElementById('members-wrapper');
-
-                                    const div = document.createElement('div');
-                                    div.classList.add('member', 'row', 'g-3', 'mt-2', 'align-items-end');
-
-                                    div.innerHTML = `
         <div class="col-md-4">
+            <label class="form-label">Full Name</label>
+            <input type="text" name="members[${memberIndex}][full_name]" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Relation</label>
+            <select name="members[${memberIndex}][relation_to_head]" class="form-select">
+                <option value="">Select</option>
+                <option>Head of Family</option>
+                <option>Father</option>
+                <option>Mother</option>
+                <option>Son</option>
+                <option>Daughter</option>
+                <option>Son-in-law</option>
+                <option>Daughter-in-law</option>
+                <option>Brother</option>
+                <option>Sister</option>
+                <option>Brother-in-law</option>
+                <option>Sister-in-law</option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">DOB</label>
+            <input type="date" name="members[${memberIndex}][date_of_birth]" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Baptism</label>
+            <input type="date" name="members[${memberIndex}][baptism_date]" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <label class="form-label">Gender</label>
+            <input type="text" name="members[${memberIndex}][gender]" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Job Details</label>
+            <textarea name="members[${memberIndex}][job]" class="form-control" rows="2" placeholder="Enter job details"></textarea>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Education</label>
+            <input type="text" name="members[${memberIndex}][education]" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Phone</label>
+            <input type="text" name="members[${memberIndex}][phone]" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Status</label>
+            <input type="text" name="members[${memberIndex}][current_status]" class="form-control">
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">Feast (MM-DD)</label>
+            <input type="text" name="members[${memberIndex}][feast]" class="form-control feast-input" placeholder="MM-DD" maxlength="5">
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">Remove</button>
+        </div>
+
+    </div>
+    `;
+
+                                                    wrapper.appendChild(div);
+                                                    memberIndex++;
+                                                }
+
+                                                // Remove member
+                                                function removeMember(btn) {
+                                                    btn.closest('.member').remove();
+                                                }
+
+                                                // Optional: auto-format Feast input as MM-DD
+                                                document.addEventListener('input', function(e) {
+                                                    if (e.target.classList.contains('feast-input')) {
+                                                        let val = e.target.value.replace(/\D/g, ''); // digits only
+                                                        if (val.length >= 2) val = val.slice(0, 2) + '-' + val.slice(2, 4);
+                                                        e.target.value = val.slice(0, 5);
+                                                    }
+                                                });
+                                            </script>
+                                        </div>
+
+
+                                        <script>
+                                            function addMember() {
+
+                                                const wrapper = document.getElementById('members-wrapper');
+
+                                                const div = document.createElement('div');
+                                                div.classList.add('member', 'row', 'g-3', 'mt-2', 'align-items-end');
+
+                                                div.innerHTML = `
+
+        <div class="col-md-3">
             <input type="text" name="members[${memberIndex}][full_name]" class="form-control" placeholder="Full Name">
         </div>
 
         <div class="col-md-2">
-            <input type="text" name="members[${memberIndex}][relation_to_head]" class="form-control" placeholder="Relation">
+            <select name="members[${memberIndex}][relation_to_head]" class="form-select">
+                <option value="">Select Relation</option>
+                <option value="Head of Family">Head of Family</option>
+                <option value="Father">Father</option>
+                <option value="Mother">Mother</option>
+                <option value="Son">Son</option>
+                <option value="Daughter">Daughter</option>
+                <option value="Son-in-law">Son-in-law</option>
+                <option value="Daughter-in-law">Daughter-in-law</option>
+                <option value="Brother">Brother</option>
+                <option value="Sister">Sister</option>
+                <option value="Brother-in-law">Brother-in-law</option>
+                <option value="Sister-in-law">Sister-in-law</option>
+            </select>
         </div>
 
         <div class="col-md-2">
@@ -233,6 +346,14 @@
         </div>
 
         <div class="col-md-2">
+            <input type="date" name="members[${memberIndex}][baptism_date]" class="form-control">
+        </div>
+
+        <div class="col-md-2">
+            <input type="date" name="members[${memberIndex}][feast_date]" class="form-control feast-date">
+        </div>
+
+        <div class="col-md-1">
             <input type="text" name="members[${memberIndex}][gender]" class="form-control" placeholder="Gender">
         </div>
 
@@ -240,11 +361,11 @@
             <input type="text" name="members[${memberIndex}][job]" class="form-control" placeholder="Job">
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <input type="text" name="members[${memberIndex}][education]" class="form-control" placeholder="Education">
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <input type="text" name="members[${memberIndex}][phone]" class="form-control" placeholder="Phone">
         </div>
 
@@ -257,22 +378,33 @@
         </div>
     `;
 
-                                    wrapper.appendChild(div);
-                                    memberIndex++;
-                                }
+                                                wrapper.appendChild(div);
+                                                memberIndex++;
+                                            }
 
-                                function removeMember(button) {
-                                    const memberRow = button.closest('.member');
-                                    memberRow.remove();
-                                }
-                            </script>
+                                            function removeMember(button) {
+                                                const memberRow = button.closest('.member');
+                                                memberRow.remove();
+                                            }
+                                        </script>
+                                        <!-- Submit Button -->
+                                        <div class="col-lg-12 mt-4">
+                                            <div class="text-end">
+                                                <button type="submit" class="btn btn-primary">Save Family</button>
+                                            </div>
+                                        </div>
 
-
-
+                                </div>
+                                </form>
+                            </div>
                         </div>
+
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
