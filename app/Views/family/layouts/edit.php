@@ -145,6 +145,7 @@
 
                                             <?php if (!empty($members)) : ?>
                                                 <?php foreach ($members as $index => $member): ?>
+
                                                     <div class="member row g-3 mb-3 align-items-end border rounded p-3">
 
                                                         <div class="col-md-2">
@@ -172,7 +173,7 @@
                                                         </div>
 
                                                         <div class="col-md-2">
-                                                            <input type="date" name="members[<?= $index ?>][date_of_birth]" class="form-control dob-input"
+                                                            <input type="date" name="members[<?= $index ?>][date_of_birth]" class="form-control"
                                                                 value="<?= esc($member['date_of_birth']) ?>">
                                                             <small class="text-muted">DOB</small>
                                                         </div>
@@ -185,15 +186,16 @@
                                                             <small class="text-muted">Baptism</small>
                                                         </div>
 
+                                                        <!-- FEAST FIELD (MM-DD) -->
                                                         <div class="col-md-2">
-
-                                                           <input type="date"
+                                                            <input type="text"
                                                                 name="members[<?= $index ?>][feast]"
-                                                                class="form-control"
+                                                                class="form-control feast-input"
+                                                                maxlength="5"
+                                                                placeholder="MM-DD"
                                                                 value="<?= isset($member['feast']) ? esc($member['feast']) : '' ?>">
-                                                            <small class="text-muted">Feast</small>
+                                                            <small class="text-muted">Feast (MM-DD)</small>
                                                         </div>
-
 
                                                         <div class="col-md-1">
                                                             <input type="text" name="members[<?= $index ?>][gender]" class="form-control"
@@ -230,8 +232,10 @@
                                                         </div>
 
                                                     </div>
+
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
+
                                         </div>
 
                                         <button type="button" class="btn btn-primary btn-sm mt-3" onclick="addMember()">+ Add Another Member</button>
@@ -241,93 +245,107 @@
                                         let memberIndex = <?= !empty($members) ? count($members) : 0 ?>;
 
                                         function addMember() {
+
                                             const wrapper = document.getElementById('members-wrapper');
+
                                             const div = document.createElement('div');
                                             div.classList.add('member', 'row', 'g-3', 'mb-3', 'align-items-end', 'border', 'rounded', 'p-3');
 
                                             div.innerHTML = `
-        <div class="col-md-2">
-            <input type="text" name="members[${memberIndex}][full_name]" class="form-control" placeholder="Full Name">
-            <small class="text-muted">Name</small>
-        </div>
 
-        <div class="col-md-2">
-            <select name="members[${memberIndex}][relation_to_head]" class="form-select">
-                <option>Relation</option>
-                <option>Head of Family</option>
-                <option>Father</option>
-                <option>Mother</option>
-                <option>Son</option>
-                <option>Daughter</option>
-                <option>Son-in-law</option>
-                <option>Daughter-in-law</option>
-                <option>Brother</option>
-                <option>Sister</option>
-                <option>Brother-in-law</option>
-                <option>Sister-in-law</option>
-            </select>
-            <small class="text-muted">Relation</small>
-        </div>
+<div class="col-md-2">
+<input type="text" name="members[${memberIndex}][full_name]" class="form-control" placeholder="Full Name">
+<small class="text-muted">Name</small>
+</div>
 
-        <div class="col-md-2">
-            <input type="date" name="members[${memberIndex}][date_of_birth]" class="form-control dob-input">
-            <small class="text-muted">DOB</small>
-        </div>
+<div class="col-md-2">
+<select name="members[${memberIndex}][relation_to_head]" class="form-select">
+<option>Relation</option>
+<option>Head of Family</option>
+<option>Father</option>
+<option>Mother</option>
+<option>Son</option>
+<option>Daughter</option>
+<option>Son-in-law</option>
+<option>Daughter-in-law</option>
+<option>Brother</option>
+<option>Sister</option>
+<option>Brother-in-law</option>
+<option>Sister-in-law</option>
+</select>
+<small class="text-muted">Relation</small>
+</div>
 
-        <div class="col-md-2">
-            <input type="text" name="members[${memberIndex}][baptism_date]" class="form-control baptism-input" maxlength="5" placeholder="MM-DD">
-            <small class="text-muted">Baptism</small>
-        </div>
+<div class="col-md-2">
+<input type="date" name="members[${memberIndex}][date_of_birth]" class="form-control">
+<small class="text-muted">DOB</small>
+</div>
 
-        <div class="col-md-2">
-            <input type="text" name="members[${memberIndex}][feast]" class="form-control feast-input" maxlength="5" placeholder="MM-DD">
-            <small class="text-muted">Feast</small>
-        </div>
+<div class="col-md-2">
+<input type="date" name="members[${memberIndex}][baptism_date]" class="form-control">
+<small class="text-muted">Baptism</small>
+</div>
 
-        <div class="col-md-1">
-            <input type="text" name="members[${memberIndex}][gender]" class="form-control" placeholder="Gender">
-            <small class="text-muted">Gender</small>
-        </div>
+<div class="col-md-2">
+<input type="text" name="members[${memberIndex}][feast]" class="form-control feast-input" placeholder="MM-DD" maxlength="5">
+<small class="text-muted">Feast</small>
+</div>
 
-        <div class="col-md-2">
-            <textarea name="members[${memberIndex}][job]" class="form-control" rows="2" placeholder="Job Details"></textarea>
-            <small class="text-muted">Job</small>
-        </div>
+<div class="col-md-1">
+<input type="text" name="members[${memberIndex}][gender]" class="form-control" placeholder="Gender">
+<small class="text-muted">Gender</small>
+</div>
 
-        <div class="col-md-2">
-            <input type="text" name="members[${memberIndex}][education]" class="form-control" placeholder="Education">
-            <small class="text-muted">Education</small>
-        </div>
+<div class="col-md-2">
+<textarea name="members[${memberIndex}][job]" class="form-control" rows="2" placeholder="Job Details"></textarea>
+<small class="text-muted">Job</small>
+</div>
 
-        <div class="col-md-2">
-            <input type="text" name="members[${memberIndex}][phonenumber]" class="form-control" placeholder="Phone">
-            <small class="text-muted">Phone</small>
-        </div>
+<div class="col-md-2">
+<input type="text" name="members[${memberIndex}][education]" class="form-control" placeholder="Education">
+<small class="text-muted">Education</small>
+</div>
 
-        <div class="col-md-2">
-            <input type="text" name="members[${memberIndex}][current_status]" class="form-control" placeholder="Status">
-            <small class="text-muted">Status</small>
-        </div>
+<div class="col-md-2">
+<input type="text" name="members[${memberIndex}][phonenumber]" class="form-control" placeholder="Phone">
+<small class="text-muted">Phone</small>
+</div>
 
-        <div class="col-md-1 d-flex align-items-end">
-            <button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">✖</button>
-        </div>
-    `;
+<div class="col-md-2">
+<input type="text" name="members[${memberIndex}][current_status]" class="form-control" placeholder="Status">
+<small class="text-muted">Status</small>
+</div>
+
+<div class="col-md-1 d-flex align-items-end">
+<button type="button" class="btn btn-danger btn-sm" onclick="removeMember(this)">✖</button>
+</div>
+
+`;
+
                                             wrapper.appendChild(div);
                                             memberIndex++;
+
                                         }
 
                                         function removeMember(button) {
                                             button.closest('.member').remove();
                                         }
 
-                                        // Auto-format MM-DD inputs
+                                        /* FEAST AUTO FORMAT */
                                         document.addEventListener('input', function(e) {
-                                            if (e.target.classList.contains('baptism-input') || e.target.classList.contains('feast-input')) {
-                                                let val = e.target.value.replace(/\D/g, ''); // digits only
-                                                if (val.length >= 2) val = val.slice(0, 2) + '-' + val.slice(2, 4);
+
+                                            if (e.target.classList.contains('feast-input')) {
+
+                                                let val = e.target.value.replace(/\D/g, '');
+
+                                                if (val.length > 2) {
+                                                    val = val.slice(0, 2) + '-' + val.slice(2, 4);
+                                                }
+
                                                 e.target.value = val.slice(0, 5);
+
                                             }
+
                                         });
                                     </script>
                                     <!-- Submit -->
