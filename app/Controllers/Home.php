@@ -149,12 +149,21 @@ class Home extends BaseController
             ->where("MONTH(date_of_birth)", $currentMonth)
             ->orderBy("DAY(date_of_birth)", "ASC")
             ->findAll();
-        $userEmail = session()->get('user_email'); // get logged-in user's email
+        // $userEmail = session()->get('user_email'); // get logged-in user's email
 
-        $userFamilies = $familyModel
-            ->select('family_id, family_name, head_of_family, photo')
-            ->where('family_email', $userEmail)
-            ->first();;
+        // $userFamilies = $familyModel
+        //     ->select('family_id, family_name, head_of_family, photo')
+        //     ->where('family_email', $userEmail)
+        //     ->first();;
+
+        $userPhone = session()->get('user_phone');
+        $userFamilies = null;
+        if (!empty($userPhone)) {
+            $userFamilies = $familyModel
+                ->select('family_id, family_name, head_of_family, photo')
+                ->where('contact_number', $userPhone)
+                ->first();
+        }
 
         return view('dashboard', [
             'totalFamilies'      => $totalFamilies,
@@ -184,10 +193,14 @@ class Home extends BaseController
             $families = $familyModel->findAll();
         }
         $userEmail = session()->get('user_email'); //
-        $userFamilies = $familyModel
-            ->select('family_id, family_name, head_of_family, photo')
-            ->where('family_email', $userEmail)
-            ->first();;
+        $userPhone = session()->get('user_phone');
+        $userFamilies = null;
+        if (!empty($userPhone)) {
+            $userFamilies = $familyModel
+                ->select('family_id, family_name, head_of_family, photo')
+                ->where('contact_number', $userPhone)
+                ->first();
+        }
 
         $data = [
             'totalFamilies' => $familyModel->countAll(),
@@ -234,11 +247,14 @@ class Home extends BaseController
             ->groupBy('groups.group_id')
             ->findAll();
         $userEmail = session()->get('user_email'); // get logged-in user's email
-
-        $userFamilies = $familyModel
-            ->select('family_id, family_name, head_of_family, photo')
-            ->where('family_email', $userEmail)
-            ->first();;
+        $userPhone = session()->get('user_phone');
+        $userFamilies = null;
+        if (!empty($userPhone)) {
+            $userFamilies = $familyModel
+                ->select('family_id, family_name, head_of_family, photo')
+                ->where('contact_number', $userPhone)
+                ->first();
+        }
         return view('group', [
             'totalFamilies'    => $totalFamilies,
             'totalMembers'     => $totalMembers,
@@ -512,10 +528,14 @@ class Home extends BaseController
             ->where('families.family_email', $user['email'])
             ->findAll();
         $userEmail = session()->get('user_email'); //
-        $userFamilies = $familyModel
-            ->select('family_id, family_name, head_of_family, photo')
-            ->where('family_email', $userEmail)
-            ->first();;
+        $userPhone = session()->get('user_phone');
+        $userFamilies = null;
+        if (!empty($userPhone)) {
+            $userFamilies = $familyModel
+                ->select('family_id, family_name, head_of_family, photo')
+                ->where('contact_number', $userPhone)
+                ->first();
+        }
         return view('certificate', [
             'totalFamilies'    => $totalFamilies,
             'certificates' => $certificates,

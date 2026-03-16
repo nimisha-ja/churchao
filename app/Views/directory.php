@@ -9,31 +9,19 @@
 							<div class="banner-content">
 								<div class="banner-media">
 									<div class="item-profile-img">
-										<?php if (!empty($userFamilies)): ?>
-											<?php $firstFamily = $userFamilies; ?>
-											<img src="<?= base_url('uploads/family/' . $firstFamily['photo']); ?>"
-												alt="<?= esc($firstFamily['family_name']); ?>"
-												width="80" height="80">
-										<?php else: ?>
-											<img src="<?= base_url('public/layout/images/left-imgs/img-3.jpg'); ?>"
-												alt="User-Avatar"
-												width="80" height="80">
-										<?php endif; ?>
+										<?php
+										$photoPath = base_url('public/layout/images/left-imgs/img-3.jpg'); // default image
+
+										if (!empty($userFamilies) && !empty($userFamilies['photo'])) {
+											$photoPath = base_url('uploads/family/' . $userFamilies['photo']);
+										}
+										?>
+
+										<img src="<?= $photoPath ?>" alt="User-Avatar" width="80" height="80">
 									</div>
 									<div class="banner-media-body">
-										<?php if (session()->get('isuserLoggedIn')): ?>
-											<h3 class="item-user-title"><?= ucfirst(session()->get('user_name')); ?></h3>
-											<div class="item-username">
-												<?= ucfirst(session()->get('user_role') ?? 'User'); ?>
-											</div>
-										<?php elseif (!empty($userFamilies)): ?>
-											<?php $firstFamily = $userFamilies[0]; ?>
-											<h3 class="item-user-title"><?= esc($firstFamily['head_of_family']); ?></h3>
-											<div class="item-username">@<?= esc($firstFamily['family_name']); ?></div>
-										<?php else: ?>
-											<h3 class="item-user-title"></h3>
-											<div class="item-username"></div>
-										<?php endif; ?>
+										 <h3 class="item-user-title"><?= $userFamilies['head_of_family'] ?? 'N/A' ?></h3>
+                                        <div class="item-username">@<?= $userFamilies['family_name'] ?? 'unknown' ?></div>
 										<ul class="user-meta-btns">
 											<li class="mt-2">
 												<a href="<?= base_url('donate'); ?>" class="profile-edit-btn btn-hover">

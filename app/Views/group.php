@@ -10,12 +10,20 @@
 							<div class="banner-content">
 								<div class="banner-media">
 									<div class="item-profile-img">
-										<img src="<?= base_url('uploads/family/' . $userFamilies['photo']) ?>" alt="User-Avatar" width="80" height="80">
+										<?php
+										$photoPath = base_url('public/layout/images/left-imgs/img-3.jpg'); // default image
+
+										if (!empty($userFamilies) && !empty($userFamilies['photo'])) {
+											$photoPath = base_url('uploads/family/' . $userFamilies['photo']);
+										}
+										?>
+
+										<img src="<?= $photoPath ?>" alt="User-Avatar" width="80" height="80">
 									</div>
 									<div class="banner-media-body">
-										<h3 class="item-user-title"><?php echo $userFamilies['head_of_family']; ?></h3>
-										<div class="item-username">@<?php echo $userFamilies['family_name']; ?></div>
-									
+										<h3 class="item-user-title"><?= $userFamilies['head_of_family'] ?? 'N/A' ?></h3>
+										<div class="item-username">@<?= $userFamilies['family_name'] ?? 'unknown' ?></div>
+
 										<!-- <div class="profile-rating-section">
 												<div class="profile-rating">
 													<p>Rating :</p>
