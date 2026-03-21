@@ -258,6 +258,7 @@ class FamilyController extends Controller
                     'phonenumber'      => $member['phone'],
                     'current_status'   => $member['current_status'],
                     'baptism_date'   => $member['baptism_date'],
+                    'baptism_name'   => $member['baptism_name'],
                     'feast'   => $member['feast']
                 ];
                 $familyMemberModel->insert($memberData);

@@ -8,7 +8,7 @@ class FamilyMemberModel extends Model
     protected $primaryKey = 'member_id';
     protected $allowedFields = [
         'family_id', 'full_name', 'relation_to_head', 'date_of_birth',
-        'gender', 'job', 'education', 'phonenumber','current_status','baptism_date','feast'
+        'gender', 'job', 'education', 'phonenumber','current_status','baptism_date','baptism_name','feast'
     ];
     protected $useTimestamps = false;
 }
