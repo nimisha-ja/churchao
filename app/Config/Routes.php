@@ -21,6 +21,7 @@ $routes->get('history', 'Home::history');
 $routes->get('directory', 'Home::directory');
 
 $routes->get('terms', 'Home::terms');
+$routes->get('privacy-policy', 'Home::privacy');
 
 $routes->get('sitedashboard', 'Home::dashboard');
 $routes->post('donation/save', 'Home::saveDonation');

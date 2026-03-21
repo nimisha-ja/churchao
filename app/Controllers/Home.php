@@ -184,6 +184,11 @@ class Home extends BaseController
 
         return view('terms');
     }
+    public function privacy()
+    {
+
+        return view('privacy');
+    }
     public function directory()
     {
         $familyModel = new \App\Models\FamilyModel();

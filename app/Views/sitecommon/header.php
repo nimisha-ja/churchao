@@ -1,39 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, shrink-to-fit=9">
-		<meta name="description" content="Gambolthemes">
-		<meta name="author" content="Gambolthemes">		
-		<title>St. Alphonsa Church - Groups</title>
-		
-		<!-- Favicon Icon -->
-		<link rel="icon" type="image/png" href="images/fav.png">
-		
-		<!-- Stylesheets -->
-		<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
-		<link href="<?= base_url('public/layout/'); ?>css/style.css" rel="stylesheet">
-		<link href="<?= base_url('public/layout/'); ?>css/responsive.css" rel="stylesheet">
-		<link href="<?= base_url('public/layout/'); ?>css/night-mode.css" rel="stylesheet">
-		
-		<!-- Vendor Stylesheets -->
-		<link href="<?= base_url('public/layout/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-		<link href="<?= base_url('public/layout/'); ?>vendor/feather-icons/feather.css" rel="stylesheet">
-		<link href='<?= base_url('public/layout/'); ?>vendor/unicons-2.0.1/css/unicons.css' rel='stylesheet'>
-		<link href="<?= base_url('public/layout/'); ?>vendor/OwlCarousel/assets/owl.carousel.css" rel="stylesheet">
-		<link href="<?= base_url('public/layout/'); ?>vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet">
-		<link href="<?= base_url('public/layout/'); ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, shrink-to-fit=9">
+	<meta name="description" content="Gambolthemes">
+	<meta name="author" content="Gambolthemes">
+	<title>St. Alphonsa Church - Groups</title>
+
+	<!-- Favicon Icon -->
+	<link rel="icon" type="image/png" href="images/fav.png">
+
+	<!-- Stylesheets -->
+	<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
+	<link href="<?= base_url('public/layout/'); ?>css/style.css" rel="stylesheet">
+	<link href="<?= base_url('public/layout/'); ?>css/responsive.css" rel="stylesheet">
+	<link href="<?= base_url('public/layout/'); ?>css/night-mode.css" rel="stylesheet">
+
+	<!-- Vendor Stylesheets -->
+	<link href="<?= base_url('public/layout/'); ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+	<link href="<?= base_url('public/layout/'); ?>vendor/feather-icons/feather.css" rel="stylesheet">
+	<link href='<?= base_url('public/layout/'); ?>vendor/unicons-2.0.1/css/unicons.css' rel='stylesheet'>
+	<link href="<?= base_url('public/layout/'); ?>vendor/OwlCarousel/assets/owl.carousel.css" rel="stylesheet">
+	<link href="<?= base_url('public/layout/'); ?>vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet">
+	<link href="<?= base_url('public/layout/'); ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
 
 <body>
-<header class="header clearfix">
+	<header class="header clearfix">
 		<div class="header-inner">
 			<nav class="navbar navbar-expand-lg bg-micko micko-head justify-content-sm-start micko-top pt-0 pb-0 px-2 px-lg-4">
-				<div class="container">	
+				<div class="container">
 					<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
 						<span class="micko-toggler-icon">
 							<i class="feather-menu"></i>
@@ -97,7 +96,7 @@
 										Parish Bulletin
 									</a>
 								</li>
-								<li class="nav-item">
+								<!-- <li class="nav-item">
 									<a class="nav-link" href="<?= base_url('/terms'); ?>">
 										<span class="nav-icon  d-lg-none">
 											<i class="feather-users"></i>
@@ -105,6 +104,14 @@
 										Terms & Conditions
 									</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="<?= base_url('/privacy-policy'); ?>">
+										<span class="nav-icon  d-lg-none">
+											<i class="feather-users"></i>
+										</span>
+										Privacy Policy
+									</a>
+								</li> -->
 								<li class="nav-item">
 									<a class="nav-link" href="<?= base_url(''); ?>">
 										<span class="nav-icon  d-lg-none">
@@ -147,7 +154,7 @@
 												</span>
 											</a>
 										</div>
-										<a href="<?= base_url('/'); ?>" class="item ac_item channel_item mt-2"><i class="feather-align-right"></i>Profile Timeline</a>										
+										<a href="<?= base_url('/'); ?>" class="item ac_item channel_item mt-2"><i class="feather-align-right"></i>Profile Timeline</a>
 									</li>
 									<li class="dropdown-menu-footer">
 										<a class="dropdown-item-link text-link text-center" href="<?= base_url('/userlogout'); ?>">Logout</a>

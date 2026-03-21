@@ -1,5 +1,5 @@
 <footer class="footer">
-		<!-- <div class="container">
+	<!-- <div class="container">
 			<div class="row">
 				<div class="col-md-3 col-6">
 					<div class="footer-items">
@@ -63,30 +63,49 @@
 				</div>				
 			</div>
 		</div> -->
-		<div class="footer-bottom-items">	
-			<div class="container">
-				<div class="col-md-12">				
-					<div class="footer-bottom-links">
-						<div class="footer-logo">
-							<a href="index.html"><p style="font-weight: 800;text-transform: uppercase;">St. Alphonsa Church Valiyakolly</p></a>
-						</div>
-						<div class="micko-copyright">
-							<p><i class="fas fa-copyright"></i>Copyright 2026, Developed by <a href="https://ephphathasoftech.com/" target="_blank">Ephphatha Softech</a>. All Right Reserved.</p>
-						</div>
+	<div class="footer-bottom-items">
+		<div class="container">
+			<div class="col-md-12">
+				<div class="footer-bottom-links">
+					<div class="footer-logo">
+						<a href="index.html">
+							<p style="font-weight: 800;text-transform: uppercase;">St. Alphonsa Church Valiyakolly</p>
+						</a>
+					</div>
+					<div class="micko-copyright">
+						<p><i class="fas fa-copyright"></i>Copyright 2026, Developed by <a href="https://ephphathasoftech.com/" target="_blank">Ephphatha Softech</a>. All Right Reserved.</p>
+					</div>
+
+
+					<div><a  href="<?= base_url('/terms'); ?>">
+							<span class="nav-icon  d-lg-none">
+								<i class="feather-users"></i>
+							</span>
+							Terms & Conditions
+						</a>
+
+						<a  href="<?= base_url('/privacy-policy'); ?>">
+							<span class="nav-icon  d-lg-none">
+								<i class="feather-users"></i>
+							</span>
+							Privacy Policy
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</footer>
-	<!-- Footer End -->
+	</div>
+</footer>
+<!-- Footer End -->
 
-	<!-- Javascripts -->
-	<script src="<?= base_url('public/layout/'); ?>js/jquery.min.js"></script>
-	<script src="<?= base_url('public/layout/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="<?= base_url('public/layout/'); ?>vendor/OwlCarousel/owl.carousel.js"></script>
-	<script src="<?= base_url('public/layout/'); ?>js/custom.js"></script>
-	<script src="<?= base_url('public/layout/'); ?>js/night-mode.js"></script>
+<!-- Javascripts -->
+<script src="<?= base_url('public/layout/'); ?>js/jquery.min.js"></script>
+<script src="<?= base_url('public/layout/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="<?= base_url('public/layout/'); ?>vendor/OwlCarousel/owl.carousel.js"></script>
+<script src="<?= base_url('public/layout/'); ?>js/custom.js"></script>
+<script src="<?= base_url('public/layout/'); ?>js/night-mode.js"></script>
 
-	
+
 </body>
+
 </html>
