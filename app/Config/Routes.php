@@ -19,6 +19,9 @@ $routes->post('addgroup', 'Home::addGroup');
 
 $routes->get('history', 'Home::history');
 $routes->get('directory', 'Home::directory');
+
+$routes->get('terms', 'Home::terms');
+
 $routes->get('sitedashboard', 'Home::dashboard');
 $routes->post('donation/save', 'Home::saveDonation');
 

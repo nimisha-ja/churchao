@@ -98,6 +98,14 @@
 									</a>
 								</li>
 								<li class="nav-item">
+									<a class="nav-link" href="<?= base_url('/terms'); ?>">
+										<span class="nav-icon  d-lg-none">
+											<i class="feather-users"></i>
+										</span>
+										Terms & Conditions
+									</a>
+								</li>
+								<li class="nav-item">
 									<a class="nav-link" href="<?= base_url(''); ?>">
 										<span class="nav-icon  d-lg-none">
 											<i class="feather-users"></i>

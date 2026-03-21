@@ -178,6 +178,12 @@ class Home extends BaseController
             'userFamilies'       => $userFamilies,
         ]);
     }
+
+    public function terms()
+    {
+
+        return view('terms');
+    }
     public function directory()
     {
         $familyModel = new \App\Models\FamilyModel();
