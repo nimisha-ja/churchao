@@ -348,8 +348,8 @@ class FamilyController extends Controller
 
         $data = $this->request->getPost();
 
-        // Convert empty email to placeholder
-        $email = !empty($data['family_email']) ? $data['family_email'] : 'user_' . $id . '@placeholder.local';
+        // Convert empty email to placeholder-user_' . $id . '@placeholder.local
+        $email = !empty($data['family_email']) ? $data['family_email'] : '';
         $contact = $data['contact_number'];
 
         // Check if contact number exists for another user
