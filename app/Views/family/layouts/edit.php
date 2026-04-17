@@ -47,7 +47,7 @@
 
                 <div class="col-md-6">
                     <label>Password</label>
-                    <input type="text" name="password" class="form-control" placeholder="Leave blank to keep old password">
+                    <input type="text" name="password" class="form-control" value="<?= esc($family['password']) ?>" >
                 </div>
 
                 <div class="col-md-6">

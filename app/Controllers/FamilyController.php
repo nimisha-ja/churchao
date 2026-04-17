@@ -232,15 +232,21 @@ class FamilyController extends Controller
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
 
-            try {
-                $userModel->insert($userdata);
-            } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
-                if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
-                    log_message('error', 'User email duplicate skipped: ' . $email);
-                } else {
-                    throw $e;
-                }
+            if (!$userModel->insert($userdata)) {
+                echo "<pre>";
+                print_r($userModel->errors());
+                die(); // stop execution
             }
+
+            // try {
+            //     $userModel->insert($userdata);
+            // } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+            //     if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+            //         log_message('error', 'User email duplicate skipped: ' . $email);
+            //     } else {
+            //         throw $e;
+            //     }
+            // }
         }
 
         // Insert family members
