@@ -759,4 +759,118 @@ class Home extends BaseController
         session()->setFlashdata('success', 'Family details updated successfully.');
         return redirect()->to('/edit-family');
     }
+
+    public function pay()
+    {
+        $api_key = "fb6bca86-b429-4abf-a42f-824bdd29022e";
+        $salt    = "80c67bfdf027da08de88ab5ba903fecafaab8f6d";
+        // $api_key = "YOUR_API_KEY";
+        // $salt    = "YOUR_SALT";
+
+        $order_id = uniqid('ORD_');
+        $amount = "100.00";
+        $currency = "INR";
+
+        $description = "Test Product";
+        $name = "Rohith Test";
+        $email = "rsn7rohith@gmail.com";
+        $phone = "9999999999";
+
+        $return_url = "http://localhost/churchapp/payment/success";
+
+        $city = "Alleppey";
+        $country = "India";
+        $state = "Kerala";
+        $zip_code = "685608";
+
+        $payment_options = "cc,nb,upi,dp";
+
+        /**
+         * ✅ SPLIT INFO (DO NOT escape manually)
+         */
+        $split_info = [
+            "vendors" => [
+                [
+                    "vendor_code" => "VD1234561",
+                    "split_amount_fixed" => "2"
+                ]
+            ]
+        ];
+
+        $split_info_json = json_encode($split_info, JSON_UNESCAPED_SLASHES);
+
+        /**
+         * ❗ IMPORTANT:
+         * For PAYMENT REQUEST API, keep ONLY fields required by gateway spec.
+         * (Do NOT include amount/city/name unless docs explicitly say so)
+         *
+         * If your gateway REALLY uses full-payment hash, use exact order they provide.
+         */
+        $hashString =
+            $salt . "|" .
+            $amount . "|" .
+            $api_key . "|" .
+            $city . "|" .
+            $country . "|" .
+            $currency . "|" .
+            $description . "|" .
+            $email . "|" .
+            $name . "|" .
+            $order_id . "|" .
+            $phone . "|" .
+            $return_url . "|" .
+            $split_info_json . "|" .
+            $zip_code;
+
+        /**
+         * ✅ FINAL HASH
+         */
+        $hash = hash('sha512', $hashString);
+
+        /**
+         * REQUEST DATA
+         */
+        $data = [
+            'action' => "https://pgbiz.Omniware.in/v2/paymentrequest",
+
+            'api_key' => $api_key,
+            'order_id' => $order_id,
+            'amount' => $amount,
+            'currency' => $currency,
+            'description' => $description,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'return_url' => $return_url,
+
+            'city' => $city,
+            'state' => $state,
+            'country' => $country,
+            'zip_code' => $zip_code,
+
+            'split_info' => $split_info_json,
+            'payment_options' => $payment_options,
+
+            'hash' => strtoupper($hash),
+        ];
+        return view('payment_form', $data);
+    }
+
+    public function success()
+    {
+        $post = $this->request->getPost();
+
+        echo "<h2>SUCCESS</h2><pre>";
+        print_r($post);
+
+        // 🔐 You MUST verify hash here (next step)
+    }
+
+    public function failure()
+    {
+        $post = $this->request->getPost();
+
+        echo "<h2>FAILED</h2><pre>";
+        print_r($post);
+    }
 }

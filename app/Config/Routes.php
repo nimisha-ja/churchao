@@ -148,3 +148,7 @@ $routes->get('groups/delete/(:num)', 'FamilyController::deleteGroup/$1');
 
 $routes->get('groups/view/(:num)', 'FamilyController::viewGroup/$1');
 $routes->post('groups/post/(:num)', 'FamilyController::addPost/$1');
+
+$routes->get('payment/pay', 'Home::pay');
+$routes->post('payment/success', 'Home::success');
+$routes->post('payment/failure', 'Home::failure');
