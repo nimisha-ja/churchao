@@ -43,7 +43,7 @@
 
 <div class="card">
 
-    <?php if ($status == 'paid'): ?>
+    <?php if ($status == 'Transaction successful'): ?>
         <h2 class="success">✅ Payment Successful</h2>
     <?php else: ?>
         <h2 class="failed">❌ Payment Failed</h2>

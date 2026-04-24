@@ -198,3 +198,79 @@ ERROR - 2026-04-24 16:42:30 --> HASH STRING: 80c67bfdf027da08de88ab5ba903fecafaa
 ERROR - 2026-04-24 16:42:30 --> HASH: CF24B202E69B721C6C53CF9DC854239758D468DFC7C849FBDFB220EF59E4AA71F51B371449AC90023A10C82A02E3209099F6B8378D1ABC1DD5B027A800350927
 ERROR - 2026-04-24 16:42:46 --> PAYMENT RESPONSE: {"order_id":"ORD_69eb9d76e8e97","amount":"20000.00","currency":"INR","description":"Donation - albin","name":"Albin","email":"test@email.com","phone":"9645425184","address_line_1":"","address_line_2":"","city":"Kozhikode","state":"","country":"India","zip_code":"673580","udf1":"","udf2":"","udf3":"","udf4":"","udf5":"","transaction_id":"FGVISC049228EBB6F","payment_mode":"Credit Card","payment_channel":"Visa","payment_datetime":"2026-04-24 22:12:43","response_code":"1000","response_message":"Transaction failed","error_desc":"Transaction failed","cardmasked":"1111","hash":"BD849A51F99B6895F341A643776B5F52E675481FBF93724F0F2E971CFF7A2003F317BDB58874C656F62EE7F775843B15333BDA1F4AA1409F08D9B6EF7869E650"}
 ERROR - 2026-04-24 16:42:46 --> ORDER_ID RECEIVED: ORD_69eb9d76e8e97
+ERROR - 2026-04-24 16:50:49 --> mysqli_sql_exception: Duplicate entry '' for key 'unique_family_email' in C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `familie...', 0)
+#1 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `familie...')
+#2 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `familie...')
+#3 C:\xampp\htdocs\churchapp\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `familie...', Array, false)
+#4 C:\xampp\htdocs\churchapp\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\churchapp\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\churchapp\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\churchapp\app\Controllers\FamilyController.php(388): CodeIgniter\Model->update('51', Array)
+#8 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(933): App\Controllers\FamilyController->update('51')
+#9 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\FamilyController))
+#10 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\churchapp\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\churchapp\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\churchapp\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-04-24 16:51:01 --> mysqli_sql_exception: Duplicate entry '' for key 'unique_family_email' in C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `familie...', 0)
+#1 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `familie...')
+#2 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `familie...')
+#3 C:\xampp\htdocs\churchapp\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `familie...', Array, false)
+#4 C:\xampp\htdocs\churchapp\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\churchapp\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\churchapp\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\churchapp\app\Controllers\FamilyController.php(388): CodeIgniter\Model->update('51', Array)
+#8 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(933): App\Controllers\FamilyController->update('51')
+#9 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\FamilyController))
+#10 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\churchapp\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\churchapp\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\churchapp\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-04-24 16:51:23 --> mysqli_sql_exception: Duplicate entry '' for key 'unique_family_email' in C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `familie...', 0)
+#1 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `familie...')
+#2 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `familie...')
+#3 C:\xampp\htdocs\churchapp\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `familie...', Array, false)
+#4 C:\xampp\htdocs\churchapp\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\churchapp\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\churchapp\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\churchapp\app\Controllers\FamilyController.php(388): CodeIgniter\Model->update('51', Array)
+#8 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(933): App\Controllers\FamilyController->update('51')
+#9 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\FamilyController))
+#10 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\churchapp\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\churchapp\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\churchapp\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-04-24 16:51:36 --> mysqli_sql_exception: Duplicate entry '' for key 'unique_family_email' in C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\churchapp\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `familie...', 0)
+#1 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `familie...')
+#2 C:\xampp\htdocs\churchapp\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `familie...')
+#3 C:\xampp\htdocs\churchapp\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `familie...', Array, false)
+#4 C:\xampp\htdocs\churchapp\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\churchapp\system\BaseModel.php(1027): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\churchapp\system\Model.php(863): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\churchapp\app\Controllers\FamilyController.php(388): CodeIgniter\Model->update('51', Array)
+#8 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(933): App\Controllers\FamilyController->update('51')
+#9 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\FamilyController))
+#10 C:\xampp\htdocs\churchapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\churchapp\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\churchapp\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\churchapp\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2026-04-24 16:51:54 --> HASH STRING: 80c67bfdf027da08de88ab5ba903fecafaab8f6d|15.00|fb6bca86-b429-4abf-a42f-824bdd29022e|Kozhikode|India|INR|Donation - test|test@email.com|nimisha|ORD_69eb9faaa7684|298391283|http://localhost/churchapp/payment/success|673580
+ERROR - 2026-04-24 16:51:54 --> HASH: 6FC82BE3D9DB10EB7C182AB84DD33D4ED8CA89197C2BE203E24FA5955BE67745FFD49AAF9F02E34583E122E3725A2CB4C0B110D07EBC89D38810F63CC5F340F1
+ERROR - 2026-04-24 16:52:01 --> HASH STRING: 80c67bfdf027da08de88ab5ba903fecafaab8f6d|2.00|fb6bca86-b429-4abf-a42f-824bdd29022e|Kozhikode|India|INR|Donation - test|test@email.com|nimisha|ORD_69eb9fb146d70|298391283|http://localhost/churchapp/payment/success|673580
+ERROR - 2026-04-24 16:52:01 --> HASH: 8548FB2538540A2244E2AAA5660637B9A6EA60E10042223B0B6EB24D49421C2C2CEF0A8E53279667D444B75BA58986F80B35BC7CF04146C2D920C08ED7211D9F
+ERROR - 2026-04-24 16:52:42 --> PAYMENT RESPONSE: {"order_id":"ORD_69eb9fb146d70","amount":"2.00","currency":"INR","description":"Donation - test","name":"nimisha","email":"test@email.com","phone":"298391283","address_line_1":"","address_line_2":"","city":"Kozhikode","state":"","country":"India","zip_code":"673580","udf1":"","udf2":"","udf3":"","udf4":"","udf5":"","transaction_id":"FEUPIQ6BAC8D4BB03","payment_mode":"UPI","payment_channel":"Unified Payments Interface QR","payment_datetime":"2026-04-24 22:22:20","response_code":"0","response_message":"Transaction successful","error_desc":"","cardmasked":"","hash":"456BDEE37D16A9565014148BCF3E42865C8DDC9F3C480DD975E253AC02D982B8B394BC7D57284D40C7CEDEA11C0B1585B23A9969AABEA0A0A12F41AB7D35A4F4"}
+ERROR - 2026-04-24 16:52:42 --> ORDER_ID RECEIVED: ORD_69eb9fb146d70
+ERROR - 2026-04-24 16:55:30 --> PAYMENT RESPONSE: {"order_id":"ORD_69eb9fb146d70","amount":"2.00","currency":"INR","description":"Donation - test","name":"nimisha","email":"test@email.com","phone":"298391283","address_line_1":"","address_line_2":"","city":"Kozhikode","state":"","country":"India","zip_code":"673580","udf1":"","udf2":"","udf3":"","udf4":"","udf5":"","transaction_id":"FEUPIQ6BAC8D4BB03","payment_mode":"UPI","payment_channel":"Unified Payments Interface QR","payment_datetime":"2026-04-24 22:22:20","response_code":"0","response_message":"Transaction successful","error_desc":"","cardmasked":"","hash":"456BDEE37D16A9565014148BCF3E42865C8DDC9F3C480DD975E253AC02D982B8B394BC7D57284D40C7CEDEA11C0B1585B23A9969AABEA0A0A12F41AB7D35A4F4"}
+ERROR - 2026-04-24 16:55:30 --> ORDER_ID RECEIVED: ORD_69eb9fb146d70
