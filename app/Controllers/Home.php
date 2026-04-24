@@ -475,22 +475,24 @@ class Home extends BaseController
             'purposes' => $purposes
         ]);
     }
-    public function saveDonation()
-    {
-        $donationModel = new \App\Models\DonationModel();
+    // public function saveDonation()
+    // {
+    //     $donationModel = new \App\Models\DonationModel();
 
-        $data = [
-            'family_id'     => $this->request->getPost('family_id'),
-            'purpose_id'    => $this->request->getPost('purpose_id'),
-            'amount'        => $this->request->getPost('amount'),
-            'donation_date' => $this->request->getPost('donation_date'),
-            'notes'         => $this->request->getPost('notes'),
-        ];
+    //     $data = [
+    //         'family_id'     => $this->request->getPost('family_id'),
+    //         'purpose_id'    => $this->request->getPost('purpose_id'),
+    //         'amount'        => $this->request->getPost('amount'),
+    //         'donation_date' => $this->request->getPost('donation_date'),
+    //         'notes'         => $this->request->getPost('notes'),
+    //     ];
 
-        $donationModel->insert($data);
+    //     $donationModel->insert($data);
 
-        return redirect()->back()->with('success', 'Donation Saved Successfully');
-    }
+    //     return redirect()->back()->with('success', 'Donation Saved Successfully');
+    // }
+
+
     public function history()
     {
         return view('history');
@@ -760,6 +762,150 @@ class Home extends BaseController
         return redirect()->to('/edit-family');
     }
 
+
+    public function saveDonation()
+    {
+        $data = [
+            'family_id'     => $this->request->getPost('family_id'),
+            'purpose_id'    => $this->request->getPost('purpose_id'),
+            'amount'        => $this->request->getPost('amount'),
+            'donation_date' => $this->request->getPost('donation_date'),
+            'notes'         => $this->request->getPost('notes'),
+        ];
+
+        // Validate
+        if ($data['amount'] <= 0) {
+            return redirect()->back()->with('error', 'Invalid amount');
+        }
+
+        // Store temporarily
+        session()->set('donation_form', $data);
+
+        // Redirect to payment
+        return redirect()->to(base_url('donation/pay'));
+    }
+
+    public function payDonation()
+    {
+        $formData = session()->get('donation_form');
+        $order_id = uniqid('ORD_');
+
+        // store form data using order_id
+        $paymentModel = new \App\Models\PaymentTempModel();
+
+        $paymentModel->insert([
+            'order_id' => $order_id,
+            'data' => json_encode($formData)
+        ]);
+        if (!$formData) {
+            return redirect()->to('/');
+        }
+
+        $familyModel = new \App\Models\FamilyModel();
+        $family = $familyModel->find($formData['family_id']);
+
+        if (!$family) {
+            return redirect()->to('/')->with('error', 'Family not found');
+        }
+
+        $api_key = "fb6bca86-b429-4abf-a42f-824bdd29022e";
+        $salt    = "80c67bfdf027da08de88ab5ba903fecafaab8f6d";
+
+       
+        // ✅ FORMAT VALUES PROPERLY
+        $amount   = number_format($formData['amount'], 2, '.', '');
+        $currency = "INR";
+
+        $city     = "Kozhikode";
+        $state    = "Kerala";
+        $country  = "India";
+        $zip_code = "673580";
+
+        // ✅ FAMILY DATA (trim to avoid hash mismatch)
+        $name  = trim($family['head_of_family']);
+        $email = trim($family['family_email'] ?? '');
+        $phone = trim($family['contact_number'] ?? '');
+
+        // fallback (optional)
+        if (empty($email)) $email = "test@email.com";
+        if (empty($phone)) $phone = "9999999999";
+
+        $description = "Donation - " . $family['family_name'];
+
+        $return_url = base_url('payment/success');
+
+        /**
+         * ⚠️ SPLIT INFO
+         * If vendor NOT approved → keep empty string
+         */
+        $split_info_json = "";
+
+    /*
+    // ✅ USE THIS ONLY AFTER VENDOR APPROVED
+    $split_info = [
+        "vendors" => [
+            [
+                "vendor_code" => "VD1234561",
+                "split_amount_fixed" => "2.00"
+            ]
+        ]
+    ];
+    $split_info_json = json_encode($split_info, JSON_UNESCAPED_SLASHES);
+    */
+
+        /**
+         * ✅ CORRECT HASH STRING (FULL FORMAT)
+         */
+        $hashString =
+            $salt . "|" .
+            $amount . "|" .
+            $api_key . "|" .
+            $city . "|" .
+            $country . "|" .
+            $currency . "|" .
+            $description . "|" .
+            $email . "|" .
+            $name . "|" .
+            $order_id . "|" .
+            $phone . "|" .
+            $return_url . "|" .
+            $zip_code;
+        // 🔐 FINAL HASH
+        $hash = strtoupper(hash('sha512', $hashString));
+
+        /**
+         * ✅ REQUEST DATA (MUST MATCH HASH)
+         */
+        $data = [
+            'action' => "https://pgbiz.Omniware.in/v2/paymentrequest",
+
+            'api_key' => $api_key,
+            'order_id' => $order_id,
+            'amount' => $amount,
+            'currency' => $currency,
+            'description' => $description,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'return_url' => $return_url,
+
+            'city' => $city,
+            'state' => $state,
+            'country' => $country,
+            'zip_code' => $zip_code,
+
+            'split_info' => $split_info_json,
+
+            'hash' => $hash,
+        ];
+
+        // ✅ DEBUG (VERY IMPORTANT)
+        log_message('error', 'HASH STRING: ' . $hashString);
+        log_message('error', 'HASH: ' . $hash);
+
+        return view('payment_form', $data);
+    }
+
     public function pay()
     {
         $api_key = "fb6bca86-b429-4abf-a42f-824bdd29022e";
@@ -856,15 +1002,69 @@ class Home extends BaseController
         return view('payment_form', $data);
     }
 
+
     public function success()
     {
-        $post = $this->request->getPost();
+        $response = $this->request->getPost();
+        print_r($response);
+        //exit;
+        // 🔍 LOG FULL RESPONSE (VERY IMPORTANT)
+        log_message('error', 'PAYMENT RESPONSE: ' . json_encode($response));
 
-        echo "<h2>SUCCESS</h2><pre>";
-        print_r($post);
+        // ✅ Try all possible keys
+        $order_id =
+            $response['order_id'] ??
+            $response['orderId'] ??
+            $response['orderid'] ??
+            $response['txnid'] ??   // ⚠️ VERY COMMON
+            null;
+        $order_id = $response['order_id'] ?? null;
 
-        // 🔐 You MUST verify hash here (next step)
+        log_message('error', 'ORDER_ID RECEIVED: ' . $order_id);
+        if (!$order_id) {
+            return "Order ID not received from gateway";
+        }
+
+        $paymentModel = new \App\Models\PaymentTempModel();
+
+        $payment = $paymentModel
+            ->where('order_id', $order_id)
+            ->first();
+
+        if (!$payment) {
+            return "Payment data not found for Order ID: " . $order_id;
+        }
+
+        $formData = json_decode($payment['data'], true);
+
+        $donationModel = new \App\Models\DonationModel();
+
+        $status = $response['response_message'] ;
+
+        $donationModel->insert([
+            'family_id'     => $formData['family_id'],
+            'purpose_id'    => $formData['purpose_id'],
+            'amount'        => number_format($formData['amount'], 2, '.', ''),
+            'donation_date' => $formData['donation_date'],
+            'notes'         => $formData['notes'] ?? null,
+            'status'        => $status,
+            'created_at'    => date('Y-m-d H:i:s'),
+        ]);
+
+        // 🧹 cleanup
+        $paymentModel->where('order_id', $order_id)->delete();
+
+       // print_r($response);
     }
+    // public function success()
+    // {
+    //     $post = $this->request->getPost();
+
+    //     echo "<h2>SUCCESS</h2><pre>";
+    //     print_r($post);
+
+    //     // 🔐 You MUST verify hash here (next step)
+    // }
 
     public function failure()
     {

@@ -85,3 +85,10 @@ ADD `family_email` VARCHAR(255) NOT NULL AFTER `contact_number`,
 ADD `password` VARCHAR(255) NOT NULL AFTER `family_email`,
 ADD `registered_on` DATE NOT NULL AFTER `password`,
 ADD `photo` TEXT NOT NULL;
+
+CREATE TABLE payment_temp (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id VARCHAR(50),
+    data TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);

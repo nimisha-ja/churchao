@@ -152,3 +152,6 @@ $routes->post('groups/post/(:num)', 'FamilyController::addPost/$1');
 $routes->get('payment/pay', 'Home::pay');
 $routes->post('payment/success', 'Home::success');
 $routes->post('payment/failure', 'Home::failure');
+
+
+$routes->get('donation/pay', 'Home::payDonation');
