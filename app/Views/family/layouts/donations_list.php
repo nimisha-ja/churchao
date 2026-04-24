@@ -112,9 +112,10 @@
                                                 <th class="gridjs-th">Amount</th>
                                                 <th class="gridjs-th">Date</th>
                                                 <th class="gridjs-th">Notes</th>
-                                                <?php if (!session()->has('family_id')): ?>
-                                                    <th class="gridjs-th">Action</th>
-                                                <?php endif; ?>
+                                                 <th class="gridjs-th">Status</th>
+                                                <?php //if (!session()->has('family_id')): ?>
+                                                    <!-- <t/h class="gridjs-th">Action</th> -->
+                                                <?php //endif; ?>
                                             </tr>
                                         </thead>
                                         <tbody class="gridjs-tbody">
@@ -128,27 +129,8 @@
                                                         <td class="gridjs-td">₹<?= number_format($donation['amount'], 2) ?></td>
                                                         <td class="gridjs-td"><?= esc($donation['donation_date']) ?></td>
                                                         <td class="gridjs-td"><?= esc($donation['notes']) ?></td>
-                                                        <?php if (!session()->has('family_id')): ?>
-                                                            <td class="gridjs-td">
-                                                                <div class="d-flex justify-content-center gap-2">
-                                                                    <!-- Edit Link -->
-                                                                    <a href="<?= site_url('donations/edit/' . $donation['id']) ?>" title="Edit">
-                                                                        <i class="ri-edit-2-line" style="font-size: 18px;"></i>
-                                                                    </a>
-
-                                                                    <!-- Delete Form -->
-                                                                    <form action="<?= site_url('donations/delete/' . $donation['id']) ?>" method="post" onsubmit="return confirm('Are you sure you want to delete this donation?')">
-                                                                        <?= csrf_field() ?>
-                                                                        <button type="submit" style="border: none; background: none;" title="Delete">
-                                                                            <i class="ri-delete-bin-line" style="font-size: 18px; color: red;"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                            </td>
-                                                        <?php else: ?>
-
-                                                        <?php endif; ?>
-
+                                                         <td class="gridjs-td"><?= esc($donation['status']) ?></td>
+                                                       
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php else: ?>

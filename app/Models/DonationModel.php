@@ -13,7 +13,7 @@ class DonationModel extends Model
         'purpose_id',
         'amount',
         'donation_date',
-        'notes','status'
+        'notes','status','payment_response'
     ];
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';

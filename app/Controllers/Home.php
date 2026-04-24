@@ -811,7 +811,7 @@ class Home extends BaseController
         $api_key = "fb6bca86-b429-4abf-a42f-824bdd29022e";
         $salt    = "80c67bfdf027da08de88ab5ba903fecafaab8f6d";
 
-       
+
         // ✅ FORMAT VALUES PROPERLY
         $amount   = number_format($formData['amount'], 2, '.', '');
         $currency = "INR";
@@ -1006,7 +1006,7 @@ class Home extends BaseController
     public function success()
     {
         $response = $this->request->getPost();
-        print_r($response);
+        // print_r($response);
         //exit;
         // 🔍 LOG FULL RESPONSE (VERY IMPORTANT)
         log_message('error', 'PAYMENT RESPONSE: ' . json_encode($response));
@@ -1039,7 +1039,7 @@ class Home extends BaseController
 
         $donationModel = new \App\Models\DonationModel();
 
-        $status = $response['response_message'] ;
+        $status = $response['response_message'];
 
         $donationModel->insert([
             'family_id'     => $formData['family_id'],
@@ -1049,12 +1049,17 @@ class Home extends BaseController
             'notes'         => $formData['notes'] ?? null,
             'status'        => $status,
             'created_at'    => date('Y-m-d H:i:s'),
+            'payment_response' => json_encode($response)
         ]);
 
         // 🧹 cleanup
         $paymentModel->where('order_id', $order_id)->delete();
+        return view('payment_result', [
+            'status' => $status,
+            'response' => $response
+        ]);
 
-       // print_r($response);
+        // print_r($response);
     }
     // public function success()
     // {
