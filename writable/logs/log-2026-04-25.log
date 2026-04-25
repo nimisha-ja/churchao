@@ -351,3 +351,29 @@ in APPPATH\Controllers\Home.php on line 541.
  5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-04-25 11:47:10 --> ErrorException: Undefined array key "id"
+[Method: POST, Route: userlogincheck]
+in APPPATH\Controllers\Home.php on line 72.
+ 1 APPPATH\Controllers\Home.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "id"', 'C:\\xampp\\htdocs\\churchapp\\app\\Controllers\\Home.php', 72)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->logincheck()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-04-25 11:48:13 --> HASH STRING: 80c67bfdf027da08de88ab5ba903fecafaab8f6d|2.00|fb6bca86-b429-4abf-a42f-824bdd29022e|Kozhikode|India|INR|Donation - CHIRAKKAL|test@email.com|MINEESH|ORD_69eca9fd6ba38|9605961521|http://localhost/churchapp/payment/success|673580
+ERROR - 2026-04-25 11:48:13 --> HASH: EF168D444DA6BA84A6F36CD833F9F97F4D10BDDE135A60C289F09EB802F3342E0B871C21B3950C6D4F2BA91AA4DEC291914700C19D7E6343C36C5E47091CE946
+CRITICAL - 2026-04-25 11:51:22 --> ErrorException: Trying to access array offset on value of type null
+[Method: GET, Route: certificate]
+in APPPATH\Controllers\Home.php on line 541.
+ 1 APPPATH\Controllers\Home.php(541): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\xampp\\htdocs\\churchapp\\app\\Controllers\\Home.php', 541)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->certificate()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2026-04-25 11:57:19 --> HASH STRING: 80c67bfdf027da08de88ab5ba903fecafaab8f6d|2.00|fb6bca86-b429-4abf-a42f-824bdd29022e|Kozhikode|India|INR|Donation - MUTTUNKAL|test@email.com|BIJU M JOSEPH|ORD_69ecac1f2dc53|7023787644|http://localhost/churchapp/payment/success|673580
+ERROR - 2026-04-25 11:57:19 --> HASH: A92C39A300852C356BF3A0E2ADA8422E4D9315745F23A8CA6380A922608B1802C98270229E4D4457EC41B62ECBA9689E6B58FA275FFD6FFF020C1BBE7D80FBB3
+ERROR - 2026-04-25 11:57:35 --> PAYMENT RESPONSE: {"order_id":"ORD_69ecac1f2dc53","amount":"2.00","currency":"INR","description":"Donation - MUTTUNKAL","name":"BIJU M JOSEPH","email":"test@email.com","phone":"7023787644","address_line_1":"","address_line_2":"","city":"Kozhikode","state":"","country":"India","zip_code":"673580","udf1":"","udf2":"","udf3":"","udf4":"","udf5":"","transaction_id":"FGVISC8CFD901DF15","payment_mode":"Credit Card","payment_channel":"Visa","payment_datetime":"2026-04-25 17:27:31","response_code":"1000","response_message":"Transaction failed","error_desc":"Transaction failed","cardmasked":"1111","hash":"66F3DAA5D416B9EB4C08BE98851346937EA853AE2D67579CEDD265BB1A55B0BD35F129C687FC0DC74162FDF153850BB75E2126B177235ABD7EA42230BE81239E"}
+ERROR - 2026-04-25 11:57:35 --> ORDER_ID RECEIVED: ORD_69ecac1f2dc53

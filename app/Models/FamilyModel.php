@@ -11,4 +11,9 @@ class FamilyModel extends Model
         'address','ward', 'contact_number', 'registered_on', 'photo','family_email', 'password'
     ];
     protected $useTimestamps = false;
+
+     public function getUserByPhone($phone)
+    {
+        return $this->where('contact_number', $phone)->first();
+    }
 }

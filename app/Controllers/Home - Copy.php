@@ -65,16 +65,16 @@ class Home extends BaseController
         if ($this->request->getMethod() == 'POST') {
             $phone = $this->request->getVar('phone');
             $password = $this->request->getVar('password');
-            $userModel = new FamilyModel();
+            $userModel = new UserModel();
             $user  = $userModel->getUserByphone($phone);
             if ($user && ($password == $user['password'])) {
                 session()->set([
-                    'user_id'         => $user['family_id'],
-                    'user_name'   => $user['family_name'],
-                    'user_email'      => $user['family_email'],
+                    'user_id'         => $user['id'],
+                    'user_name'   => $user['username'],
+                    'user_email'      => $user['email'],
                     'user_phone'      => $phone,
-                    // 'role_id'    => $user['role_id'],
-                    //'hub'    => $user['hub'],
+                    'role_id'    => $user['role_id'],
+                    'hub'    => $user['hub'],
                     'isuserLoggedIn' => true
                 ]);
                 return redirect()->to(base_url('/sitedashboard'));
@@ -530,15 +530,15 @@ class Home extends BaseController
             ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
             ->groupBy('groups.group_id')
             ->findAll();
-        //$userModel = new UserModel();
-        //$user = $userModel->find(session()->get('user_id'));
-        $email = session()->get('user_email');
+        $userModel = new UserModel();
+        $user = $userModel->find(session()->get('user_id'));
+
         $certificateModel = new CertificateRequestModel();
 
         $certificates = $certificateModel
             ->select('certificate_requests.*, families.family_name')
             ->join('families', 'families.family_id = certificate_requests.family_id')
-            ->where('families.family_email', $email)
+            ->where('families.family_email', $user['email'])
             ->findAll();
         $userEmail = session()->get('user_email'); //
         $userPhone = session()->get('user_phone');
