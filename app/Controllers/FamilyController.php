@@ -749,16 +749,46 @@ class FamilyController extends Controller
 
         return redirect()->to('/donations')->with('success', 'Donation recorded successfully');
     }
+    // public function donationList()
+    // {
+    //     $donationModel = new \App\Models\DonationModel();
+    //     $donationModel->select('donations.*, families.family_name, donation_purposes.title AS purpose_title')
+    //         ->join('families', 'families.family_id = donations.family_id')
+    //         ->join('donation_purposes', 'donation_purposes.id = donations.purpose_id')
+    //         ->orderBy('donation_date', 'DESC');
+    //     $data['donations'] = $donationModel->paginate(10);
+    //     $data['pager'] = $donationModel->pager;
+    //     $data['menus'] = $this->getMenus();
+    //     return view('family/donations_list', $data);
+    // }
     public function donationList()
     {
         $donationModel = new \App\Models\DonationModel();
-        $donationModel->select('donations.*, families.family_name, donation_purposes.title AS purpose_title')
+
+        $builder = $donationModel
+            ->select('donations.*, families.family_name, donation_purposes.title AS purpose_title')
             ->join('families', 'families.family_id = donations.family_id')
-            ->join('donation_purposes', 'donation_purposes.id = donations.purpose_id')
-            ->orderBy('donation_date', 'DESC');
-        $data['donations'] = $donationModel->paginate(10);
-        $data['pager'] = $donationModel->pager;
+            ->join('donation_purposes', 'donation_purposes.id = donations.purpose_id');
+
+        // ✅ Get filter values
+        $from = $this->request->getGet('from_date');
+        $to   = $this->request->getGet('to_date');
+
+        // ✅ Apply filters
+        if (!empty($from)) {
+            $builder->where('donation_date >=', $from);
+        }
+
+        if (!empty($to)) {
+            $builder->where('donation_date <=', $to);
+        }
+
+        $builder->orderBy('donation_date', 'DESC');
+
+        $data['donations'] = $builder->paginate(10);
+        $data['pager'] = $builder->pager;
         $data['menus'] = $this->getMenus();
+
         return view('family/donations_list', $data);
     }
     public function downloaddonationPDF()

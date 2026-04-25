@@ -82,6 +82,27 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title mb-0 flex-grow-1"> </h4>
+
+                        <form method="get" action="<?= site_url('donations') ?>" class="row mb-3">
+
+                            <div class="col-md-3">
+                                <label>From Date</label>
+                                <input type="date" name="from_date" class="form-control"
+                                    value="<?= esc($_GET['from_date'] ?? '') ?>">
+                            </div>
+
+                            <div class="col-md-3">
+                                <label>To Date</label>
+                                <input type="date" name="to_date" class="form-control"
+                                    value="<?= esc($_GET['to_date'] ?? '') ?>">
+                            </div>
+
+                            <div class="col-md-3 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                <a href="<?= site_url('donations') ?>" class="btn btn-secondary ms-2">Reset</a>
+                            </div>
+
+                        </form>
                         <a href="<?= site_url('donations/downloadPDF') ?>" class="btn btn-success">
                             Download PDF
                         </a>
