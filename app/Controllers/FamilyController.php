@@ -744,6 +744,7 @@ class FamilyController extends Controller
             'amount' => $this->request->getPost('amount'),
             'donation_date' => $this->request->getPost('donation_date'),
             'notes' => $this->request->getPost('notes'),
+            'status' => $this->request->getPost('status'),
         ]);
 
         return redirect()->to('/donations')->with('success', 'Donation recorded successfully');
@@ -783,6 +784,7 @@ class FamilyController extends Controller
             'amount' => $this->request->getPost('amount'),
             'donation_date' => $this->request->getPost('donation_date'),
             'notes' => $this->request->getPost('notes'),
+            'status' => $this->request->getPost('status'),
         ]);
         return redirect()->to('/donations')->with('success', 'Donation updated successfully');
     }

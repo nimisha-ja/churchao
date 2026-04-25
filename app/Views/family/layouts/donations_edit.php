@@ -77,7 +77,25 @@
                                                     <label class="form-label">Notes</label>
                                                     <textarea name="notes" class="form-control"><?= esc($donation['notes']) ?></textarea>
                                                 </div>
+                                                <div class="mb-3 mt-2">
+                                                    <label class="form-label">Status</label>
+                                                    <select name="status" class="form-control" required>
+                                                        <option value="">-- Select Status --</option>
 
+                                                        <option value="Pending" <?= ($donation['status'] == 'Pending') ? 'selected' : '' ?>>
+                                                            Pending
+                                                        </option>
+
+                                                        <option value="Transaction successful" <?= ($donation['status'] == 'Transaction successful') ? 'selected' : '' ?>>
+                                                            Transaction successful
+                                                        </option>
+
+                                                        <option value="Transaction failed" <?= ($donation['status'] == 'Transaction failed') ? 'selected' : '' ?>>
+                                                            Transaction failed
+                                                        </option>
+
+                                                    </select>
+                                                </div>
                                                 <button type="submit" class="btn btn-primary">Update Donation</button>
                                             </div>
                                         </form>

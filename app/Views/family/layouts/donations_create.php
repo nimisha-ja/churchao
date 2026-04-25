@@ -37,52 +37,70 @@
                                 <div class="live-preview">
                                     <h2>Add Donation Purpose</h2>
                                     <div class="row">
-                                        <form method="post" action="<?= site_url('donations/store') ?>">
-                                            <?= csrf_field() ?>
-                                            <div class="col-md-6">
+                                        <div class="col-md-6">
+                                            <form method="post" action="<?= site_url('donations/store') ?>">
+                                                <?= csrf_field() ?>
 
                                                 <div class="mb-3">
-                                                    <label for="family_id" class="form-label">Family</label>
-                                                    <select name="family_id" id="family_id" class="form-control" required>
+                                                    <label class="form-label">Family</label>
+                                                    <select name="family_id" class="form-control" required>
                                                         <option value="">-- Select Family --</option>
                                                         <?php foreach ($families as $family): ?>
-                                                            <option value="<?= $family['family_id'] ?>"><?= esc($family['family_name']) ?></option>
+                                                            <option value="<?= $family['family_id'] ?>">
+                                                                <?= esc($family['family_name']) ?>
+                                                            </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="purpose_id" class="form-label">Donation Purpose</label>
-                                                    <select name="purpose_id" id="purpose_id" class="form-control" required>
+                                                    <label class="form-label">Donation Purpose</label>
+                                                    <select name="purpose_id" class="form-control" required>
                                                         <option value="">-- Select Purpose --</option>
                                                         <?php foreach ($purposes as $purpose): ?>
-                                                            <option value="<?= $purpose['id'] ?>"><?= esc($purpose['title']) ?></option>
+                                                            <option value="<?= $purpose['id'] ?>">
+                                                                <?= esc($purpose['title']) ?>
+                                                            </option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="amount" class="form-label">Amount</label>
-                                                    <input type="number" name="amount" id="amount" step="0.01" class="form-control" required>
+                                                    <label class="form-label">Amount</label>
+                                                    <input type="number" name="amount" class="form-control" required>
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="donation_date" class="form-label">Donation Date</label>
-                                                    <input type="date" name="donation_date" id="donation_date" class="form-control" required>
+                                                    <label class="form-label">Notes</label>
+                                                    <textarea name="notes" class="form-control" rows="3"></textarea>
+                                                </div>
+
+                                                <!-- ✅ ADD THIS FIX -->
+                                                <div class="mb-3 mt-2">
+                                                    <label class="form-label">Status</label>
+                                                    <select name="status" class="form-control" required>
+                                                        <option value="">-- Select Status --</option>
+                                                        <option value="Pending">Pending</option>
+                                                        <option value="Transaction successful">Completed</option>
+                                                        <option value="Transaction failed">Failed</option>
+                                                    </select>
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="notes" class="form-label">Notes (optional)</label>
-                                                    <textarea name="notes" id="notes" class="form-control" rows="3"></textarea>
+                                                    <label class="form-label">Donation Date</label>
+                                                    <input
+                                                        type="date"
+                                                        name="donation_date"
+                                                        class="form-control"
+                                                        value="<?= date('Y-m-d') ?>"
+                                                        max="<?= date('Y-m-d') ?>"
+                                                        required>
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <button type="submit" class="btn btn-success">Save Donation</button>
-                                                </div>
+                                                <button class="btn btn-success w-100">Save Donation</button>
 
-                                            </div>
-                                        </form>
-
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
