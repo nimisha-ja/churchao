@@ -274,22 +274,43 @@ class FamilyController extends Controller
         session()->setFlashdata('success', 'Family added successfully!');
         return redirect()->to('/families');
     }
+    // public function index()
+    // {
+    //     $familyModel = new FamilyModel();
+    //     $phone = $this->request->getGet('phone');
+
+    //     if (!empty($phone)) {
+    //         $familyModel->like('contact_number', $phone);
+    //     }
+    //     $menus = $this->getMenus();
+    //     $data['families'] = $familyModel->paginate(10);
+    //     $data['pager'] = $familyModel->pager;
+    //     $data['request'] = $this->request;
+    //     $data['menus'] = $menus;
+    //     return view('family/index', $data);
+    // }
     public function index()
     {
         $familyModel = new FamilyModel();
-        $phone = $this->request->getGet('phone');
 
-        if (!empty($phone)) {
-            $familyModel->like('contact_number', $phone);
+        $search = $this->request->getGet('search');
+
+        if (!empty($search)) {
+            $familyModel->groupStart()
+                ->like('contact_number', $search)
+                ->orLike('family_name', $search)
+                ->orLike('ward', $search)
+                ->orLike('head_of_family', $search)
+                ->groupEnd();
         }
-        $menus = $this->getMenus();
+
         $data['families'] = $familyModel->paginate(10);
         $data['pager'] = $familyModel->pager;
         $data['request'] = $this->request;
-        $data['menus'] = $menus;
+        $data['menus'] = $this->getMenus();
+
         return view('family/index', $data);
     }
-
     public function details($id)
     {
         if (!session()->get('isLoggedIn')) {

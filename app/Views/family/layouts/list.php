@@ -1,127 +1,126 @@
 <style>
+    /* ===== TABLE RESPONSIVE ===== */
 
-/* ===== TABLE RESPONSIVE ===== */
+    .gridjs-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
 
-.gridjs-wrapper{
-    width:100%;
-    overflow-x:auto;
-}
+    .gridjs-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+        /* prevents squeezing on mobile */
+    }
 
-.gridjs-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:900px; /* prevents squeezing on mobile */
-}
+    .gridjs-table th,
+    .gridjs-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+        text-align: center;
+    }
 
-.gridjs-table th,
-.gridjs-table td{
-    padding:10px 12px;
-    border-bottom:1px solid #eee;
-    vertical-align:middle;
-    text-align:center;
-}
+    .gridjs-th-content {
+        font-weight: 600;
+    }
 
-.gridjs-th-content{
-    font-weight:600;
-}
+    /* Photo */
+    .gridjs-table img {
+        border-radius: 6px;
+    }
 
-/* Photo */
-.gridjs-table img{
-    border-radius:6px;
-}
+    /* ===== PAGINATION ===== */
 
-/* ===== PAGINATION ===== */
+    .gridjs-pagination .pagination {
+        display: flex;
+        justify-content: flex-end;
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
 
-.gridjs-pagination .pagination{
-    display:flex;
-    justify-content:flex-end;
-    list-style:none;
-    padding:0;
-    margin:1rem 0;
-    flex-wrap:wrap;
-    gap:6px;
-}
+    .gridjs-pagination .pagination li {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #f8f9fa;
+        font-size: 14px;
+    }
 
-.gridjs-pagination .pagination li{
-    border:1px solid #ddd;
-    border-radius:6px;
-    background:#f8f9fa;
-    font-size:14px;
-}
+    .gridjs-pagination .pagination li a {
+        display: block;
+        padding: 6px 12px;
+        color: #405189;
+        text-decoration: none;
+        font-weight: 500;
+    }
 
-.gridjs-pagination .pagination li a{
-    display:block;
-    padding:6px 12px;
-    color:#405189;
-    text-decoration:none;
-    font-weight:500;
-}
+    .gridjs-pagination .pagination li a:hover {
+        background: #405189;
+        color: #fff;
+    }
 
-.gridjs-pagination .pagination li a:hover{
-    background:#405189;
-    color:#fff;
-}
+    .gridjs-pagination .pagination li.active,
+    .gridjs-pagination .pagination li.active a {
+        background: #405189;
+        color: #fff !important;
+        border-color: #405189;
+    }
 
-.gridjs-pagination .pagination li.active,
-.gridjs-pagination .pagination li.active a{
-    background:#405189;
-    color:#fff !important;
-    border-color:#405189;
-}
+    .gridjs-pagination .pagination li.disabled a {
+        color: #ccc;
+        pointer-events: none;
+        background: #e9ecef;
+    }
 
-.gridjs-pagination .pagination li.disabled a{
-    color:#ccc;
-    pointer-events:none;
-    background:#e9ecef;
-}
+    /* ===== MOBILE IMPROVEMENTS ===== */
 
-/* ===== MOBILE IMPROVEMENTS ===== */
+    @media (max-width:768px) {
 
-@media (max-width:768px){
+        .page-title-box {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
 
-.page-title-box{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:8px;
-}
+        /* smaller font */
+        .gridjs-table th,
+        .gridjs-table td {
+            font-size: 13px;
+            padding: 8px;
+        }
 
-/* smaller font */
-.gridjs-table th,
-.gridjs-table td{
-    font-size:13px;
-    padding:8px;
-}
+        /* smaller image */
+        .gridjs-table img {
+            width: 34px !important;
+            height: 34px !important;
+        }
 
-/* smaller image */
-.gridjs-table img{
-    width:34px !important;
-    height:34px !important;
-}
+        /* action icons */
+        .gridjs-td i {
+            font-size: 16px !important;
+        }
 
-/* action icons */
-.gridjs-td i{
-    font-size:16px !important;
-}
+        /* center pagination */
+        .gridjs-pagination .pagination {
+            justify-content: center;
+        }
 
-/* center pagination */
-.gridjs-pagination .pagination{
-    justify-content:center;
-}
+    }
 
-}
+    /* small phones */
 
-/* small phones */
+    @media (max-width:480px) {
 
-@media (max-width:480px){
+        .gridjs-table th,
+        .gridjs-table td {
+            font-size: 12px;
+            padding: 7px;
+        }
 
-.gridjs-table th,
-.gridjs-table td{
-    font-size:12px;
-    padding:7px;
-}
-
-}
-
+    }
 </style>
 <div class="page-content">
     <div class="container-fluid">
@@ -161,14 +160,15 @@
                             <div class="col-md-4">
                                 <input
                                     type="text"
-                                    name="phone"
+                                    name="search"
                                     class="form-control"
-                                    placeholder="Search by phone number"
-                                    value="<?= esc($request->getGet('phone')) ?>">
+                                    placeholder="Search by Phone / Family / Ward / Head"
+                                    value="<?= esc($request->getGet('search')) ?>">
                             </div>
-                            <div class="col-md-2">
+
+                            <div class="col-md-4">
                                 <button class="btn btn-primary">Search</button>
-                                <!-- <a href="<?= current_url() ?>" class="btn btn-secondary">Reset</a> -->
+                                <a href="<?= current_url() ?>" class="btn btn-secondary">Reset</a>
                             </div>
                         </form>
 
@@ -202,14 +202,14 @@
                                                     <div class="gridjs-th-content">Contact</div>
                                                 </th>
                                                 <th class="gridjs-th">
-                                                    <div class="gridjs-th-content">Registered On</div>
+                                                    <div class="gridjs-th-content">Ward</div>
                                                 </th>
                                                 <th class="gridjs-th">
                                                     <div class="gridjs-th-content">Photo</div>
                                                 </th>
-                                          
-                                                    <th class="gridjs-th">Action</th>
-                                                
+
+                                                <th class="gridjs-th">Action</th>
+
                                             </tr>
                                         </thead>
                                         <tbody class="gridjs-tbody">
@@ -224,7 +224,7 @@
                                                         <td class="gridjs-td"><?= esc($family['members_count']) ?></td>
                                                         <td class="gridjs-td"><?= esc($family['address']) ?></td>
                                                         <td class="gridjs-td"><?= esc($family['contact_number']) ?></td>
-                                                        <td class="gridjs-td"><?= esc($family['registered_on']) ?></td>
+                                                        <td class="gridjs-td"><?= esc($family['ward']) ?></td>
                                                         <td class="gridjs-td">
                                                             <?php if (!empty($family['photo'])): ?>
                                                                 <img src="<?= base_url('uploads/family/' . $family['photo']) ?>" style="height:40px;width:40px" alt="Photo">
@@ -232,24 +232,24 @@
                                                                 No Photo
                                                             <?php endif; ?>
                                                         </td>
-                                                     
-                                                            <td class="gridjs-td">
-                                                                <div class="d-flex flex-wrap justify-content-start gap-2">
-                                                                    <!-- Edit Link -->
-                                                                    <a href="<?= site_url('family/edit/' . $family['family_id']) ?>" title="Edit">
-                                                                        <i class="ri-file-edit-line" style="font-size: 18px;"></i>
-                                                                    </a>
 
-                                                                    <!-- Delete Form -->
-                                                                    <form action="<?= site_url('family/delete/' . $family['family_id']) ?>" method="POST" onsubmit="return confirm('Delete this family?');">
-                                                                        <?= csrf_field() ?>
-                                                                        <button type="submit" style="border: none; background: none;" title="Delete">
-                                                                            <i class="ri-delete-bin-6-line" style="font-size: 18px; color: red;"></i>
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                            </td>
-                                                       
+                                                        <td class="gridjs-td">
+                                                            <div class="d-flex flex-wrap justify-content-start gap-2">
+                                                                <!-- Edit Link -->
+                                                                <a href="<?= site_url('family/edit/' . $family['family_id']) ?>" title="Edit">
+                                                                    <i class="ri-file-edit-line" style="font-size: 18px;"></i>
+                                                                </a>
+
+                                                                <!-- Delete Form -->
+                                                                <form action="<?= site_url('family/delete/' . $family['family_id']) ?>" method="POST" onsubmit="return confirm('Delete this family?');">
+                                                                    <?= csrf_field() ?>
+                                                                    <button type="submit" style="border: none; background: none;" title="Delete">
+                                                                        <i class="ri-delete-bin-6-line" style="font-size: 18px; color: red;"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+
 
                                                     </tr>
                                                 <?php endforeach; ?>
