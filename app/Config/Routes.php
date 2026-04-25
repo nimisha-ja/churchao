@@ -122,6 +122,7 @@ $routes->get('donations', 'FamilyController::donationList');
 $routes->get('donations/edit/(:num)', 'FamilyController::editDonation/$1');
 $routes->post('donations/update/(:num)', 'FamilyController::updateDonation/$1');
 $routes->post('donations/delete/(:num)', 'FamilyController::deleteDonation/$1');
+$routes->get('donations/downloadPDF', 'FamilyController::downloaddonationPDF');
 
 
 $routes->get('payment', 'FamilyController::payment');

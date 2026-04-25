@@ -81,7 +81,10 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title mb-0 flex-grow-1">Donation </h4>
+                        <h4 class="card-title mb-0 flex-grow-1"> </h4>
+                        <a href="<?= site_url('donations/downloadPDF') ?>" class="btn btn-success">
+                            Download PDF
+                        </a>
                     </div>
                     <?php if (session()->getFlashdata('success')): ?>
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -118,10 +121,17 @@
                                                 <?php endif; ?>
                                             </tr>
                                         </thead>
+
                                         <tbody class="gridjs-tbody">
-                                            <?php $i = 1; ?>
+                                            <?php
+                                            $i = 1;
+                                            $total = 0;
+                                            ?>
+
                                             <?php if (!empty($donations)): ?>
                                                 <?php foreach ($donations as $donation): ?>
+                                                    <?php $total += $donation['amount']; ?>
+
                                                     <tr class="gridjs-tr">
                                                         <td class="gridjs-td"><?= $i++ ?></td>
                                                         <td class="gridjs-td"><?= esc($donation['family_name']) ?></td>
@@ -134,12 +144,10 @@
                                                         <?php if (!session()->has('family_id')): ?>
                                                             <td class="gridjs-td">
                                                                 <div class="d-flex justify-content-center gap-2">
-                                                                    <!-- Edit Link -->
                                                                     <a href="<?= site_url('donations/edit/' . $donation['id']) ?>" title="Edit">
                                                                         <i class="ri-edit-2-line" style="font-size: 18px;"></i>
                                                                     </a>
 
-                                                                    <!-- Delete Form -->
                                                                     <form action="<?= site_url('donations/delete/' . $donation['id']) ?>" method="post" onsubmit="return confirm('Are you sure you want to delete this donation?')">
                                                                         <?= csrf_field() ?>
                                                                         <button type="submit" style="border: none; background: none;" title="Delete">
@@ -148,24 +156,30 @@
                                                                     </form>
                                                                 </div>
                                                             </td>
-                                                        <?php else: ?>
-
                                                         <?php endif; ?>
-
                                                     </tr>
+
                                                 <?php endforeach; ?>
+
+                                                <!-- ✅ TOTAL ROW (Amount column only) -->
+                                                <tr style="font-weight: bold; background: #f5f5f5;">
+                                                    <td colspan="3"></td>
+                                                    <td>₹<?= number_format($total, 2) ?></td>
+                                                    <td colspan="4"></td>
+                                                </tr>
+
                                             <?php else: ?>
                                                 <tr class="gridjs-tr">
-                                                    <td colspan="6" class="gridjs-td">No donations found.</td>
+                                                    <td colspan="8" class="gridjs-td">No donations found.</td>
                                                 </tr>
                                             <?php endif; ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="gridjs-pagination">
-                                <?= $pager->links() ?>
-                            </div>
+                            <!-- <div class="gridjs-pagination">
+                                //$pager->links() ?>
+                            </div> -->
                         </div>
                     </div>
                 </div>

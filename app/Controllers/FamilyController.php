@@ -761,7 +761,77 @@ class FamilyController extends Controller
         $data['menus'] = $this->getMenus();
         return view('family/donations_list', $data);
     }
+    public function downloaddonationPDF()
+    {
+        $donationModel = new \App\Models\DonationModel();
 
+        $donations = $donationModel
+            ->select('donations.*, families.family_name, donation_purposes.title AS purpose_title')
+            ->join('families', 'families.family_id = donations.family_id')
+            ->join('donation_purposes', 'donation_purposes.id = donations.purpose_id')
+            ->orderBy('donation_date', 'DESC')
+            ->findAll(); // ✅ ALL records
+
+        // ✅ Build HTML
+        $html = '<h3 style="text-align:center;">Donation Report</h3>';
+
+        $html .= '<table border="1" cellpadding="5" cellspacing="0" width="100%">
+        <thead>
+            <tr style="font-weight:bold;">
+                <th>#</th>
+                <th>Family</th>
+                <th>Purpose</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Notes</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+        $i = 1;
+        $total = 0;
+
+        foreach ($donations as $donation) {
+            $total += $donation['amount'];
+
+            $html .= '<tr>
+            <td>' . $i++ . '</td>
+            <td>' . $donation['family_name'] . '</td>
+            <td>' . $donation['purpose_title'] . '</td>
+            <td>₹' . number_format($donation['amount'], 2) . '</td>
+            <td>' . $donation['donation_date'] . '</td>
+            <td>' . $donation['notes'] . '</td>
+            <td>' . $donation['status'] . '</td>
+        </tr>';
+        }
+
+        // ✅ TOTAL ROW (only in amount column)
+        $html .= '<tr>
+        <td colspan="3"></td>
+        <td><strong>₹' . number_format($total, 2) . '</strong></td>
+        <td colspan="3"></td>
+    </tr>';
+
+        $html .= '</tbody></table>';
+
+        // ✅ TCPDF Setup
+        $pdf = new TCPDF();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Your App');
+        $pdf->SetTitle('Donation Report');
+
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->AddPage();
+
+        $pdf->SetFont('dejavusans', '', 10);
+
+        // ✅ Write HTML
+        $pdf->writeHTML($html, true, false, true, false, '');
+
+        // ✅ Output
+        $pdf->Output('donation_report.pdf', 'D'); // D = download
+    }
     public function editDonation($id)
     {
         $donationModel = new \App\Models\DonationModel();
