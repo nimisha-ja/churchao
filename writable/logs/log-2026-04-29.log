@@ -1,0 +1,48 @@
+CRITICAL - 2026-04-29 09:59:59 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reminder_report.php"
+[Method: GET, Route: reminder-report]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(212): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reminder_report.php')
+ 2 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('reminder_report', [], true)
+ 3 APPPATH\Controllers\FamilyController.php(1243): view('reminder_report', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\FamilyController->reminderReport()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\FamilyController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-04-29 10:03:47 --> ErrorException: Undefined variable $menus
+[Method: GET, Route: reminder-report]
+in APPPATH\Views\common\menu_view.php on line 37.
+ 1 APPPATH\Views\common\menu_view.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $menus', 'C:\\xampp\\htdocs\\churchapp\\app\\Views\\common\\menu_view.php', 37)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\common\\menu_view.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(475): CodeIgniter\View\View->render('common/menu_view', null, true)
+ 5 APPPATH\Views\family\reminder_report.php(5): CodeIgniter\View\View->include('common/menu_view')
+ 6 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\family\\reminder_report.php')
+ 7 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('family/reminder_report', [], true)
+ 9 APPPATH\Controllers\FamilyController.php(1243): view('family/reminder_report', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\FamilyController->reminderReport()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\FamilyController))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2026-04-29 10:04:07 --> ErrorException: Undefined variable $menus
+[Method: GET, Route: reminder-report]
+in APPPATH\Views\common\menu_view.php on line 37.
+ 1 APPPATH\Views\common\menu_view.php(37): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $menus', 'C:\\xampp\\htdocs\\churchapp\\app\\Views\\common\\menu_view.php', 37)
+ 2 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\common\\menu_view.php')
+ 3 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(475): CodeIgniter\View\View->render('common/menu_view', null, true)
+ 5 APPPATH\Views\family\reminder_report.php(5): CodeIgniter\View\View->include('common/menu_view')
+ 6 SYSTEMPATH\View\View.php(224): include('C:\\xampp\\htdocs\\churchapp\\app\\Views\\family\\reminder_report.php')
+ 7 SYSTEMPATH\View\View.php(227): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 8 SYSTEMPATH\Common.php(1173): CodeIgniter\View\View->render('family/reminder_report', [], true)
+ 9 APPPATH\Controllers\FamilyController.php(1243): view('family/reminder_report', [...])
+10 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\FamilyController->reminderReport()
+11 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\FamilyController))
+12 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+13 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+15 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

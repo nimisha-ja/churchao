@@ -1230,4 +1230,18 @@ class FamilyController extends Controller
         return redirect()->to(site_url('groups/view/' . $group_id))
             ->with('success', 'Post added successfully!');
     }
+
+    
+    public function reminderReport()
+    {
+        $model = new \App\Models\DonationModel();
+
+        $month = $this->request->getGet('month');
+        $year  = $this->request->getGet('year');
+
+        $data['report'] = $model->getReminderReport($month, $year);
+        $data['menus'] = $this->getMenus();
+
+        return view('family/reminder_report', $data);
+    }
 }

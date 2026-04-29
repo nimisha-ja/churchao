@@ -156,3 +156,5 @@ $routes->post('payment/failure', 'Home::failure');
 
 
 $routes->get('donation/pay', 'Home::payDonation');
+
+$routes->get('reminder-report', 'FamilyController::reminderReport');
