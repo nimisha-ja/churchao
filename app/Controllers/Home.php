@@ -25,9 +25,16 @@ class Home extends BaseController
             ->where("DATE_FORMAT(date_of_birth, '%m-%d')", $today)
             ->countAllResults();
         $groupModel    = new \App\Models\GroupModel();
-        $groupsList = $groupModel
+        // $groupsList = $groupModel
+        //     ->select('groups.*, COUNT(group_members.member_id) as member_count')
+        //     ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+        //     ->groupBy('groups.group_id')
+        //     ->findAll();
+
+            $groupsList = $groupModel
             ->select('groups.*, COUNT(group_members.member_id) as member_count')
             ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+            ->where('groups.status', 1)
             ->groupBy('groups.group_id')
             ->findAll();
         //dd($groupsList);exit;
@@ -252,9 +259,18 @@ class Home extends BaseController
             ->amount ?? 0;
 
         // 🔥 Get groups WITH member count
+        // $groupsList = $groupModel
+        //     ->select('groups.*, COUNT(group_members.member_id) as member_count')
+        //     ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+        //     ->groupBy('groups.group_id')
+        //     ->findAll();
+
+        // 🔥 Get only APPROVED groups WITH member count
+
         $groupsList = $groupModel
             ->select('groups.*, COUNT(group_members.member_id) as member_count')
             ->join('group_members', 'group_members.group_id = groups.group_id', 'left')
+            ->where('groups.status', 1)
             ->groupBy('groups.group_id')
             ->findAll();
         $userEmail = session()->get('user_email'); // get logged-in user's email

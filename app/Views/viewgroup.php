@@ -42,7 +42,7 @@
                             <div class="recipients-top-dt">
                                 <div class="msg-usr-dt">
                                     <div class="recipient-avatar">
-                                        <img src="images/left-imgs/img-2.jpg" loading="lazy" alt="" class="presence-entity__image nt-view-attr__img--centered">
+                                        <img src="<?= base_url('public/layout/images/left-imgs/img-2.jpg')?>" loading="lazy" alt="" class="presence-entity__image nt-view-attr__img--centered">
                                         <div class="presence-entity__badge badge__online">
                                             <span class="visually-hidden">Status is online</span>
                                         </div>
@@ -55,9 +55,9 @@
                                     </div>
                                 </div>
                                 <div class="usr-cht-opts-btns">
-                                    <span class="option-icon"><i class="feather-phone"></i></span>
+                                    <!-- <span class="option-icon"><i class="feather-phone"></i></span>
                                     <span class="option-icon"><i class="feather-video"></i></span>
-                                    <span class="option-icon"><i class="feather-trash-2"></i></span>
+                                    <span class="option-icon"><i class="feather-trash-2"></i></span> -->
                                 </div>
                             </div>
 
@@ -103,12 +103,12 @@
                                 <div class="send_input_group">
                                     <div class="msg_write_combo">
                                         <textarea class="form-control custom-controls" name="message" placeholder="Write Something.."></textarea>
-                                        <div class="emoji-panel" title="Emoji">
+                                        <!-- <div class="emoji-panel" title="Emoji">
                                             <button type="button" class="emoji-combo ml-2"><i class="fa-regular fa-face-smile"></i></button>
                                         </div>
                                         <div class="mic_recording-icon" title="Audio Recording">
                                             <button type="button" class="mic-record"><i class="feather-mic"></i></button>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <span class="input-send-btn">
                                         <button class="btn-main btn-hover send-button" type="submit">

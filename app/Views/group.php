@@ -108,7 +108,7 @@
 				<div class="col-xl-9 col-lg-8 col-md-12 order-lg-2 order-1">
 					<div class="headtte14m box-shadow_main">
 						<span><i class="feather-users"></i></span>
-						<h4>Groups (5)</h4>
+						<h4>Groups </h4>
 						<button class="act-btn btn-hover" type="button" style="width: 20%;margin-left: 100px;margin-top: 0;"><a href="<?= base_url('creategroup'); ?>"> Create Group</a></button>
 
 					</div>
@@ -120,7 +120,7 @@
 										<div class="col-xl-4 col-lg-6 col-md-6">
 											<div class="ppuser-card mb-4">
 												<div class="ppuser-img">
-													<img class="ft-plus-square job-bg-circle bg-cyan me-0" src="<?= base_url('public/layout/images/group-imgs/img-5.jpg'); ?>" alt="">
+													<img class="ft-plus-square job-bg-circle bg-cyan me-0" src="<?= base_url('public/layout/images/group-imgs/img-5.jpg')?>" alt="">
 												</div>
 												<a href="#" class="job-heading text-center"><?= esc($group['group_name']); ?></a>
 												<p class="notification-text font-small-4 text-center">
@@ -134,7 +134,7 @@
 										</div>
 									<?php endforeach; ?>
 								<?php else: ?>
-									<p>No groups found.</p>
+									<p>No approved groups found.</p>
 								<?php endif; ?>
 							</div>
 

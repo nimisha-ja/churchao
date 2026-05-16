@@ -149,19 +149,58 @@
                                                             <?php endif; ?>
                                                         </td>
                                                         <td class="gridjs-td">
+
+                                                            <?php $group_id = $group['group_id']; ?>
+                                                            <?php if ($group['status'] == 0): ?>
+
+                                                                <a href="<?= site_url('groups/approve/' . $group_id) ?>"
+                                                                    class="btn btn-sm btn-primary"
+                                                                    onclick="return confirm('Approve this group?')">
+                                                                    Approve
+                                                                </a>
+
+                                                                <a href="<?= site_url('groups/reject/' . $group_id) ?>"
+                                                                    class="btn btn-sm btn-secondary"
+                                                                    onclick="return confirm('Reject this group?')">
+                                                                    Reject
+                                                                </a>
+
+                                                                <span class="badge bg-warning">Pending</span>
+
+                                                            <?php elseif ($group['status'] == 1): ?>
+
+                                                                <span class="badge bg-success">Approved</span>
+
+                                                            <?php elseif ($group['status'] == 2): ?>
+
+                                                                <span class="badge bg-danger">Rejected</span>
+
+                                                            <?php endif; ?>
+
+                                                            <!-- <a href="</?= site_url('groups/approve/' . $group_id) ?>"
+                                                                class="btn btn-sm btn-primary"
+                                                                onclick="return confirm('Approve this group?')">
+                                                                Approve
+                                                            </a>
+                                                            <a href="</?= site_url('groups/reject/' . $group_id) ?>"
+                                                                class="btn btn-sm btn-secondary"
+                                                                onclick="return confirm('Reject this group?')">
+                                                                Reject
+                                                            </a> -->
+
                                                             <?php
                                                             $role_id = session()->get('role_id'); // get current user's role
-                                                            $group_id = $group['group_id'];
+                                                            $group_id = $group['group_id']; ?>
 
-                                                            if ($role_id == 1 || (!empty($groupPermissions[$group_id]) && $groupPermissions[$group_id])): ?>
-                                                                <a href="<?= site_url('groups/view/' . $group_id) ?>" class="btn btn-sm btn-success">View</a>
-                                                            <?php else: ?>
-                                                                <span class="text-muted">Not a member</span>
-                                                            <?php endif; ?>
+
+                                                            <!-- <a href="</?= site_url('groups/view/' . $group_id) ?>" class="btn btn-sm btn-success">View</a>
+                                                            
+                                                                <span class="text-muted">Not a member</span> -->
+
 
 
                                                             <a href="<?= site_url('groups/edit/' . $group['group_id']) ?>" class="btn btn-sm btn-warning">Edit</a>
-                                                            <a href="<?= site_url('groups/delete/' . $group['group_id']) ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                                                            <!-- <a href=" //site_url('groups/delete/' . $group['group_id']) " class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a> -->
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>

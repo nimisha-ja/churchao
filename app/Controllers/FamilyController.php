@@ -1231,7 +1231,7 @@ class FamilyController extends Controller
             ->with('success', 'Post added successfully!');
     }
 
-    
+
     public function reminderReport()
     {
         $model = new \App\Models\DonationModel();
@@ -1243,5 +1243,26 @@ class FamilyController extends Controller
         $data['menus'] = $this->getMenus();
 
         return view('family/reminder_report', $data);
+    }
+
+    public function approveGroup($group_id)
+    {
+        $groupModel = new \App\Models\GroupModel();
+
+        $groupModel->update($group_id, [
+            'status' => 1
+        ]);
+
+        return redirect()->back()->with('success', 'Group approved successfully');
+    }
+    public function rejectGroup($group_id)
+    {
+        $groupModel = new \App\Models\GroupModel();
+
+        $groupModel->update($group_id, [
+            'status' => 2
+        ]);
+
+        return redirect()->back()->with('success', 'Group rejected successfully');
     }
 }
